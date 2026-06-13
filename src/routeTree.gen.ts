@@ -9,38 +9,538 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as LecturersRouteImport } from './routes/lecturers'
+import { Route as DepartmentsRouteImport } from './routes/departments'
+import { Route as CoursesRouteImport } from './routes/courses'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedStudentIndexRouteImport } from './routes/_authenticated/student.index'
+import { Route as AuthenticatedLecturerIndexRouteImport } from './routes/_authenticated/lecturer.index'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedStudentVideosRouteImport } from './routes/_authenticated/student.videos'
+import { Route as AuthenticatedStudentQuizzesRouteImport } from './routes/_authenticated/student.quizzes'
+import { Route as AuthenticatedStudentMyCoursesRouteImport } from './routes/_authenticated/student.my-courses'
+import { Route as AuthenticatedStudentMessagesRouteImport } from './routes/_authenticated/student.messages'
+import { Route as AuthenticatedStudentMaterialsRouteImport } from './routes/_authenticated/student.materials'
+import { Route as AuthenticatedStudentCoursesRouteImport } from './routes/_authenticated/student.courses'
+import { Route as AuthenticatedStudentAttendanceRouteImport } from './routes/_authenticated/student.attendance'
+import { Route as AuthenticatedStudentAssignmentsRouteImport } from './routes/_authenticated/student.assignments'
+import { Route as AuthenticatedLecturerQuizzesRouteImport } from './routes/_authenticated/lecturer.quizzes'
+import { Route as AuthenticatedLecturerMaterialsRouteImport } from './routes/_authenticated/lecturer.materials'
+import { Route as AuthenticatedLecturerCoursesRouteImport } from './routes/_authenticated/lecturer.courses'
+import { Route as AuthenticatedLecturerAttendanceRouteImport } from './routes/_authenticated/lecturer.attendance'
+import { Route as AuthenticatedLecturerAssignmentsRouteImport } from './routes/_authenticated/lecturer.assignments'
+import { Route as AuthenticatedLecturerAnnouncementsRouteImport } from './routes/_authenticated/lecturer.announcements'
+import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin.users'
+import { Route as AuthenticatedAdminSessionsRouteImport } from './routes/_authenticated/admin.sessions'
+import { Route as AuthenticatedAdminRanksRouteImport } from './routes/_authenticated/admin.ranks'
+import { Route as AuthenticatedAdminDepartmentsRouteImport } from './routes/_authenticated/admin.departments'
+import { Route as AuthenticatedAdminCoursesRouteImport } from './routes/_authenticated/admin.courses'
+import { Route as AuthenticatedAdminAnnouncementsRouteImport } from './routes/_authenticated/admin.announcements'
+import { Route as AuthenticatedAdminAnalyticsRouteImport } from './routes/_authenticated/admin.analytics'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LecturersRoute = LecturersRouteImport.update({
+  id: '/lecturers',
+  path: '/lecturers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DepartmentsRoute = DepartmentsRouteImport.update({
+  id: '/departments',
+  path: '/departments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CoursesRoute = CoursesRouteImport.update({
+  id: '/courses',
+  path: '/courses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedStudentIndexRoute =
+  AuthenticatedStudentIndexRouteImport.update({
+    id: '/student/',
+    path: '/student/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedLecturerIndexRoute =
+  AuthenticatedLecturerIndexRouteImport.update({
+    id: '/lecturer/',
+    path: '/lecturer/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedStudentVideosRoute =
+  AuthenticatedStudentVideosRouteImport.update({
+    id: '/student/videos',
+    path: '/student/videos',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedStudentQuizzesRoute =
+  AuthenticatedStudentQuizzesRouteImport.update({
+    id: '/student/quizzes',
+    path: '/student/quizzes',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedStudentMyCoursesRoute =
+  AuthenticatedStudentMyCoursesRouteImport.update({
+    id: '/student/my-courses',
+    path: '/student/my-courses',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedStudentMessagesRoute =
+  AuthenticatedStudentMessagesRouteImport.update({
+    id: '/student/messages',
+    path: '/student/messages',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedStudentMaterialsRoute =
+  AuthenticatedStudentMaterialsRouteImport.update({
+    id: '/student/materials',
+    path: '/student/materials',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedStudentCoursesRoute =
+  AuthenticatedStudentCoursesRouteImport.update({
+    id: '/student/courses',
+    path: '/student/courses',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedStudentAttendanceRoute =
+  AuthenticatedStudentAttendanceRouteImport.update({
+    id: '/student/attendance',
+    path: '/student/attendance',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedStudentAssignmentsRoute =
+  AuthenticatedStudentAssignmentsRouteImport.update({
+    id: '/student/assignments',
+    path: '/student/assignments',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedLecturerQuizzesRoute =
+  AuthenticatedLecturerQuizzesRouteImport.update({
+    id: '/lecturer/quizzes',
+    path: '/lecturer/quizzes',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedLecturerMaterialsRoute =
+  AuthenticatedLecturerMaterialsRouteImport.update({
+    id: '/lecturer/materials',
+    path: '/lecturer/materials',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedLecturerCoursesRoute =
+  AuthenticatedLecturerCoursesRouteImport.update({
+    id: '/lecturer/courses',
+    path: '/lecturer/courses',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedLecturerAttendanceRoute =
+  AuthenticatedLecturerAttendanceRouteImport.update({
+    id: '/lecturer/attendance',
+    path: '/lecturer/attendance',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedLecturerAssignmentsRoute =
+  AuthenticatedLecturerAssignmentsRouteImport.update({
+    id: '/lecturer/assignments',
+    path: '/lecturer/assignments',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedLecturerAnnouncementsRoute =
+  AuthenticatedLecturerAnnouncementsRouteImport.update({
+    id: '/lecturer/announcements',
+    path: '/lecturer/announcements',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
+  id: '/admin/users',
+  path: '/admin/users',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminSessionsRoute =
+  AuthenticatedAdminSessionsRouteImport.update({
+    id: '/admin/sessions',
+    path: '/admin/sessions',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminRanksRoute = AuthenticatedAdminRanksRouteImport.update({
+  id: '/admin/ranks',
+  path: '/admin/ranks',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminDepartmentsRoute =
+  AuthenticatedAdminDepartmentsRouteImport.update({
+    id: '/admin/departments',
+    path: '/admin/departments',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminCoursesRoute =
+  AuthenticatedAdminCoursesRouteImport.update({
+    id: '/admin/courses',
+    path: '/admin/courses',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminAnnouncementsRoute =
+  AuthenticatedAdminAnnouncementsRouteImport.update({
+    id: '/admin/announcements',
+    path: '/admin/announcements',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminAnalyticsRoute =
+  AuthenticatedAdminAnalyticsRouteImport.update({
+    id: '/admin/analytics',
+    path: '/admin/analytics',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
+  '/contact': typeof ContactRoute
+  '/courses': typeof CoursesRoute
+  '/departments': typeof DepartmentsRoute
+  '/lecturers': typeof LecturersRoute
+  '/register': typeof RegisterRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/admin/analytics': typeof AuthenticatedAdminAnalyticsRoute
+  '/admin/announcements': typeof AuthenticatedAdminAnnouncementsRoute
+  '/admin/courses': typeof AuthenticatedAdminCoursesRoute
+  '/admin/departments': typeof AuthenticatedAdminDepartmentsRoute
+  '/admin/ranks': typeof AuthenticatedAdminRanksRoute
+  '/admin/sessions': typeof AuthenticatedAdminSessionsRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
+  '/lecturer/announcements': typeof AuthenticatedLecturerAnnouncementsRoute
+  '/lecturer/assignments': typeof AuthenticatedLecturerAssignmentsRoute
+  '/lecturer/attendance': typeof AuthenticatedLecturerAttendanceRoute
+  '/lecturer/courses': typeof AuthenticatedLecturerCoursesRoute
+  '/lecturer/materials': typeof AuthenticatedLecturerMaterialsRoute
+  '/lecturer/quizzes': typeof AuthenticatedLecturerQuizzesRoute
+  '/student/assignments': typeof AuthenticatedStudentAssignmentsRoute
+  '/student/attendance': typeof AuthenticatedStudentAttendanceRoute
+  '/student/courses': typeof AuthenticatedStudentCoursesRoute
+  '/student/materials': typeof AuthenticatedStudentMaterialsRoute
+  '/student/messages': typeof AuthenticatedStudentMessagesRoute
+  '/student/my-courses': typeof AuthenticatedStudentMyCoursesRoute
+  '/student/quizzes': typeof AuthenticatedStudentQuizzesRoute
+  '/student/videos': typeof AuthenticatedStudentVideosRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/lecturer/': typeof AuthenticatedLecturerIndexRoute
+  '/student/': typeof AuthenticatedStudentIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
+  '/contact': typeof ContactRoute
+  '/courses': typeof CoursesRoute
+  '/departments': typeof DepartmentsRoute
+  '/lecturers': typeof LecturersRoute
+  '/register': typeof RegisterRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/admin/analytics': typeof AuthenticatedAdminAnalyticsRoute
+  '/admin/announcements': typeof AuthenticatedAdminAnnouncementsRoute
+  '/admin/courses': typeof AuthenticatedAdminCoursesRoute
+  '/admin/departments': typeof AuthenticatedAdminDepartmentsRoute
+  '/admin/ranks': typeof AuthenticatedAdminRanksRoute
+  '/admin/sessions': typeof AuthenticatedAdminSessionsRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
+  '/lecturer/announcements': typeof AuthenticatedLecturerAnnouncementsRoute
+  '/lecturer/assignments': typeof AuthenticatedLecturerAssignmentsRoute
+  '/lecturer/attendance': typeof AuthenticatedLecturerAttendanceRoute
+  '/lecturer/courses': typeof AuthenticatedLecturerCoursesRoute
+  '/lecturer/materials': typeof AuthenticatedLecturerMaterialsRoute
+  '/lecturer/quizzes': typeof AuthenticatedLecturerQuizzesRoute
+  '/student/assignments': typeof AuthenticatedStudentAssignmentsRoute
+  '/student/attendance': typeof AuthenticatedStudentAttendanceRoute
+  '/student/courses': typeof AuthenticatedStudentCoursesRoute
+  '/student/materials': typeof AuthenticatedStudentMaterialsRoute
+  '/student/messages': typeof AuthenticatedStudentMessagesRoute
+  '/student/my-courses': typeof AuthenticatedStudentMyCoursesRoute
+  '/student/quizzes': typeof AuthenticatedStudentQuizzesRoute
+  '/student/videos': typeof AuthenticatedStudentVideosRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
+  '/lecturer': typeof AuthenticatedLecturerIndexRoute
+  '/student': typeof AuthenticatedStudentIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
+  '/contact': typeof ContactRoute
+  '/courses': typeof CoursesRoute
+  '/departments': typeof DepartmentsRoute
+  '/lecturers': typeof LecturersRoute
+  '/register': typeof RegisterRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/admin/analytics': typeof AuthenticatedAdminAnalyticsRoute
+  '/_authenticated/admin/announcements': typeof AuthenticatedAdminAnnouncementsRoute
+  '/_authenticated/admin/courses': typeof AuthenticatedAdminCoursesRoute
+  '/_authenticated/admin/departments': typeof AuthenticatedAdminDepartmentsRoute
+  '/_authenticated/admin/ranks': typeof AuthenticatedAdminRanksRoute
+  '/_authenticated/admin/sessions': typeof AuthenticatedAdminSessionsRoute
+  '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
+  '/_authenticated/lecturer/announcements': typeof AuthenticatedLecturerAnnouncementsRoute
+  '/_authenticated/lecturer/assignments': typeof AuthenticatedLecturerAssignmentsRoute
+  '/_authenticated/lecturer/attendance': typeof AuthenticatedLecturerAttendanceRoute
+  '/_authenticated/lecturer/courses': typeof AuthenticatedLecturerCoursesRoute
+  '/_authenticated/lecturer/materials': typeof AuthenticatedLecturerMaterialsRoute
+  '/_authenticated/lecturer/quizzes': typeof AuthenticatedLecturerQuizzesRoute
+  '/_authenticated/student/assignments': typeof AuthenticatedStudentAssignmentsRoute
+  '/_authenticated/student/attendance': typeof AuthenticatedStudentAttendanceRoute
+  '/_authenticated/student/courses': typeof AuthenticatedStudentCoursesRoute
+  '/_authenticated/student/materials': typeof AuthenticatedStudentMaterialsRoute
+  '/_authenticated/student/messages': typeof AuthenticatedStudentMessagesRoute
+  '/_authenticated/student/my-courses': typeof AuthenticatedStudentMyCoursesRoute
+  '/_authenticated/student/quizzes': typeof AuthenticatedStudentQuizzesRoute
+  '/_authenticated/student/videos': typeof AuthenticatedStudentVideosRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/lecturer/': typeof AuthenticatedLecturerIndexRoute
+  '/_authenticated/student/': typeof AuthenticatedStudentIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/auth'
+    | '/contact'
+    | '/courses'
+    | '/departments'
+    | '/lecturers'
+    | '/register'
+    | '/sitemap.xml'
+    | '/dashboard'
+    | '/admin/analytics'
+    | '/admin/announcements'
+    | '/admin/courses'
+    | '/admin/departments'
+    | '/admin/ranks'
+    | '/admin/sessions'
+    | '/admin/users'
+    | '/lecturer/announcements'
+    | '/lecturer/assignments'
+    | '/lecturer/attendance'
+    | '/lecturer/courses'
+    | '/lecturer/materials'
+    | '/lecturer/quizzes'
+    | '/student/assignments'
+    | '/student/attendance'
+    | '/student/courses'
+    | '/student/materials'
+    | '/student/messages'
+    | '/student/my-courses'
+    | '/student/quizzes'
+    | '/student/videos'
+    | '/admin/'
+    | '/lecturer/'
+    | '/student/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/auth'
+    | '/contact'
+    | '/courses'
+    | '/departments'
+    | '/lecturers'
+    | '/register'
+    | '/sitemap.xml'
+    | '/dashboard'
+    | '/admin/analytics'
+    | '/admin/announcements'
+    | '/admin/courses'
+    | '/admin/departments'
+    | '/admin/ranks'
+    | '/admin/sessions'
+    | '/admin/users'
+    | '/lecturer/announcements'
+    | '/lecturer/assignments'
+    | '/lecturer/attendance'
+    | '/lecturer/courses'
+    | '/lecturer/materials'
+    | '/lecturer/quizzes'
+    | '/student/assignments'
+    | '/student/attendance'
+    | '/student/courses'
+    | '/student/materials'
+    | '/student/messages'
+    | '/student/my-courses'
+    | '/student/quizzes'
+    | '/student/videos'
+    | '/admin'
+    | '/lecturer'
+    | '/student'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/about'
+    | '/auth'
+    | '/contact'
+    | '/courses'
+    | '/departments'
+    | '/lecturers'
+    | '/register'
+    | '/sitemap.xml'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/admin/analytics'
+    | '/_authenticated/admin/announcements'
+    | '/_authenticated/admin/courses'
+    | '/_authenticated/admin/departments'
+    | '/_authenticated/admin/ranks'
+    | '/_authenticated/admin/sessions'
+    | '/_authenticated/admin/users'
+    | '/_authenticated/lecturer/announcements'
+    | '/_authenticated/lecturer/assignments'
+    | '/_authenticated/lecturer/attendance'
+    | '/_authenticated/lecturer/courses'
+    | '/_authenticated/lecturer/materials'
+    | '/_authenticated/lecturer/quizzes'
+    | '/_authenticated/student/assignments'
+    | '/_authenticated/student/attendance'
+    | '/_authenticated/student/courses'
+    | '/_authenticated/student/materials'
+    | '/_authenticated/student/messages'
+    | '/_authenticated/student/my-courses'
+    | '/_authenticated/student/quizzes'
+    | '/_authenticated/student/videos'
+    | '/_authenticated/admin/'
+    | '/_authenticated/lecturer/'
+    | '/_authenticated/student/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AboutRoute: typeof AboutRoute
+  AuthRoute: typeof AuthRoute
+  ContactRoute: typeof ContactRoute
+  CoursesRoute: typeof CoursesRoute
+  DepartmentsRoute: typeof DepartmentsRoute
+  LecturersRoute: typeof LecturersRoute
+  RegisterRoute: typeof RegisterRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lecturers': {
+      id: '/lecturers'
+      path: '/lecturers'
+      fullPath: '/lecturers'
+      preLoaderRoute: typeof LecturersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/departments': {
+      id: '/departments'
+      path: '/departments'
+      fullPath: '/departments'
+      preLoaderRoute: typeof DepartmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/courses': {
+      id: '/courses'
+      path: '/courses'
+      fullPath: '/courses'
+      preLoaderRoute: typeof CoursesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +548,256 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/student/': {
+      id: '/_authenticated/student/'
+      path: '/student'
+      fullPath: '/student/'
+      preLoaderRoute: typeof AuthenticatedStudentIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/lecturer/': {
+      id: '/_authenticated/lecturer/'
+      path: '/lecturer'
+      fullPath: '/lecturer/'
+      preLoaderRoute: typeof AuthenticatedLecturerIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/student/videos': {
+      id: '/_authenticated/student/videos'
+      path: '/student/videos'
+      fullPath: '/student/videos'
+      preLoaderRoute: typeof AuthenticatedStudentVideosRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/student/quizzes': {
+      id: '/_authenticated/student/quizzes'
+      path: '/student/quizzes'
+      fullPath: '/student/quizzes'
+      preLoaderRoute: typeof AuthenticatedStudentQuizzesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/student/my-courses': {
+      id: '/_authenticated/student/my-courses'
+      path: '/student/my-courses'
+      fullPath: '/student/my-courses'
+      preLoaderRoute: typeof AuthenticatedStudentMyCoursesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/student/messages': {
+      id: '/_authenticated/student/messages'
+      path: '/student/messages'
+      fullPath: '/student/messages'
+      preLoaderRoute: typeof AuthenticatedStudentMessagesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/student/materials': {
+      id: '/_authenticated/student/materials'
+      path: '/student/materials'
+      fullPath: '/student/materials'
+      preLoaderRoute: typeof AuthenticatedStudentMaterialsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/student/courses': {
+      id: '/_authenticated/student/courses'
+      path: '/student/courses'
+      fullPath: '/student/courses'
+      preLoaderRoute: typeof AuthenticatedStudentCoursesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/student/attendance': {
+      id: '/_authenticated/student/attendance'
+      path: '/student/attendance'
+      fullPath: '/student/attendance'
+      preLoaderRoute: typeof AuthenticatedStudentAttendanceRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/student/assignments': {
+      id: '/_authenticated/student/assignments'
+      path: '/student/assignments'
+      fullPath: '/student/assignments'
+      preLoaderRoute: typeof AuthenticatedStudentAssignmentsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/lecturer/quizzes': {
+      id: '/_authenticated/lecturer/quizzes'
+      path: '/lecturer/quizzes'
+      fullPath: '/lecturer/quizzes'
+      preLoaderRoute: typeof AuthenticatedLecturerQuizzesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/lecturer/materials': {
+      id: '/_authenticated/lecturer/materials'
+      path: '/lecturer/materials'
+      fullPath: '/lecturer/materials'
+      preLoaderRoute: typeof AuthenticatedLecturerMaterialsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/lecturer/courses': {
+      id: '/_authenticated/lecturer/courses'
+      path: '/lecturer/courses'
+      fullPath: '/lecturer/courses'
+      preLoaderRoute: typeof AuthenticatedLecturerCoursesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/lecturer/attendance': {
+      id: '/_authenticated/lecturer/attendance'
+      path: '/lecturer/attendance'
+      fullPath: '/lecturer/attendance'
+      preLoaderRoute: typeof AuthenticatedLecturerAttendanceRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/lecturer/assignments': {
+      id: '/_authenticated/lecturer/assignments'
+      path: '/lecturer/assignments'
+      fullPath: '/lecturer/assignments'
+      preLoaderRoute: typeof AuthenticatedLecturerAssignmentsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/lecturer/announcements': {
+      id: '/_authenticated/lecturer/announcements'
+      path: '/lecturer/announcements'
+      fullPath: '/lecturer/announcements'
+      preLoaderRoute: typeof AuthenticatedLecturerAnnouncementsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/users': {
+      id: '/_authenticated/admin/users'
+      path: '/admin/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AuthenticatedAdminUsersRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/sessions': {
+      id: '/_authenticated/admin/sessions'
+      path: '/admin/sessions'
+      fullPath: '/admin/sessions'
+      preLoaderRoute: typeof AuthenticatedAdminSessionsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/ranks': {
+      id: '/_authenticated/admin/ranks'
+      path: '/admin/ranks'
+      fullPath: '/admin/ranks'
+      preLoaderRoute: typeof AuthenticatedAdminRanksRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/departments': {
+      id: '/_authenticated/admin/departments'
+      path: '/admin/departments'
+      fullPath: '/admin/departments'
+      preLoaderRoute: typeof AuthenticatedAdminDepartmentsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/courses': {
+      id: '/_authenticated/admin/courses'
+      path: '/admin/courses'
+      fullPath: '/admin/courses'
+      preLoaderRoute: typeof AuthenticatedAdminCoursesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/announcements': {
+      id: '/_authenticated/admin/announcements'
+      path: '/admin/announcements'
+      fullPath: '/admin/announcements'
+      preLoaderRoute: typeof AuthenticatedAdminAnnouncementsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/analytics': {
+      id: '/_authenticated/admin/analytics'
+      path: '/admin/analytics'
+      fullPath: '/admin/analytics'
+      preLoaderRoute: typeof AuthenticatedAdminAnalyticsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedAdminAnalyticsRoute: typeof AuthenticatedAdminAnalyticsRoute
+  AuthenticatedAdminAnnouncementsRoute: typeof AuthenticatedAdminAnnouncementsRoute
+  AuthenticatedAdminCoursesRoute: typeof AuthenticatedAdminCoursesRoute
+  AuthenticatedAdminDepartmentsRoute: typeof AuthenticatedAdminDepartmentsRoute
+  AuthenticatedAdminRanksRoute: typeof AuthenticatedAdminRanksRoute
+  AuthenticatedAdminSessionsRoute: typeof AuthenticatedAdminSessionsRoute
+  AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
+  AuthenticatedLecturerAnnouncementsRoute: typeof AuthenticatedLecturerAnnouncementsRoute
+  AuthenticatedLecturerAssignmentsRoute: typeof AuthenticatedLecturerAssignmentsRoute
+  AuthenticatedLecturerAttendanceRoute: typeof AuthenticatedLecturerAttendanceRoute
+  AuthenticatedLecturerCoursesRoute: typeof AuthenticatedLecturerCoursesRoute
+  AuthenticatedLecturerMaterialsRoute: typeof AuthenticatedLecturerMaterialsRoute
+  AuthenticatedLecturerQuizzesRoute: typeof AuthenticatedLecturerQuizzesRoute
+  AuthenticatedStudentAssignmentsRoute: typeof AuthenticatedStudentAssignmentsRoute
+  AuthenticatedStudentAttendanceRoute: typeof AuthenticatedStudentAttendanceRoute
+  AuthenticatedStudentCoursesRoute: typeof AuthenticatedStudentCoursesRoute
+  AuthenticatedStudentMaterialsRoute: typeof AuthenticatedStudentMaterialsRoute
+  AuthenticatedStudentMessagesRoute: typeof AuthenticatedStudentMessagesRoute
+  AuthenticatedStudentMyCoursesRoute: typeof AuthenticatedStudentMyCoursesRoute
+  AuthenticatedStudentQuizzesRoute: typeof AuthenticatedStudentQuizzesRoute
+  AuthenticatedStudentVideosRoute: typeof AuthenticatedStudentVideosRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+  AuthenticatedLecturerIndexRoute: typeof AuthenticatedLecturerIndexRoute
+  AuthenticatedStudentIndexRoute: typeof AuthenticatedStudentIndexRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedAdminAnalyticsRoute: AuthenticatedAdminAnalyticsRoute,
+  AuthenticatedAdminAnnouncementsRoute: AuthenticatedAdminAnnouncementsRoute,
+  AuthenticatedAdminCoursesRoute: AuthenticatedAdminCoursesRoute,
+  AuthenticatedAdminDepartmentsRoute: AuthenticatedAdminDepartmentsRoute,
+  AuthenticatedAdminRanksRoute: AuthenticatedAdminRanksRoute,
+  AuthenticatedAdminSessionsRoute: AuthenticatedAdminSessionsRoute,
+  AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
+  AuthenticatedLecturerAnnouncementsRoute:
+    AuthenticatedLecturerAnnouncementsRoute,
+  AuthenticatedLecturerAssignmentsRoute: AuthenticatedLecturerAssignmentsRoute,
+  AuthenticatedLecturerAttendanceRoute: AuthenticatedLecturerAttendanceRoute,
+  AuthenticatedLecturerCoursesRoute: AuthenticatedLecturerCoursesRoute,
+  AuthenticatedLecturerMaterialsRoute: AuthenticatedLecturerMaterialsRoute,
+  AuthenticatedLecturerQuizzesRoute: AuthenticatedLecturerQuizzesRoute,
+  AuthenticatedStudentAssignmentsRoute: AuthenticatedStudentAssignmentsRoute,
+  AuthenticatedStudentAttendanceRoute: AuthenticatedStudentAttendanceRoute,
+  AuthenticatedStudentCoursesRoute: AuthenticatedStudentCoursesRoute,
+  AuthenticatedStudentMaterialsRoute: AuthenticatedStudentMaterialsRoute,
+  AuthenticatedStudentMessagesRoute: AuthenticatedStudentMessagesRoute,
+  AuthenticatedStudentMyCoursesRoute: AuthenticatedStudentMyCoursesRoute,
+  AuthenticatedStudentQuizzesRoute: AuthenticatedStudentQuizzesRoute,
+  AuthenticatedStudentVideosRoute: AuthenticatedStudentVideosRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+  AuthenticatedLecturerIndexRoute: AuthenticatedLecturerIndexRoute,
+  AuthenticatedStudentIndexRoute: AuthenticatedStudentIndexRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AboutRoute: AboutRoute,
+  AuthRoute: AuthRoute,
+  ContactRoute: ContactRoute,
+  CoursesRoute: CoursesRoute,
+  DepartmentsRoute: DepartmentsRoute,
+  LecturersRoute: LecturersRoute,
+  RegisterRoute: RegisterRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
