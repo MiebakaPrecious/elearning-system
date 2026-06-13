@@ -55,7 +55,7 @@ function AdminCourses() {
   });
 
   const setStatus = useMutation({
-    mutationFn: async (p: { id: string; status: string }) => {
+    mutationFn: async (p: { id: string; status: "draft" | "pending_approval" | "approved" | "archived" }) => {
       const { error } = await supabase.from("courses").update({ status: p.status }).eq("id", p.id);
       if (error) throw error;
     },
