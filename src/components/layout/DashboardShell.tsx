@@ -5,10 +5,11 @@ import { useAuth, type AppRole } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
-  LayoutDashboard, Users, Building2, BookOpen, CheckSquare, Calendar,
-  Megaphone, BarChart3, Settings, FileText, ClipboardList, Award, Video,
-  MessageSquare, UserCircle, ListChecks, Layers
+  LayoutDashboard, BookOpen, CheckSquare, Calendar,
+  Megaphone, BarChart3, FileText, ClipboardList, Award, Video,
+  MessageSquare, ListChecks, Layers, Moon, Sun
 } from "lucide-react";
+import { useEffect } from "react";
 
 type Item = { to: string; label: string; icon: typeof LayoutDashboard };
 type Group = { label: string; items: Item[] };
@@ -17,7 +18,6 @@ const nav: Record<AppRole, Group[]> = {
   admin: [
     { label: "Overview", items: [{ to: "/admin", label: "Dashboard", icon: LayoutDashboard }] },
     { label: "Academic", items: [
-      { to: "/admin/departments", label: "Departments", icon: Building2 },
       { to: "/admin/sessions", label: "Sessions & Semesters", icon: Calendar },
       { to: "/admin/ranks", label: "Lecturer Ranks", icon: Award },
       { to: "/admin/courses", label: "Courses", icon: BookOpen },

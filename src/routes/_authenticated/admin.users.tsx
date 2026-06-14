@@ -20,7 +20,7 @@ function AdminUsers() {
   const fetchByStatus = async (status: "pending" | "approved" | "rejected") => {
     const { data, error } = await supabase
       .from("profiles")
-      .select("id,full_name,email,matric_number,staff_id,approval_status,created_at,department_id,level, departments(name,code), user_roles(role)")
+      .select("id,full_name,email,matric_number,staff_id,approval_status,created_at,level, user_roles(role)")
       .eq("approval_status", status)
       .order("created_at", { ascending: false });
     if (error) throw error;
@@ -37,27 +37,35 @@ function AdminUsers() {
       if (error) throw error;
     },
     onSuccess: () => { toast.success("Updated"); qc.invalidateQueries({ queryKey: ["users"] }); },
-    onError: (e: any) => toast.error(e.message),
+    onError: (e) => toast.error((e as Error).message),
   });
 
-  const renderTable = (rows: any[] | undefined, loading: boolean, kind: "pending" | "approved" | "rejected") => (
+  type Row = {
+    id: string; full_name: string; email: string; matric_number: string | null;
+    staff_id: string | null; level: string | null;
+    user_roles: { role: string } | { role: string }[] | null;
+  };
+
+  const renderTable = (rows: Row[] | undefined, loading: boolean, kind: "pending" | "approved" | "rejected") => (
     <Card className="shadow-card"><CardContent className="p-0">
+      <div className="overflow-x-auto">
       <Table>
         <TableHeader><TableRow>
           <TableHead>Name</TableHead><TableHead>Role</TableHead><TableHead>ID</TableHead>
-          <TableHead>Email</TableHead><TableHead>Department</TableHead><TableHead className="text-right">Action</TableHead>
+          <TableHead>Email</TableHead><TableHead>Level</TableHead><TableHead className="text-right">Action</TableHead>
         </TableRow></TableHeader>
         <TableBody>
           {loading ? <TableRow><TableCell colSpan={6} className="text-center text-muted-foreground">Loading…</TableCell></TableRow> :
             rows?.length ? rows.map((u) => {
-              const role = u.user_roles?.[0]?.role ?? u.user_roles?.role ?? "—";
+              const ur = u.user_roles;
+              const role = Array.isArray(ur) ? ur[0]?.role : ur?.role ?? "—";
               return (
                 <TableRow key={u.id}>
                   <TableCell className="font-medium">{u.full_name}</TableCell>
-                  <TableCell><Badge variant="outline" className="capitalize">{role}</Badge></TableCell>
+                  <TableCell><Badge variant="outline" className="capitalize">{role ?? "—"}</Badge></TableCell>
                   <TableCell className="text-muted-foreground">{u.matric_number ?? u.staff_id ?? "—"}</TableCell>
                   <TableCell className="text-muted-foreground">{u.email}</TableCell>
-                  <TableCell>{u.departments?.name ?? "—"}</TableCell>
+                  <TableCell>{u.level ? <Badge variant="secondary">{u.level}</Badge> : "—"}</TableCell>
                   <TableCell className="text-right">
                     {kind !== "approved" && (
                       <Button size="sm" className="gradient-emerald mr-2" onClick={() => setStatus.mutate({ id: u.id, status: "approved" })}>
@@ -75,6 +83,7 @@ function AdminUsers() {
             }) : <TableRow><TableCell colSpan={6} className="text-center text-muted-foreground">No users</TableCell></TableRow>}
         </TableBody>
       </Table>
+      </div>
     </CardContent></Card>
   );
 
@@ -86,9 +95,9 @@ function AdminUsers() {
           <TabsTrigger value="approved">Approved</TabsTrigger>
           <TabsTrigger value="rejected">Rejected</TabsTrigger>
         </TabsList>
-        <TabsContent value="pending" className="mt-4">{renderTable(pending.data, pending.isLoading, "pending")}</TabsContent>
-        <TabsContent value="approved" className="mt-4">{renderTable(approved.data, approved.isLoading, "approved")}</TabsContent>
-        <TabsContent value="rejected" className="mt-4">{renderTable(rejected.data, rejected.isLoading, "rejected")}</TabsContent>
+        <TabsContent value="pending" className="mt-4">{renderTable(pending.data as Row[] | undefined, pending.isLoading, "pending")}</TabsContent>
+        <TabsContent value="approved" className="mt-4">{renderTable(approved.data as Row[] | undefined, approved.isLoading, "approved")}</TabsContent>
+        <TabsContent value="rejected" className="mt-4">{renderTable(rejected.data as Row[] | undefined, rejected.isLoading, "rejected")}</TabsContent>
       </Tabs>
     </DashboardShell>
   );
