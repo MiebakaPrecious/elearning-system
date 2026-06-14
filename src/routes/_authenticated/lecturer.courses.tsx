@@ -20,30 +20,30 @@ function LecturerCourses() {
   const { data, isLoading } = useQuery({
     queryKey: ["lect-courses", user?.id],
     enabled: !!user,
-    queryFn: async () => (await supabase.from("courses").select("*, departments(name,code), semesters(name)").eq("lecturer_id", user!.id).order("created_at", { ascending: false })).data ?? [],
+    queryFn: async () => (await supabase.from("courses").select("*, semesters(name)").eq("lecturer_id", user!.id).order("created_at", { ascending: false })).data ?? [],
   });
 
   const submitForApproval = useMutation({
     mutationFn: async (id: string) => { const { error } = await supabase.from("courses").update({ status: "pending_approval" }).eq("id", id); if (error) throw error; },
     onSuccess: () => { toast.success("Submitted for approval"); qc.invalidateQueries({ queryKey: ["lect-courses"] }); },
-    onError: (e: any) => toast.error(e.message),
+    onError: (e) => toast.error((e as Error).message),
   });
 
   return (
     <DashboardShell title="My Courses">
       <Card className="shadow-card"><CardContent className="p-0">
+        <div className="overflow-x-auto">
         <Table>
           <TableHeader><TableRow>
-            <TableHead>Code</TableHead><TableHead>Title</TableHead><TableHead>Dept</TableHead>
+            <TableHead>Code</TableHead><TableHead>Title</TableHead>
             <TableHead>Level</TableHead><TableHead>Status</TableHead><TableHead className="text-right">Action</TableHead>
           </TableRow></TableHeader>
           <TableBody>
-            {isLoading ? <TableRow><TableCell colSpan={6} className="text-center text-muted-foreground">Loading…</TableCell></TableRow> :
-              data?.length ? data.map((c: any) => (
+            {isLoading ? <TableRow><TableCell colSpan={5} className="text-center text-muted-foreground">Loading…</TableCell></TableRow> :
+              data?.length ? data.map((c) => (
                 <TableRow key={c.id}>
                   <TableCell><Badge variant="outline">{c.code}</Badge></TableCell>
                   <TableCell className="font-medium">{c.title}</TableCell>
-                  <TableCell>{c.departments?.code ?? "—"}</TableCell>
                   <TableCell><Badge variant="secondary">{c.level}</Badge></TableCell>
                   <TableCell><Badge className="capitalize">{c.status.replace("_", " ")}</Badge></TableCell>
                   <TableCell className="text-right">
@@ -55,9 +55,10 @@ function LecturerCourses() {
                     {c.status === "approved" && <Badge className="gradient-emerald text-white"><FileEdit className="mr-1 h-3 w-3" /> Live</Badge>}
                   </TableCell>
                 </TableRow>
-              )) : <TableRow><TableCell colSpan={6} className="text-center text-muted-foreground">No courses yet. Admin must assign one to you.</TableCell></TableRow>}
+              )) : <TableRow><TableCell colSpan={5} className="text-center text-muted-foreground">No courses yet. Admin must assign one to you.</TableCell></TableRow>}
           </TableBody>
         </Table>
+        </div>
       </CardContent></Card>
     </DashboardShell>
   );

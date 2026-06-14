@@ -18,13 +18,12 @@ function StudentCoursesBrowse() {
   const qc = useQueryClient();
 
   const courses = useQuery({
-    queryKey: ["browse-courses", profile?.department_id, profile?.level],
+    queryKey: ["browse-courses", profile?.level],
     enabled: !!profile,
     queryFn: async () => {
-      let q = supabase.from("courses").select("*, departments(name,code)").eq("status", "approved");
-      if (profile?.department_id) q = q.eq("department_id", profile.department_id);
+      let q = supabase.from("courses").select("*").eq("status", "approved");
       if (profile?.level) q = q.eq("level", profile.level);
-      const { data } = await q.order("created_at", { ascending: false });
+      const { data } = await q.order("code");
       return data ?? [];
     },
   });
@@ -42,14 +41,14 @@ function StudentCoursesBrowse() {
       if (error) throw error;
     },
     onSuccess: () => { toast.success("Enrolled"); qc.invalidateQueries({ queryKey: ["my-enrollments"] }); },
-    onError: (e: any) => toast.error(e.message),
+    onError: (e) => toast.error((e as Error).message),
   });
 
-  if (!profile?.department_id || !profile?.level) {
+  if (!profile?.level) {
     return (
       <DashboardShell title="Browse Courses">
         <Card className="shadow-card"><CardContent className="p-8 text-center text-muted-foreground">
-          Set your department and level in your profile to see eligible courses.
+          Set your level (ND1, ND2, HND1 or HND2) in your profile to see eligible courses.
         </CardContent></Card>
       </DashboardShell>
     );
@@ -57,10 +56,10 @@ function StudentCoursesBrowse() {
 
   return (
     <DashboardShell title="Browse Courses">
-      <p className="mb-4 text-sm text-muted-foreground">Showing approved courses for <Badge variant="secondary">{profile.level}</Badge> in your department.</p>
+      <p className="mb-4 text-sm text-muted-foreground">Showing approved CS courses for <Badge variant="secondary">{profile.level}</Badge>.</p>
       {courses.isLoading ? <p className="text-muted-foreground">Loading…</p> : courses.data?.length ? (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {courses.data.map((c: any) => {
+          {courses.data.map((c) => {
             const isEnrolled = enrolledSet.has(c.id);
             return (
               <Card key={c.id} className="shadow-card transition hover:shadow-elevated">
@@ -91,7 +90,7 @@ function StudentCoursesBrowse() {
           })}
         </div>
       ) : (
-        <Card className="shadow-card"><CardContent className="p-8 text-center text-muted-foreground">No courses available yet for your department and level.</CardContent></Card>
+        <Card className="shadow-card"><CardContent className="p-8 text-center text-muted-foreground">No courses available yet for your level.</CardContent></Card>
       )}
     </DashboardShell>
   );

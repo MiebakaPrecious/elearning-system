@@ -1,44 +1,45 @@
 import { Link } from "@tanstack/react-router";
-import { GraduationCap } from "lucide-react";
+import { GraduationCap, MapPin, Mail, Phone } from "lucide-react";
 
 export function PublicFooter() {
   return (
     <footer className="border-t border-border bg-card">
-      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 md:grid-cols-4">
-        <div>
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 md:grid-cols-4">
+        <div className="md:col-span-2">
           <div className="flex items-center gap-2">
             <span className="grid h-9 w-9 place-items-center rounded-lg gradient-brand text-primary-foreground">
               <GraduationCap className="h-5 w-5" />
             </span>
-            <span className="font-semibold">Kenpoly Smart Learning</span>
+            <span className="font-semibold">KBSP Computer Science Hub</span>
           </div>
-          <p className="mt-3 text-sm text-muted-foreground">A modern Learning Management System for polytechnic institutions.</p>
+          <p className="mt-3 max-w-md text-sm text-muted-foreground">
+            The official learning platform of the Department of Computer Science,
+            Kenule Beeson Saro-Wiwa Polytechnic, Bori — built for ND and HND students.
+          </p>
+          <div className="mt-4 space-y-2 text-sm text-muted-foreground">
+            <p className="flex items-center gap-2"><MapPin className="h-4 w-4 text-primary" /> KBSP Campus, Bori, Rivers State, Nigeria</p>
+            <p className="flex items-center gap-2"><Mail className="h-4 w-4 text-primary" /> cs@kenpoly.edu.ng</p>
+            <p className="flex items-center gap-2"><Phone className="h-4 w-4 text-primary" /> +234 800 000 0000</p>
+          </div>
         </div>
         <div>
           <p className="mb-3 text-sm font-semibold">Platform</p>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><Link to="/departments">Departments</Link></li>
-            <li><Link to="/courses">Courses</Link></li>
-            <li><Link to="/lecturers">Lecturers</Link></li>
-          </ul>
-        </div>
-        <div>
-          <p className="mb-3 text-sm font-semibold">Company</p>
-          <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><Link to="/about">About</Link></li>
-            <li><Link to="/contact">Contact</Link></li>
+            <li><Link to="/courses" className="hover:text-foreground">Courses</Link></li>
+            <li><Link to="/about" className="hover:text-foreground">About CS Dept</Link></li>
+            <li><Link to="/contact" className="hover:text-foreground">Contact</Link></li>
           </ul>
         </div>
         <div>
           <p className="mb-3 text-sm font-semibold">Get started</p>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><Link to="/register">Create account</Link></li>
-            <li><Link to="/auth">Sign in</Link></li>
+            <li><Link to="/register" className="hover:text-foreground">New student registration</Link></li>
+            <li><Link to="/auth" className="hover:text-foreground">Returning student login</Link></li>
           </ul>
         </div>
       </div>
       <div className="border-t border-border py-4 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} Kenpoly Smart Learning Hub. All rights reserved.
+        © {new Date().getFullYear()} Department of Computer Science · Kenule Beeson Saro-Wiwa Polytechnic, Bori.
       </div>
     </footer>
   );

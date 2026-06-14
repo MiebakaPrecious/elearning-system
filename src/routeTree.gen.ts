@@ -11,8 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RegisterRouteImport } from './routes/register'
-import { Route as LecturersRouteImport } from './routes/lecturers'
-import { Route as DepartmentsRouteImport } from './routes/departments'
 import { Route as CoursesRouteImport } from './routes/courses'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -40,7 +38,6 @@ import { Route as AuthenticatedLecturerAnnouncementsRouteImport } from './routes
 import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin.users'
 import { Route as AuthenticatedAdminSessionsRouteImport } from './routes/_authenticated/admin.sessions'
 import { Route as AuthenticatedAdminRanksRouteImport } from './routes/_authenticated/admin.ranks'
-import { Route as AuthenticatedAdminDepartmentsRouteImport } from './routes/_authenticated/admin.departments'
 import { Route as AuthenticatedAdminCoursesRouteImport } from './routes/_authenticated/admin.courses'
 import { Route as AuthenticatedAdminAnnouncementsRouteImport } from './routes/_authenticated/admin.announcements'
 import { Route as AuthenticatedAdminAnalyticsRouteImport } from './routes/_authenticated/admin.analytics'
@@ -53,16 +50,6 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LecturersRoute = LecturersRouteImport.update({
-  id: '/lecturers',
-  path: '/lecturers',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DepartmentsRoute = DepartmentsRouteImport.update({
-  id: '/departments',
-  path: '/departments',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CoursesRoute = CoursesRouteImport.update({
@@ -216,12 +203,6 @@ const AuthenticatedAdminRanksRoute = AuthenticatedAdminRanksRouteImport.update({
   path: '/admin/ranks',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedAdminDepartmentsRoute =
-  AuthenticatedAdminDepartmentsRouteImport.update({
-    id: '/admin/departments',
-    path: '/admin/departments',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
 const AuthenticatedAdminCoursesRoute =
   AuthenticatedAdminCoursesRouteImport.update({
     id: '/admin/courses',
@@ -247,15 +228,12 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRoute
-  '/departments': typeof DepartmentsRoute
-  '/lecturers': typeof LecturersRoute
   '/register': typeof RegisterRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/admin/analytics': typeof AuthenticatedAdminAnalyticsRoute
   '/admin/announcements': typeof AuthenticatedAdminAnnouncementsRoute
   '/admin/courses': typeof AuthenticatedAdminCoursesRoute
-  '/admin/departments': typeof AuthenticatedAdminDepartmentsRoute
   '/admin/ranks': typeof AuthenticatedAdminRanksRoute
   '/admin/sessions': typeof AuthenticatedAdminSessionsRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
@@ -283,15 +261,12 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRoute
-  '/departments': typeof DepartmentsRoute
-  '/lecturers': typeof LecturersRoute
   '/register': typeof RegisterRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/admin/analytics': typeof AuthenticatedAdminAnalyticsRoute
   '/admin/announcements': typeof AuthenticatedAdminAnnouncementsRoute
   '/admin/courses': typeof AuthenticatedAdminCoursesRoute
-  '/admin/departments': typeof AuthenticatedAdminDepartmentsRoute
   '/admin/ranks': typeof AuthenticatedAdminRanksRoute
   '/admin/sessions': typeof AuthenticatedAdminSessionsRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
@@ -321,15 +296,12 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRoute
-  '/departments': typeof DepartmentsRoute
-  '/lecturers': typeof LecturersRoute
   '/register': typeof RegisterRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/admin/analytics': typeof AuthenticatedAdminAnalyticsRoute
   '/_authenticated/admin/announcements': typeof AuthenticatedAdminAnnouncementsRoute
   '/_authenticated/admin/courses': typeof AuthenticatedAdminCoursesRoute
-  '/_authenticated/admin/departments': typeof AuthenticatedAdminDepartmentsRoute
   '/_authenticated/admin/ranks': typeof AuthenticatedAdminRanksRoute
   '/_authenticated/admin/sessions': typeof AuthenticatedAdminSessionsRoute
   '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
@@ -359,15 +331,12 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/courses'
-    | '/departments'
-    | '/lecturers'
     | '/register'
     | '/sitemap.xml'
     | '/dashboard'
     | '/admin/analytics'
     | '/admin/announcements'
     | '/admin/courses'
-    | '/admin/departments'
     | '/admin/ranks'
     | '/admin/sessions'
     | '/admin/users'
@@ -395,15 +364,12 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/courses'
-    | '/departments'
-    | '/lecturers'
     | '/register'
     | '/sitemap.xml'
     | '/dashboard'
     | '/admin/analytics'
     | '/admin/announcements'
     | '/admin/courses'
-    | '/admin/departments'
     | '/admin/ranks'
     | '/admin/sessions'
     | '/admin/users'
@@ -432,15 +398,12 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/courses'
-    | '/departments'
-    | '/lecturers'
     | '/register'
     | '/sitemap.xml'
     | '/_authenticated/dashboard'
     | '/_authenticated/admin/analytics'
     | '/_authenticated/admin/announcements'
     | '/_authenticated/admin/courses'
-    | '/_authenticated/admin/departments'
     | '/_authenticated/admin/ranks'
     | '/_authenticated/admin/sessions'
     | '/_authenticated/admin/users'
@@ -470,8 +433,6 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
   CoursesRoute: typeof CoursesRoute
-  DepartmentsRoute: typeof DepartmentsRoute
-  LecturersRoute: typeof LecturersRoute
   RegisterRoute: typeof RegisterRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
@@ -490,20 +451,6 @@ declare module '@tanstack/react-router' {
       path: '/register'
       fullPath: '/register'
       preLoaderRoute: typeof RegisterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/lecturers': {
-      id: '/lecturers'
-      path: '/lecturers'
-      fullPath: '/lecturers'
-      preLoaderRoute: typeof LecturersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/departments': {
-      id: '/departments'
-      path: '/departments'
-      fullPath: '/departments'
-      preLoaderRoute: typeof DepartmentsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/courses': {
@@ -695,13 +642,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRanksRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/admin/departments': {
-      id: '/_authenticated/admin/departments'
-      path: '/admin/departments'
-      fullPath: '/admin/departments'
-      preLoaderRoute: typeof AuthenticatedAdminDepartmentsRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/admin/courses': {
       id: '/_authenticated/admin/courses'
       path: '/admin/courses'
@@ -731,7 +671,6 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminAnalyticsRoute: typeof AuthenticatedAdminAnalyticsRoute
   AuthenticatedAdminAnnouncementsRoute: typeof AuthenticatedAdminAnnouncementsRoute
   AuthenticatedAdminCoursesRoute: typeof AuthenticatedAdminCoursesRoute
-  AuthenticatedAdminDepartmentsRoute: typeof AuthenticatedAdminDepartmentsRoute
   AuthenticatedAdminRanksRoute: typeof AuthenticatedAdminRanksRoute
   AuthenticatedAdminSessionsRoute: typeof AuthenticatedAdminSessionsRoute
   AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
@@ -759,7 +698,6 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminAnalyticsRoute: AuthenticatedAdminAnalyticsRoute,
   AuthenticatedAdminAnnouncementsRoute: AuthenticatedAdminAnnouncementsRoute,
   AuthenticatedAdminCoursesRoute: AuthenticatedAdminCoursesRoute,
-  AuthenticatedAdminDepartmentsRoute: AuthenticatedAdminDepartmentsRoute,
   AuthenticatedAdminRanksRoute: AuthenticatedAdminRanksRoute,
   AuthenticatedAdminSessionsRoute: AuthenticatedAdminSessionsRoute,
   AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
@@ -793,21 +731,9 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
   CoursesRoute: CoursesRoute,
-  DepartmentsRoute: DepartmentsRoute,
-  LecturersRoute: LecturersRoute,
   RegisterRoute: RegisterRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

@@ -11,7 +11,7 @@ export type Profile = {
   photo_url: string | null;
   matric_number: string | null;
   staff_id: string | null;
-  department_id: string | null;
+  
   level: "ND1" | "ND2" | "HND1" | "HND2" | null;
   rank_id: string | null;
   approval_status: "pending" | "approved" | "rejected";

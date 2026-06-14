@@ -11,14 +11,16 @@ export const Route = createFileRoute("/_authenticated/student/my-courses")({
   component: MyCourses,
 });
 
+type CourseRow = { id: string; code: string; title: string; description: string | null; level: string };
+
 function MyCourses() {
   const { user } = useAuth();
   const { data, isLoading } = useQuery({
     queryKey: ["my-courses", user?.id],
     enabled: !!user,
     queryFn: async () => {
-      const { data } = await supabase.from("enrollments").select("courses(id,code,title,description,level,departments(code))").eq("student_id", user!.id);
-      return (data ?? []).map((d: any) => d.courses).filter(Boolean);
+      const { data } = await supabase.from("enrollments").select("courses(id,code,title,description,level)").eq("student_id", user!.id);
+      return (data ?? []).map((d) => d.courses as unknown as CourseRow).filter(Boolean);
     },
   });
 
@@ -26,7 +28,7 @@ function MyCourses() {
     <DashboardShell title="My Courses">
       {isLoading ? <p className="text-muted-foreground">Loading…</p> : data?.length ? (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {data.map((c: any) => (
+          {data.map((c) => (
             <Card key={c.id} className="shadow-card">
               <CardContent className="p-5">
                 <span className="grid h-10 w-10 place-items-center rounded-lg gradient-brand text-primary-foreground"><BookOpen className="h-5 w-5" /></span>

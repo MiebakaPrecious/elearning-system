@@ -7,10 +7,10 @@ import { Mail, MapPin, Phone } from "lucide-react";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Kenpoly Smart Learning Hub" },
-      { name: "description", content: "Get in touch with the Kenpoly Smart Learning Hub team." },
-      { property: "og:title", content: "Contact — Kenpoly Smart Learning Hub" },
-      { property: "og:description", content: "Get in touch with our team." },
+      { title: "Contact — KBSP CS Hub" },
+      { name: "description", content: "Contact the Department of Computer Science, KBSP Bori." },
+      { property: "og:title", content: "Contact — KBSP CS Hub" },
+      { property: "og:description", content: "Reach the CS Department at KBSP Bori." },
     ],
   }),
   component: Contact,
@@ -22,15 +22,15 @@ function Contact() {
       <PublicHeader />
       <section className="gradient-brand py-14 text-primary-foreground">
         <div className="mx-auto max-w-5xl px-4">
-          <h1 className="text-4xl font-bold tracking-tight">Contact us</h1>
-          <p className="mt-3 max-w-2xl opacity-90">We'd love to hear from you. Reach out for support, demos, or partnership enquiries.</p>
+          <h1 className="text-4xl font-bold tracking-tight">Contact the department</h1>
+          <p className="mt-3 max-w-2xl opacity-90">Reach the CS Department office for admissions, course enquiries, and technical support.</p>
         </div>
       </section>
       <section className="mx-auto grid w-full max-w-5xl flex-1 gap-4 px-4 py-12 md:grid-cols-3">
         {[
-          { icon: Mail, label: "Email", value: "hello@kenpoly.edu" },
+          { icon: Mail, label: "Email", value: "cs@kenpoly.edu.ng" },
           { icon: Phone, label: "Phone", value: "+234 800 000 0000" },
-          { icon: MapPin, label: "Address", value: "Kenpoly Campus, Nigeria" },
+          { icon: MapPin, label: "Address", value: "KBSP Campus, Bori, Rivers State" },
         ].map((c) => (
           <Card key={c.label} className="shadow-card">
             <CardContent className="p-6">
@@ -40,6 +40,21 @@ function Contact() {
             </CardContent>
           </Card>
         ))}
+      </section>
+      <section className="mx-auto w-full max-w-5xl px-4 pb-16">
+        <Card className="shadow-card overflow-hidden">
+          <div className="aspect-[16/8] w-full">
+            <iframe
+              title="KBSP Bori Map"
+              src="https://www.google.com/maps?q=Kenule+Beeson+Saro-Wiwa+Polytechnic+Bori&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+        </Card>
       </section>
       <PublicFooter />
     </div>

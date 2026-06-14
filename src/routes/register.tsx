@@ -12,7 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/register")({
-  head: () => ({ meta: [{ title: "Create account — Kenpoly LMS" }, { name: "description", content: "Register as a student or lecturer." }] }),
+  head: () => ({ meta: [{ title: "Register — KBSP CS Hub" }, { name: "description", content: "Register as a CS student or lecturer at KBSP Bori." }] }),
   component: RegisterPage,
 });
 
@@ -25,19 +25,20 @@ function RegisterPage() {
       <div className="hidden gradient-hero p-12 text-primary-foreground md:flex md:flex-col md:justify-between">
         <Link to="/" className="flex items-center gap-2">
           <span className="grid h-9 w-9 place-items-center rounded-lg bg-white/15 backdrop-blur"><GraduationCap className="h-5 w-5" /></span>
-          <span className="font-semibold">Kenpoly Smart Learning</span>
+          <span className="font-semibold">KBSP CS Hub</span>
         </Link>
         <div>
-          <h2 className="text-3xl font-bold leading-tight">Join the campus.</h2>
+          <h2 className="text-3xl font-bold leading-tight">Welcome to the Department of Computer Science.</h2>
           <p className="mt-2 max-w-md opacity-90">Register as a student or lecturer. The first account becomes the admin — afterwards, accounts await admin approval.</p>
         </div>
-        <p className="text-xs opacity-70">© {new Date().getFullYear()} Kenpoly Polytechnic</p>
+        <p className="text-xs opacity-70">© {new Date().getFullYear()} KBSP Bori · Computer Science</p>
       </div>
       <div className="flex items-center justify-center p-6">
         <Card className="w-full max-w-lg shadow-elevated">
           <CardContent className="p-8">
             <h1 className="text-2xl font-semibold">Create your account</h1>
-            <Tabs value={role} onValueChange={(v) => setRole(v as any)} className="mt-5">
+            <p className="mt-1 text-sm text-muted-foreground">For Computer Science students and lecturers only.</p>
+            <Tabs value={role} onValueChange={(v) => setRole(v as "student" | "lecturer")} className="mt-5">
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="student">Student</TabsTrigger>
                 <TabsTrigger value="lecturer">Lecturer</TabsTrigger>
@@ -61,12 +62,15 @@ function RegisterForm({ role }: { role: "student" | "lecturer" }) {
   const [form, setForm] = useState({
     full_name: "", email: "", phone: "", password: "",
     matric_number: "", staff_id: "",
-    department_id: "", level: "" as "" | typeof LEVELS[number], rank_id: "",
+    level: "" as "" | typeof LEVELS[number], rank_id: "",
   });
   const upd = (k: string, v: string) => setForm((f) => ({ ...f, [k]: v }));
 
-  const { data: depts } = useQuery({ queryKey: ["depts"], queryFn: async () => (await supabase.from("departments").select("id,name,code").order("name")).data ?? [] });
-  const { data: ranks } = useQuery({ queryKey: ["ranks"], queryFn: async () => (await supabase.from("lecturer_ranks").select("id,name").order("sort_order")).data ?? [], enabled: role === "lecturer" });
+  const { data: ranks } = useQuery({
+    queryKey: ["ranks"],
+    queryFn: async () => (await supabase.from("lecturer_ranks").select("id,name").order("sort_order")).data ?? [],
+    enabled: role === "lecturer",
+  });
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -75,7 +79,6 @@ function RegisterForm({ role }: { role: "student" | "lecturer" }) {
       role,
       full_name: form.full_name,
       phone: form.phone,
-      department_id: form.department_id,
     };
     if (role === "student") {
       meta.matric_number = form.matric_number;
@@ -95,7 +98,7 @@ function RegisterForm({ role }: { role: "student" | "lecturer" }) {
     });
     setLoading(false);
     if (error) { toast.error(error.message); return; }
-    toast.success("Account created! It must be approved by an admin before you can sign in.");
+    toast.success("Account created! An admin will review and approve your account.");
     navigate({ to: "/auth" });
   };
 
@@ -107,7 +110,7 @@ function RegisterForm({ role }: { role: "student" | "lecturer" }) {
         <div><Label>Phone</Label><Input value={form.phone} onChange={(e) => upd("phone", e.target.value)} /></div>
         {role === "student" ? (
           <>
-            <div><Label>Matric Number</Label><Input required value={form.matric_number} onChange={(e) => upd("matric_number", e.target.value)} /></div>
+            <div><Label>Matric Number</Label><Input required value={form.matric_number} onChange={(e) => upd("matric_number", e.target.value)} placeholder="e.g. CS/ND/22/0123" /></div>
             <div>
               <Label>Level</Label>
               <Select value={form.level} onValueChange={(v) => upd("level", v)}>
@@ -128,13 +131,6 @@ function RegisterForm({ role }: { role: "student" | "lecturer" }) {
             </div>
           </>
         )}
-        <div className="col-span-2">
-          <Label>Department</Label>
-          <Select value={form.department_id} onValueChange={(v) => upd("department_id", v)}>
-            <SelectTrigger><SelectValue placeholder="Select department" /></SelectTrigger>
-            <SelectContent>{depts?.map((d) => <SelectItem key={d.id} value={d.id}>{d.name} ({d.code})</SelectItem>)}</SelectContent>
-          </Select>
-        </div>
         <div className="col-span-2"><Label>Password</Label><Input type="password" required minLength={6} value={form.password} onChange={(e) => upd("password", e.target.value)} /></div>
       </div>
       <Button type="submit" className="w-full gradient-brand" disabled={loading}>{loading ? "Creating…" : "Create account"}</Button>
