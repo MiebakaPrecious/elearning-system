@@ -179,7 +179,6 @@ export type Database = {
         Row: {
           code: string
           created_at: string
-          department_id: string | null
           description: string | null
           id: string
           lecturer_id: string | null
@@ -193,7 +192,6 @@ export type Database = {
         Insert: {
           code: string
           created_at?: string
-          department_id?: string | null
           description?: string | null
           id?: string
           lecturer_id?: string | null
@@ -207,7 +205,6 @@ export type Database = {
         Update: {
           code?: string
           created_at?: string
-          department_id?: string | null
           description?: string | null
           id?: string
           lecturer_id?: string | null
@@ -220,13 +217,6 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "courses_department_id_fkey"
-            columns: ["department_id"]
-            isOneToOne: false
-            referencedRelation: "departments"
-            referencedColumns: ["id"]
-          },
-          {
             foreignKeyName: "courses_semester_id_fkey"
             columns: ["semester_id"]
             isOneToOne: false
@@ -234,33 +224,6 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
-      }
-      departments: {
-        Row: {
-          code: string
-          created_at: string
-          description: string | null
-          id: string
-          name: string
-          updated_at: string
-        }
-        Insert: {
-          code: string
-          created_at?: string
-          description?: string | null
-          id?: string
-          name: string
-          updated_at?: string
-        }
-        Update: {
-          code?: string
-          created_at?: string
-          description?: string | null
-          id?: string
-          name?: string
-          updated_at?: string
-        }
-        Relationships: []
       }
       enrollments: {
         Row: {
@@ -357,7 +320,6 @@ export type Database = {
         Row: {
           approval_status: Database["public"]["Enums"]["approval_status"]
           created_at: string
-          department_id: string | null
           email: string
           full_name: string
           id: string
@@ -372,7 +334,6 @@ export type Database = {
         Insert: {
           approval_status?: Database["public"]["Enums"]["approval_status"]
           created_at?: string
-          department_id?: string | null
           email: string
           full_name: string
           id: string
@@ -387,7 +348,6 @@ export type Database = {
         Update: {
           approval_status?: Database["public"]["Enums"]["approval_status"]
           created_at?: string
-          department_id?: string | null
           email?: string
           full_name?: string
           id?: string
@@ -400,13 +360,6 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
-          {
-            foreignKeyName: "profiles_department_id_fkey"
-            columns: ["department_id"]
-            isOneToOne: false
-            referencedRelation: "departments"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "profiles_rank_id_fkey"
             columns: ["rank_id"]
