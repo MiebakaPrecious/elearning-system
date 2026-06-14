@@ -63,8 +63,23 @@ const nav: Record<AppRole, Group[]> = {
 export function DashboardShell({ children, title }: { children: ReactNode; title?: string }) {
   const { role, profile, signOut } = useAuth();
   const [open, setOpen] = useState(false);
+  const [dark, setDark] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const groups = role ? nav[role] : [];
+
+  useEffect(() => {
+    const stored = localStorage.getItem("theme");
+    const isDark = stored === "dark" || (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    setDark(isDark);
+    document.documentElement.classList.toggle("dark", isDark);
+  }, []);
+  const toggleTheme = () => {
+    const next = !dark;
+    setDark(next);
+    document.documentElement.classList.toggle("dark", next);
+    localStorage.setItem("theme", next ? "dark" : "light");
+  };
+
 
   return (
     <div className="flex min-h-screen w-full bg-muted/30">
@@ -118,6 +133,7 @@ export function DashboardShell({ children, title }: { children: ReactNode; title
             <Input placeholder="Search courses, students, materials…" className="pl-9" />
           </div>
           <div className="ml-auto flex items-center gap-2">
+            <Button variant="ghost" size="icon" onClick={toggleTheme} title="Toggle theme">{dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}</Button>
             <Button variant="ghost" size="icon"><Bell className="h-5 w-5" /></Button>
             <div className="hidden items-center gap-2 rounded-full border border-border bg-card px-2 py-1 sm:flex">
               <span className="grid h-7 w-7 place-items-center rounded-full gradient-brand text-xs font-semibold text-primary-foreground">
