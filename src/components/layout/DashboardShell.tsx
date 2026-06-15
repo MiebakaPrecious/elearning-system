@@ -1,9 +1,10 @@
-import { Link, useRouterState } from "@tanstack/react-router";
-import { Bell, ChevronDown, GraduationCap, LogOut, Menu, Search } from "lucide-react";
+import { Link, useRouterState, Navigate } from "@tanstack/react-router";
+import { Bell, ChevronDown, LogOut, Menu, Search } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { useAuth, type AppRole } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Logo } from "@/components/Logo";
 import {
   LayoutDashboard, BookOpen, CheckSquare, Calendar,
   Megaphone, BarChart3, FileText, ClipboardList, Award, Video,
@@ -61,7 +62,7 @@ const nav: Record<AppRole, Group[]> = {
 };
 
 export function DashboardShell({ children, title }: { children: ReactNode; title?: string }) {
-  const { role, profile, signOut } = useAuth();
+  const { role, profile, signOut, loading } = useAuth();
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
@@ -80,6 +81,15 @@ export function DashboardShell({ children, title }: { children: ReactNode; title
     localStorage.setItem("theme", next ? "dark" : "light");
   };
 
+  // Role-based route protection: redirect if URL prefix doesn't match user's role
+  if (!loading && role) {
+    const expectedPrefix = pathname.startsWith("/admin") ? "admin"
+      : pathname.startsWith("/lecturer") ? "lecturer"
+      : pathname.startsWith("/student") ? "student" : null;
+    if (expectedPrefix && expectedPrefix !== role) {
+      return <Navigate to="/dashboard" />;
+    }
+  }
 
   return (
     <div className="flex min-h-screen w-full bg-muted/30">
@@ -88,11 +98,9 @@ export function DashboardShell({ children, title }: { children: ReactNode; title
         className={`fixed inset-y-0 left-0 z-40 w-64 -translate-x-full bg-sidebar text-sidebar-foreground transition-transform md:static md:translate-x-0 ${open ? "translate-x-0" : ""}`}
       >
         <div className="flex h-16 items-center gap-2 border-b border-sidebar-border px-5">
-          <span className="grid h-9 w-9 place-items-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-            <GraduationCap className="h-5 w-5" />
-          </span>
+          <Logo className="h-10 w-10" />
           <div className="leading-tight">
-            <p className="text-sm font-semibold">Kenpoly LMS</p>
+            <p className="text-sm font-semibold">Kenpoly CS Hub</p>
             <p className="text-xs opacity-70 capitalize">{role} portal</p>
           </div>
         </div>

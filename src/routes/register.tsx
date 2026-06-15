@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { GraduationCap } from "lucide-react";
+import { Logo } from "@/components/Logo";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -24,7 +24,7 @@ function RegisterPage() {
     <div className="grid min-h-screen md:grid-cols-2">
       <div className="hidden gradient-hero p-12 text-primary-foreground md:flex md:flex-col md:justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <span className="grid h-9 w-9 place-items-center rounded-lg bg-white/15 backdrop-blur"><GraduationCap className="h-5 w-5" /></span>
+          <span className="grid h-11 w-11 place-items-center rounded-lg bg-white/15 backdrop-blur p-1"><Logo className="h-9 w-9" /></span>
           <span className="font-semibold">KBSP CS Hub</span>
         </Link>
         <div>

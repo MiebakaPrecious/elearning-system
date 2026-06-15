@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { GraduationCap, Menu, X, Moon, Sun } from "lucide-react";
+import { Menu, X, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 
 const nav = [
@@ -33,9 +34,7 @@ export function PublicHeader() {
     <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-2">
-          <span className="grid h-9 w-9 place-items-center rounded-lg gradient-brand text-primary-foreground">
-            <GraduationCap className="h-5 w-5" />
-          </span>
+          <Logo className="h-10 w-10" />
           <div className="leading-tight">
             <p className="text-sm font-semibold tracking-tight">KBSP <span className="text-primary">CS Hub</span></p>
             <p className="text-[10px] text-muted-foreground">Computer Science · Bori</p>
