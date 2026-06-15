@@ -184,6 +184,7 @@ export type Database = {
           lecturer_id: string | null
           level: Database["public"]["Enums"]["level_type"]
           semester_id: string | null
+          semester_no: number | null
           status: Database["public"]["Enums"]["course_status"]
           thumbnail_url: string | null
           title: string
@@ -197,6 +198,7 @@ export type Database = {
           lecturer_id?: string | null
           level: Database["public"]["Enums"]["level_type"]
           semester_id?: string | null
+          semester_no?: number | null
           status?: Database["public"]["Enums"]["course_status"]
           thumbnail_url?: string | null
           title: string
@@ -210,6 +212,7 @@ export type Database = {
           lecturer_id?: string | null
           level?: Database["public"]["Enums"]["level_type"]
           semester_id?: string | null
+          semester_no?: number | null
           status?: Database["public"]["Enums"]["course_status"]
           thumbnail_url?: string | null
           title?: string
