@@ -17,12 +17,14 @@ function AdminDashboard() {
   const { data } = useQuery({
     queryKey: ["admin-stats"],
     queryFn: async () => {
-      const [students, lecturers, courses, pending, enrollments] = await Promise.all([
+      const [students, lecturers, courses, pending, enrollments, events, anns] = await Promise.all([
         supabase.from("user_roles").select("*", { count: "exact", head: true }).eq("role", "student"),
         supabase.from("user_roles").select("*", { count: "exact", head: true }).eq("role", "lecturer"),
         supabase.from("courses").select("*", { count: "exact", head: true }),
         supabase.from("profiles").select("*", { count: "exact", head: true }).eq("approval_status", "pending"),
         supabase.from("enrollments").select("*", { count: "exact", head: true }),
+        supabase.from("events").select("id,title,starts_at,location").gte("starts_at", new Date().toISOString()).order("starts_at").limit(5),
+        supabase.from("announcements").select("id,title,body,created_at").order("created_at", { ascending: false }).limit(5),
       ]);
       const { data: byLevel } = await supabase.from("courses").select("level");
       const levelMap = new Map<string, number>();
@@ -43,6 +45,8 @@ function AdminDashboard() {
         enrollments: enrollments.count ?? 0,
         courseByLevel,
         courseByStatus,
+        events: events.data ?? [],
+        announcements: anns.data ?? [],
       };
     },
   });
@@ -87,6 +91,41 @@ function AdminDashboard() {
                 <Tooltip />
               </PieChart>
             </ResponsiveContainer>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="mt-6 grid gap-4 lg:grid-cols-2">
+        <Card className="shadow-card">
+          <CardContent className="p-5">
+            <p className="mb-3 font-semibold">Upcoming events</p>
+            {data?.events.length ? (
+              <ul className="space-y-3">
+                {data.events.map((e) => (
+                  <li key={e.id} className="flex items-start gap-3 border-l-2 border-primary pl-3">
+                    <div>
+                      <p className="font-medium text-sm">{e.title}</p>
+                      <p className="text-xs text-muted-foreground">{new Date(e.starts_at).toLocaleString()} · {e.location ?? "TBA"}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : <p className="text-sm text-muted-foreground">No upcoming events.</p>}
+          </CardContent>
+        </Card>
+        <Card className="shadow-card">
+          <CardContent className="p-5">
+            <p className="mb-3 font-semibold">Recent announcements</p>
+            {data?.announcements.length ? (
+              <ul className="space-y-3">
+                {data.announcements.map((a) => (
+                  <li key={a.id}>
+                    <p className="font-medium text-sm">{a.title}</p>
+                    <p className="text-xs text-muted-foreground line-clamp-2">{a.body}</p>
+                  </li>
+                ))}
+              </ul>
+            ) : <p className="text-sm text-muted-foreground">No announcements yet.</p>}
           </CardContent>
         </Card>
       </div>
