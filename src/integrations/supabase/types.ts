@@ -35,6 +35,63 @@ export type Database = {
         }
         Relationships: []
       }
+      achievements: {
+        Row: {
+          description: string | null
+          earned_at: string
+          id: string
+          student_id: string
+          title: string
+          type: string
+        }
+        Insert: {
+          description?: string | null
+          earned_at?: string
+          id?: string
+          student_id: string
+          title: string
+          type: string
+        }
+        Update: {
+          description?: string | null
+          earned_at?: string
+          id?: string
+          student_id?: string
+          title?: string
+          type?: string
+        }
+        Relationships: []
+      }
+      activity_logs: {
+        Row: {
+          action: string
+          actor_id: string | null
+          created_at: string
+          entity_id: string | null
+          entity_type: string | null
+          id: string
+          metadata: Json | null
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          created_at?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          metadata?: Json | null
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          created_at?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          metadata?: Json | null
+        }
+        Relationships: []
+      }
       announcements: {
         Row: {
           author_id: string | null
@@ -175,6 +232,41 @@ export type Database = {
           },
         ]
       }
+      certificates: {
+        Row: {
+          certificate_no: string
+          course_id: string
+          id: string
+          issued_at: string
+          issued_by: string | null
+          student_id: string
+        }
+        Insert: {
+          certificate_no: string
+          course_id: string
+          id?: string
+          issued_at?: string
+          issued_by?: string | null
+          student_id: string
+        }
+        Update: {
+          certificate_no?: string
+          course_id?: string
+          id?: string
+          issued_at?: string
+          issued_by?: string | null
+          student_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "certificates_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       courses: {
         Row: {
           code: string
@@ -228,6 +320,73 @@ export type Database = {
           },
         ]
       }
+      discussion_replies: {
+        Row: {
+          author_id: string
+          body: string
+          created_at: string
+          discussion_id: string
+          id: string
+        }
+        Insert: {
+          author_id: string
+          body: string
+          created_at?: string
+          discussion_id: string
+          id?: string
+        }
+        Update: {
+          author_id?: string
+          body?: string
+          created_at?: string
+          discussion_id?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "discussion_replies_discussion_id_fkey"
+            columns: ["discussion_id"]
+            isOneToOne: false
+            referencedRelation: "discussions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      discussions: {
+        Row: {
+          author_id: string
+          body: string | null
+          course_id: string
+          created_at: string
+          id: string
+          title: string
+        }
+        Insert: {
+          author_id: string
+          body?: string | null
+          course_id: string
+          created_at?: string
+          id?: string
+          title: string
+        }
+        Update: {
+          author_id?: string
+          body?: string | null
+          course_id?: string
+          created_at?: string
+          id?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "discussions_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       enrollments: {
         Row: {
           course_id: string
@@ -256,6 +415,45 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      events: {
+        Row: {
+          audience: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          ends_at: string | null
+          id: string
+          location: string | null
+          starts_at: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          audience?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          ends_at?: string | null
+          id?: string
+          location?: string | null
+          starts_at: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          audience?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          ends_at?: string | null
+          id?: string
+          location?: string | null
+          starts_at?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       lecturer_ranks: {
         Row: {
@@ -318,6 +516,33 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      messages: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          read_at: string | null
+          recipient_id: string
+          sender_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          read_at?: string | null
+          recipient_id: string
+          sender_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          read_at?: string | null
+          recipient_id?: string
+          sender_id?: string
+        }
+        Relationships: []
       }
       profiles: {
         Row: {
@@ -582,6 +807,50 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      videos: {
+        Row: {
+          course_id: string
+          created_at: string
+          description: string | null
+          duration_sec: number | null
+          id: string
+          title: string
+          updated_at: string
+          uploaded_by: string | null
+          url: string
+        }
+        Insert: {
+          course_id: string
+          created_at?: string
+          description?: string | null
+          duration_sec?: number | null
+          id?: string
+          title: string
+          updated_at?: string
+          uploaded_by?: string | null
+          url: string
+        }
+        Update: {
+          course_id?: string
+          created_at?: string
+          description?: string | null
+          duration_sec?: number | null
+          id?: string
+          title?: string
+          updated_at?: string
+          uploaded_by?: string | null
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "videos_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
