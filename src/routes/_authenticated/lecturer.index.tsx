@@ -18,14 +18,22 @@ function LecturerDashboard() {
     queryKey: ["lecturer-stats", user?.id],
     enabled: !!user,
     queryFn: async () => {
-      const { data: courses } = await supabase.from("courses").select("id,title,code,status").eq("lecturer_id", user!.id);
+      const { data: courses } = await supabase.from("courses").select("id,title,code,status,level").eq("lecturer_id", user!.id);
       const ids = (courses ?? []).map((c) => c.id);
-      const [{ count: students }, { count: assignments }, { count: quizzes }] = await Promise.all([
-        supabase.from("enrollments").select("*", { count: "exact", head: true }).in("course_id", ids.length ? ids : ["00000000-0000-0000-0000-000000000000"]),
-        supabase.from("assignments").select("*", { count: "exact", head: true }).in("course_id", ids.length ? ids : ["00000000-0000-0000-0000-000000000000"]),
-        supabase.from("quizzes").select("*", { count: "exact", head: true }).in("course_id", ids.length ? ids : ["00000000-0000-0000-0000-000000000000"]),
+      const safeIds = ids.length ? ids : ["00000000-0000-0000-0000-000000000000"];
+      const [students, assignments, quizzes, events] = await Promise.all([
+        supabase.from("enrollments").select("*", { count: "exact", head: true }).in("course_id", safeIds),
+        supabase.from("assignments").select("*", { count: "exact", head: true }).in("course_id", safeIds),
+        supabase.from("quizzes").select("*", { count: "exact", head: true }).in("course_id", safeIds),
+        supabase.from("events").select("id,title,starts_at,location").gte("starts_at", new Date().toISOString()).in("audience", ["all","lecturers"]).order("starts_at").limit(5),
       ]);
-      return { courses: courses ?? [], students: students ?? 0, assignments: assignments ?? 0, quizzes: quizzes ?? 0 };
+      return {
+        courses: courses ?? [],
+        students: students.count ?? 0,
+        assignments: assignments.count ?? 0,
+        quizzes: quizzes.count ?? 0,
+        events: events.data ?? [],
+      };
     },
   });
 
@@ -37,21 +45,41 @@ function LecturerDashboard() {
         <StatCard label="Assignments" value={data?.assignments ?? "—"} icon={ClipboardList} tone="accent" />
         <StatCard label="Quizzes" value={data?.quizzes ?? "—"} icon={ListChecks} tone="warning" />
       </div>
-      <Card className="mt-6 shadow-card">
-        <CardContent className="p-5">
-          <p className="mb-3 font-semibold">My courses</p>
-          {data?.courses.length ? (
-            <div className="space-y-2">
-              {data.courses.map((c) => (
-                <div key={c.id} className="flex items-center justify-between rounded-lg border border-border p-3">
-                  <div><p className="font-medium">{c.code} — {c.title}</p></div>
-                  <Badge variant="outline" className="capitalize">{c.status.replace("_", " ")}</Badge>
-                </div>
-              ))}
-            </div>
-          ) : <p className="text-sm text-muted-foreground">No courses assigned yet. The admin will assign you courses to develop.</p>}
-        </CardContent>
-      </Card>
+      <div className="mt-6 grid gap-4 lg:grid-cols-2">
+        <Card className="shadow-card">
+          <CardContent className="p-5">
+            <p className="mb-3 font-semibold">My courses</p>
+            {data?.courses.length ? (
+              <div className="space-y-2">
+                {data.courses.map((c) => (
+                  <div key={c.id} className="flex items-center justify-between rounded-lg border border-border p-3">
+                    <div>
+                      <p className="font-medium">{c.code} — {c.title}</p>
+                      <p className="text-xs text-muted-foreground">{c.level}</p>
+                    </div>
+                    <Badge variant="outline" className="capitalize">{c.status.replace("_", " ")}</Badge>
+                  </div>
+                ))}
+              </div>
+            ) : <p className="text-sm text-muted-foreground">No courses assigned yet. The admin will assign you courses to develop.</p>}
+          </CardContent>
+        </Card>
+        <Card className="shadow-card">
+          <CardContent className="p-5">
+            <p className="mb-3 font-semibold">Upcoming events</p>
+            {data?.events.length ? (
+              <ul className="space-y-3">
+                {data.events.map((e) => (
+                  <li key={e.id} className="border-l-2 border-primary pl-3">
+                    <p className="text-sm font-medium">{e.title}</p>
+                    <p className="text-xs text-muted-foreground">{new Date(e.starts_at).toLocaleString()} · {e.location ?? "TBA"}</p>
+                  </li>
+                ))}
+              </ul>
+            ) : <p className="text-sm text-muted-foreground">No upcoming events.</p>}
+          </CardContent>
+        </Card>
+      </div>
     </DashboardShell>
   );
 }
