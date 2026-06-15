@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { GraduationCap, MapPin, Mail, Phone } from "lucide-react";
+import { MapPin, Mail, Phone } from "lucide-react";
+import { Logo } from "@/components/Logo";
 
 export function PublicFooter() {
   return (
@@ -7,9 +8,7 @@ export function PublicFooter() {
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 md:grid-cols-4">
         <div className="md:col-span-2">
           <div className="flex items-center gap-2">
-            <span className="grid h-9 w-9 place-items-center rounded-lg gradient-brand text-primary-foreground">
-              <GraduationCap className="h-5 w-5" />
-            </span>
+            <Logo className="h-10 w-10" />
             <span className="font-semibold">KBSP Computer Science Hub</span>
           </div>
           <p className="mt-3 max-w-md text-sm text-muted-foreground">
