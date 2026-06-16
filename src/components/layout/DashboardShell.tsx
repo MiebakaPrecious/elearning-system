@@ -25,6 +25,7 @@ const nav: Record<AppRole, Group[]> = {
     ]},
     { label: "People", items: [
       { to: "/admin/users", label: "User Approvals", icon: CheckSquare },
+      { to: "/admin/seed", label: "Seed Demo Logins", icon: Award },
     ]},
     { label: "Engagement", items: [
       { to: "/admin/announcements", label: "Announcements", icon: Megaphone },
