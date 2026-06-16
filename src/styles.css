@@ -156,3 +156,30 @@
 @utility gradient-emerald { background-image: var(--gradient-emerald); }
 @utility shadow-card { box-shadow: var(--shadow-card); }
 @utility shadow-elevated { box-shadow: var(--shadow-elevated); }
+
+/* Polish utilities */
+@utility hover-lift {
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-elevated);
+  }
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+/* Smooth theme transitions on root surfaces */
+html { color-scheme: light dark; }
+html, body, .bg-background, .bg-card, .bg-muted, .bg-sidebar, .border-border {
+  transition: background-color .25s ease, border-color .25s ease, color .25s ease;
+}
+
+/* Fade-up on scroll-into-view (paired with .reveal in JS not required — pure CSS via animation-timeline fallback to enter animation) */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@utility fade-up { animation: fade-up .6s ease-out both; }
+

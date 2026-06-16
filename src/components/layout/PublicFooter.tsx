@@ -1,44 +1,85 @@
 import { Link } from "@tanstack/react-router";
-import { MapPin, Mail, Phone } from "lucide-react";
+import { MapPin, Mail, Phone, Github, Twitter, Linkedin, Facebook, Send } from "lucide-react";
 import { Logo } from "@/components/Logo";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export function PublicFooter() {
   return (
     <footer className="border-t border-border bg-card">
-      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 md:grid-cols-4">
-        <div className="md:col-span-2">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-12">
+        {/* Brand */}
+        <div className="md:col-span-4">
           <div className="flex items-center gap-2">
             <Logo className="h-10 w-10" />
-            <span className="font-semibold">KBSP Computer Science Hub</span>
+            <div className="leading-tight">
+              <p className="font-semibold tracking-tight">KBSP <span className="text-primary">CS Hub</span></p>
+              <p className="text-xs text-muted-foreground">Computer Science · Bori</p>
+            </div>
           </div>
-          <p className="mt-3 max-w-md text-sm text-muted-foreground">
+          <p className="mt-4 max-w-sm text-sm text-muted-foreground">
             The official learning platform of the Department of Computer Science,
-            Kenule Beeson Saro-Wiwa Polytechnic, Bori — built for ND and HND students.
+            Kenule Beeson Saro-Wiwa Polytechnic — built for ND and HND students.
           </p>
-          <div className="mt-4 space-y-2 text-sm text-muted-foreground">
-            <p className="flex items-center gap-2"><MapPin className="h-4 w-4 text-primary" /> KBSP Campus, Bori, Rivers State, Nigeria</p>
+          <div className="mt-5 flex gap-2">
+            {[Github, Twitter, Linkedin, Facebook].map((Icon, i) => (
+              <a
+                key={i}
+                href="#"
+                aria-label="Social link"
+                className="grid h-9 w-9 place-items-center rounded-md border border-border text-muted-foreground transition hover:border-primary hover:text-primary"
+              >
+                <Icon className="h-4 w-4" />
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* Platform */}
+        <div className="md:col-span-2">
+          <p className="mb-3 text-sm font-semibold">Platform</p>
+          <ul className="space-y-2 text-sm text-muted-foreground">
+            <li><Link to="/courses" className="hover:text-foreground">Courses</Link></li>
+            <li><Link to="/roadmap" className="hover:text-foreground">Roadmap</Link></li>
+            <li><Link to="/about" className="hover:text-foreground">About</Link></li>
+            <li><Link to="/contact" className="hover:text-foreground">Contact</Link></li>
+          </ul>
+        </div>
+
+        {/* Account */}
+        <div className="md:col-span-2">
+          <p className="mb-3 text-sm font-semibold">Account</p>
+          <ul className="space-y-2 text-sm text-muted-foreground">
+            <li><Link to="/register" className="hover:text-foreground">Register</Link></li>
+            <li><Link to="/auth" className="hover:text-foreground">Sign in</Link></li>
+            <li><Link to="/dashboard" className="hover:text-foreground">Dashboard</Link></li>
+          </ul>
+        </div>
+
+        {/* Contact + Newsletter */}
+        <div className="md:col-span-4">
+          <p className="mb-3 text-sm font-semibold">Stay in the loop</p>
+          <p className="text-sm text-muted-foreground">Get departmental updates, exam schedules, and new courses.</p>
+          <form className="mt-3 flex gap-2" onSubmit={(e) => e.preventDefault()}>
+            <Input type="email" placeholder="your@email.com" aria-label="Email address" />
+            <Button type="submit" className="gradient-brand" aria-label="Subscribe"><Send className="h-4 w-4" /></Button>
+          </form>
+          <div className="mt-5 space-y-2 text-sm text-muted-foreground">
+            <p className="flex items-center gap-2"><MapPin className="h-4 w-4 text-primary" /> KBSP Campus, Bori, Rivers State</p>
             <p className="flex items-center gap-2"><Mail className="h-4 w-4 text-primary" /> cs@kenpoly.edu.ng</p>
             <p className="flex items-center gap-2"><Phone className="h-4 w-4 text-primary" /> +234 800 000 0000</p>
           </div>
         </div>
-        <div>
-          <p className="mb-3 text-sm font-semibold">Platform</p>
-          <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><Link to="/courses" className="hover:text-foreground">Courses</Link></li>
-            <li><Link to="/about" className="hover:text-foreground">About CS Dept</Link></li>
-            <li><Link to="/contact" className="hover:text-foreground">Contact</Link></li>
-          </ul>
-        </div>
-        <div>
-          <p className="mb-3 text-sm font-semibold">Get started</p>
-          <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><Link to="/register" className="hover:text-foreground">New student registration</Link></li>
-            <li><Link to="/auth" className="hover:text-foreground">Returning student login</Link></li>
-          </ul>
-        </div>
       </div>
-      <div className="border-t border-border py-4 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} Department of Computer Science · Kenule Beeson Saro-Wiwa Polytechnic, Bori.
+      <div className="border-t border-border">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-4 text-xs text-muted-foreground sm:flex-row">
+          <p>© {new Date().getFullYear()} Department of Computer Science · KBSP Bori. All rights reserved.</p>
+          <div className="flex gap-4">
+            <a href="#" className="hover:text-foreground">Privacy</a>
+            <a href="#" className="hover:text-foreground">Terms</a>
+            <a href="#" className="hover:text-foreground">Accessibility</a>
+          </div>
+        </div>
       </div>
     </footer>
   );

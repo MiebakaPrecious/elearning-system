@@ -38,6 +38,7 @@ import { Route as AuthenticatedLecturerAssignmentsRouteImport } from './routes/_
 import { Route as AuthenticatedLecturerAnnouncementsRouteImport } from './routes/_authenticated/lecturer.announcements'
 import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin.users'
 import { Route as AuthenticatedAdminSessionsRouteImport } from './routes/_authenticated/admin.sessions'
+import { Route as AuthenticatedAdminSeedRouteImport } from './routes/_authenticated/admin.seed'
 import { Route as AuthenticatedAdminRanksRouteImport } from './routes/_authenticated/admin.ranks'
 import { Route as AuthenticatedAdminCoursesRouteImport } from './routes/_authenticated/admin.courses'
 import { Route as AuthenticatedAdminAnnouncementsRouteImport } from './routes/_authenticated/admin.announcements'
@@ -204,6 +205,11 @@ const AuthenticatedAdminSessionsRoute =
     path: '/admin/sessions',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAdminSeedRoute = AuthenticatedAdminSeedRouteImport.update({
+  id: '/admin/seed',
+  path: '/admin/seed',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAdminRanksRoute = AuthenticatedAdminRanksRouteImport.update({
   id: '/admin/ranks',
   path: '/admin/ranks',
@@ -242,6 +248,7 @@ export interface FileRoutesByFullPath {
   '/admin/announcements': typeof AuthenticatedAdminAnnouncementsRoute
   '/admin/courses': typeof AuthenticatedAdminCoursesRoute
   '/admin/ranks': typeof AuthenticatedAdminRanksRoute
+  '/admin/seed': typeof AuthenticatedAdminSeedRoute
   '/admin/sessions': typeof AuthenticatedAdminSessionsRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/lecturer/announcements': typeof AuthenticatedLecturerAnnouncementsRoute
@@ -276,6 +283,7 @@ export interface FileRoutesByTo {
   '/admin/announcements': typeof AuthenticatedAdminAnnouncementsRoute
   '/admin/courses': typeof AuthenticatedAdminCoursesRoute
   '/admin/ranks': typeof AuthenticatedAdminRanksRoute
+  '/admin/seed': typeof AuthenticatedAdminSeedRoute
   '/admin/sessions': typeof AuthenticatedAdminSessionsRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/lecturer/announcements': typeof AuthenticatedLecturerAnnouncementsRoute
@@ -312,6 +320,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/announcements': typeof AuthenticatedAdminAnnouncementsRoute
   '/_authenticated/admin/courses': typeof AuthenticatedAdminCoursesRoute
   '/_authenticated/admin/ranks': typeof AuthenticatedAdminRanksRoute
+  '/_authenticated/admin/seed': typeof AuthenticatedAdminSeedRoute
   '/_authenticated/admin/sessions': typeof AuthenticatedAdminSessionsRoute
   '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
   '/_authenticated/lecturer/announcements': typeof AuthenticatedLecturerAnnouncementsRoute
@@ -348,6 +357,7 @@ export interface FileRouteTypes {
     | '/admin/announcements'
     | '/admin/courses'
     | '/admin/ranks'
+    | '/admin/seed'
     | '/admin/sessions'
     | '/admin/users'
     | '/lecturer/announcements'
@@ -382,6 +392,7 @@ export interface FileRouteTypes {
     | '/admin/announcements'
     | '/admin/courses'
     | '/admin/ranks'
+    | '/admin/seed'
     | '/admin/sessions'
     | '/admin/users'
     | '/lecturer/announcements'
@@ -417,6 +428,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/announcements'
     | '/_authenticated/admin/courses'
     | '/_authenticated/admin/ranks'
+    | '/_authenticated/admin/seed'
     | '/_authenticated/admin/sessions'
     | '/_authenticated/admin/users'
     | '/_authenticated/lecturer/announcements'
@@ -655,6 +667,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminSessionsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/seed': {
+      id: '/_authenticated/admin/seed'
+      path: '/admin/seed'
+      fullPath: '/admin/seed'
+      preLoaderRoute: typeof AuthenticatedAdminSeedRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/ranks': {
       id: '/_authenticated/admin/ranks'
       path: '/admin/ranks'
@@ -692,6 +711,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminAnnouncementsRoute: typeof AuthenticatedAdminAnnouncementsRoute
   AuthenticatedAdminCoursesRoute: typeof AuthenticatedAdminCoursesRoute
   AuthenticatedAdminRanksRoute: typeof AuthenticatedAdminRanksRoute
+  AuthenticatedAdminSeedRoute: typeof AuthenticatedAdminSeedRoute
   AuthenticatedAdminSessionsRoute: typeof AuthenticatedAdminSessionsRoute
   AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
   AuthenticatedLecturerAnnouncementsRoute: typeof AuthenticatedLecturerAnnouncementsRoute
@@ -719,6 +739,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminAnnouncementsRoute: AuthenticatedAdminAnnouncementsRoute,
   AuthenticatedAdminCoursesRoute: AuthenticatedAdminCoursesRoute,
   AuthenticatedAdminRanksRoute: AuthenticatedAdminRanksRoute,
+  AuthenticatedAdminSeedRoute: AuthenticatedAdminSeedRoute,
   AuthenticatedAdminSessionsRoute: AuthenticatedAdminSessionsRoute,
   AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
   AuthenticatedLecturerAnnouncementsRoute:
@@ -758,13 +779,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
