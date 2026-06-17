@@ -8,7 +8,7 @@ import { Logo } from "@/components/Logo";
 import {
   LayoutDashboard, BookOpen, CheckSquare, Calendar,
   Megaphone, BarChart3, FileText, ClipboardList, Award, Video,
-  MessageSquare, ListChecks, Layers, Moon, Sun
+  MessageSquare, ListChecks, Layers, Moon, Sun, Sparkles, CalendarClock
 } from "lucide-react";
 import { useEffect } from "react";
 
@@ -54,6 +54,10 @@ const nav: Record<AppRole, Group[]> = {
       { to: "/student/quizzes", label: "Quizzes", icon: ListChecks },
       { to: "/student/materials", label: "Materials", icon: FileText },
       { to: "/student/videos", label: "Videos", icon: Video },
+    ]},
+    { label: "AI & Planning", items: [
+      { to: "/student/assistant", label: "AI Assistant", icon: Sparkles },
+      { to: "/student/planner", label: "Study Planner", icon: CalendarClock },
     ]},
     { label: "Account", items: [
       { to: "/student/attendance", label: "Attendance", icon: CheckSquare },
@@ -101,7 +105,7 @@ export function DashboardShell({ children, title }: { children: ReactNode; title
         <div className="flex h-16 items-center gap-2 border-b border-sidebar-border px-5">
           <Logo className="h-10 w-10" />
           <div className="leading-tight">
-            <p className="text-sm font-semibold">Kenpoly CS Hub</p>
+            <p className="text-sm font-semibold">eLearning System</p>
             <p className="text-xs opacity-70 capitalize">{role} portal</p>
           </div>
         </div>

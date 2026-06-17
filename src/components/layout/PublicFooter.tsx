@@ -13,7 +13,7 @@ export function PublicFooter() {
           <div className="flex items-center gap-2">
             <Logo className="h-10 w-10" />
             <div className="leading-tight">
-              <p className="font-semibold tracking-tight">KBSP <span className="text-primary">CS Hub</span></p>
+              <p className="font-semibold tracking-tight">KBSP <span className="text-primary">eLearning System</span></p>
               <p className="text-xs text-muted-foreground">Computer Science · Bori</p>
             </div>
           </div>

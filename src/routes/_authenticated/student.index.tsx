@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { BookOpen, ClipboardList, ListChecks, CheckSquare, Calendar, Megaphone } from "lucide-react";
+import { BookOpen, ClipboardList, ListChecks, CheckSquare, Calendar, Megaphone, Sparkles, CalendarClock } from "lucide-react";
 import { DashboardShell } from "@/components/layout/DashboardShell";
 import { StatCard } from "@/components/StatCard";
 import { Card, CardContent } from "@/components/ui/card";
@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
+import { RecommendationsCard } from "@/components/RecommendationsCard";
 
 export const Route = createFileRoute("/_authenticated/student/")({
   component: StudentDashboard,
@@ -44,12 +45,35 @@ function StudentDashboard() {
 
   return (
     <DashboardShell title={`Welcome${profile?.full_name ? `, ${profile.full_name.split(" ")[0]}` : ""}`}>
+      <div className="mb-5 grid gap-3 sm:grid-cols-2">
+        <Link to="/student/assistant" className="group flex items-center justify-between rounded-2xl border border-border bg-gradient-to-br from-primary/10 via-card to-card p-4 transition hover-lift">
+          <div className="flex items-center gap-3">
+            <span className="grid h-10 w-10 place-items-center rounded-xl gradient-brand text-primary-foreground"><Sparkles className="h-5 w-5" /></span>
+            <div>
+              <p className="text-sm font-semibold">AI Learning Assistant</p>
+              <p className="text-xs text-muted-foreground">Course-aware tutor · quizzes · flashcards</p>
+            </div>
+          </div>
+          <Badge variant="secondary">New</Badge>
+        </Link>
+        <Link to="/student/planner" className="group flex items-center justify-between rounded-2xl border border-border bg-gradient-to-br from-accent/10 via-card to-card p-4 transition hover-lift">
+          <div className="flex items-center gap-3">
+            <span className="grid h-10 w-10 place-items-center rounded-xl bg-accent text-accent-foreground"><CalendarClock className="h-5 w-5" /></span>
+            <div>
+              <p className="text-sm font-semibold">Smart Study Planner</p>
+              <p className="text-xs text-muted-foreground">AI-generated weekly schedule</p>
+            </div>
+          </div>
+          <Badge variant="secondary">New</Badge>
+        </Link>
+      </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard label="Enrolled Courses" value={data?.enrolls.length ?? "—"} icon={BookOpen} tone="primary" />
         <StatCard label="Assignments" value={data?.assigns ?? "—"} icon={ClipboardList} tone="info" />
         <StatCard label="Pending" value={data?.pending ?? "—"} icon={ListChecks} tone="warning" />
         <StatCard label="Completion" value={`${data?.completion ?? 0}%`} icon={CheckSquare} tone="accent" />
       </div>
+      <div className="mt-6"><RecommendationsCard /></div>
       <Card className="mt-6 shadow-card">
         <CardContent className="p-5">
           <div className="mb-3 flex items-center justify-between">

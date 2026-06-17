@@ -7,7 +7,7 @@ import { Target, Eye, Heart } from "lucide-react";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About — KBSP CS Hub" },
+      { title: "About — eLearning System" },
       { name: "description", content: "About the Department of Computer Science at Kenule Beeson Saro-Wiwa Polytechnic, Bori." },
       { property: "og:title", content: "About the Computer Science Department, KBSP Bori" },
       { property: "og:description", content: "Modernizing CS education at Kenule Beeson Saro-Wiwa Polytechnic, Bori." },
@@ -51,7 +51,7 @@ function About() {
           </p>
           <h2>Why this platform</h2>
           <p className="text-muted-foreground">
-            The KBSP CS Hub centralizes everything a CS student or lecturer touches in a session — course materials, video lessons, assignments, computer-based tests, attendance and result analytics — into a single, secure, mobile-ready platform. Every account is admin-approved against the departmental record.
+            The eLearning System centralizes everything a CS student or lecturer touches in a session — course materials, video lessons, assignments, computer-based tests, attendance and result analytics — into a single, secure, mobile-ready platform. Every account is admin-approved against the departmental record.
           </p>
         </div>
       </section>

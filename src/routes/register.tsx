@@ -12,7 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/register")({
-  head: () => ({ meta: [{ title: "Register — KBSP CS Hub" }, { name: "description", content: "Register as a CS student or lecturer at KBSP Bori." }] }),
+  head: () => ({ meta: [{ title: "Register — eLearning System" }, { name: "description", content: "Register as a CS student or lecturer at KBSP Bori." }] }),
   component: RegisterPage,
 });
 
@@ -25,7 +25,7 @@ function RegisterPage() {
       <div className="hidden gradient-hero p-12 text-primary-foreground md:flex md:flex-col md:justify-between">
         <Link to="/" className="flex items-center gap-2">
           <span className="grid h-11 w-11 place-items-center rounded-lg bg-white/15 backdrop-blur p-1"><Logo className="h-9 w-9" /></span>
-          <span className="font-semibold">KBSP CS Hub</span>
+          <span className="font-semibold">eLearning System</span>
         </Link>
         <div>
           <h2 className="text-3xl font-bold leading-tight">Welcome to the Department of Computer Science.</h2>

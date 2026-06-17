@@ -22,13 +22,16 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedStudentIndexRouteImport } from './routes/_authenticated/student.index'
 import { Route as AuthenticatedLecturerIndexRouteImport } from './routes/_authenticated/lecturer.index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as ApiAiChatRouteImport } from './routes/api.ai.chat'
 import { Route as AuthenticatedStudentVideosRouteImport } from './routes/_authenticated/student.videos'
 import { Route as AuthenticatedStudentQuizzesRouteImport } from './routes/_authenticated/student.quizzes'
+import { Route as AuthenticatedStudentPlannerRouteImport } from './routes/_authenticated/student.planner'
 import { Route as AuthenticatedStudentMyCoursesRouteImport } from './routes/_authenticated/student.my-courses'
 import { Route as AuthenticatedStudentMessagesRouteImport } from './routes/_authenticated/student.messages'
 import { Route as AuthenticatedStudentMaterialsRouteImport } from './routes/_authenticated/student.materials'
 import { Route as AuthenticatedStudentCoursesRouteImport } from './routes/_authenticated/student.courses'
 import { Route as AuthenticatedStudentAttendanceRouteImport } from './routes/_authenticated/student.attendance'
+import { Route as AuthenticatedStudentAssistantRouteImport } from './routes/_authenticated/student.assistant'
 import { Route as AuthenticatedStudentAssignmentsRouteImport } from './routes/_authenticated/student.assignments'
 import { Route as AuthenticatedLecturerQuizzesRouteImport } from './routes/_authenticated/lecturer.quizzes'
 import { Route as AuthenticatedLecturerMaterialsRouteImport } from './routes/_authenticated/lecturer.materials'
@@ -110,6 +113,11 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const ApiAiChatRoute = ApiAiChatRouteImport.update({
+  id: '/api/ai/chat',
+  path: '/api/ai/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedStudentVideosRoute =
   AuthenticatedStudentVideosRouteImport.update({
     id: '/student/videos',
@@ -120,6 +128,12 @@ const AuthenticatedStudentQuizzesRoute =
   AuthenticatedStudentQuizzesRouteImport.update({
     id: '/student/quizzes',
     path: '/student/quizzes',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedStudentPlannerRoute =
+  AuthenticatedStudentPlannerRouteImport.update({
+    id: '/student/planner',
+    path: '/student/planner',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedStudentMyCoursesRoute =
@@ -150,6 +164,12 @@ const AuthenticatedStudentAttendanceRoute =
   AuthenticatedStudentAttendanceRouteImport.update({
     id: '/student/attendance',
     path: '/student/attendance',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedStudentAssistantRoute =
+  AuthenticatedStudentAssistantRouteImport.update({
+    id: '/student/assistant',
+    path: '/student/assistant',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedStudentAssignmentsRoute =
@@ -258,13 +278,16 @@ export interface FileRoutesByFullPath {
   '/lecturer/materials': typeof AuthenticatedLecturerMaterialsRoute
   '/lecturer/quizzes': typeof AuthenticatedLecturerQuizzesRoute
   '/student/assignments': typeof AuthenticatedStudentAssignmentsRoute
+  '/student/assistant': typeof AuthenticatedStudentAssistantRoute
   '/student/attendance': typeof AuthenticatedStudentAttendanceRoute
   '/student/courses': typeof AuthenticatedStudentCoursesRoute
   '/student/materials': typeof AuthenticatedStudentMaterialsRoute
   '/student/messages': typeof AuthenticatedStudentMessagesRoute
   '/student/my-courses': typeof AuthenticatedStudentMyCoursesRoute
+  '/student/planner': typeof AuthenticatedStudentPlannerRoute
   '/student/quizzes': typeof AuthenticatedStudentQuizzesRoute
   '/student/videos': typeof AuthenticatedStudentVideosRoute
+  '/api/ai/chat': typeof ApiAiChatRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/lecturer/': typeof AuthenticatedLecturerIndexRoute
   '/student/': typeof AuthenticatedStudentIndexRoute
@@ -293,13 +316,16 @@ export interface FileRoutesByTo {
   '/lecturer/materials': typeof AuthenticatedLecturerMaterialsRoute
   '/lecturer/quizzes': typeof AuthenticatedLecturerQuizzesRoute
   '/student/assignments': typeof AuthenticatedStudentAssignmentsRoute
+  '/student/assistant': typeof AuthenticatedStudentAssistantRoute
   '/student/attendance': typeof AuthenticatedStudentAttendanceRoute
   '/student/courses': typeof AuthenticatedStudentCoursesRoute
   '/student/materials': typeof AuthenticatedStudentMaterialsRoute
   '/student/messages': typeof AuthenticatedStudentMessagesRoute
   '/student/my-courses': typeof AuthenticatedStudentMyCoursesRoute
+  '/student/planner': typeof AuthenticatedStudentPlannerRoute
   '/student/quizzes': typeof AuthenticatedStudentQuizzesRoute
   '/student/videos': typeof AuthenticatedStudentVideosRoute
+  '/api/ai/chat': typeof ApiAiChatRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/lecturer': typeof AuthenticatedLecturerIndexRoute
   '/student': typeof AuthenticatedStudentIndexRoute
@@ -330,13 +356,16 @@ export interface FileRoutesById {
   '/_authenticated/lecturer/materials': typeof AuthenticatedLecturerMaterialsRoute
   '/_authenticated/lecturer/quizzes': typeof AuthenticatedLecturerQuizzesRoute
   '/_authenticated/student/assignments': typeof AuthenticatedStudentAssignmentsRoute
+  '/_authenticated/student/assistant': typeof AuthenticatedStudentAssistantRoute
   '/_authenticated/student/attendance': typeof AuthenticatedStudentAttendanceRoute
   '/_authenticated/student/courses': typeof AuthenticatedStudentCoursesRoute
   '/_authenticated/student/materials': typeof AuthenticatedStudentMaterialsRoute
   '/_authenticated/student/messages': typeof AuthenticatedStudentMessagesRoute
   '/_authenticated/student/my-courses': typeof AuthenticatedStudentMyCoursesRoute
+  '/_authenticated/student/planner': typeof AuthenticatedStudentPlannerRoute
   '/_authenticated/student/quizzes': typeof AuthenticatedStudentQuizzesRoute
   '/_authenticated/student/videos': typeof AuthenticatedStudentVideosRoute
+  '/api/ai/chat': typeof ApiAiChatRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/lecturer/': typeof AuthenticatedLecturerIndexRoute
   '/_authenticated/student/': typeof AuthenticatedStudentIndexRoute
@@ -367,13 +396,16 @@ export interface FileRouteTypes {
     | '/lecturer/materials'
     | '/lecturer/quizzes'
     | '/student/assignments'
+    | '/student/assistant'
     | '/student/attendance'
     | '/student/courses'
     | '/student/materials'
     | '/student/messages'
     | '/student/my-courses'
+    | '/student/planner'
     | '/student/quizzes'
     | '/student/videos'
+    | '/api/ai/chat'
     | '/admin/'
     | '/lecturer/'
     | '/student/'
@@ -402,13 +434,16 @@ export interface FileRouteTypes {
     | '/lecturer/materials'
     | '/lecturer/quizzes'
     | '/student/assignments'
+    | '/student/assistant'
     | '/student/attendance'
     | '/student/courses'
     | '/student/materials'
     | '/student/messages'
     | '/student/my-courses'
+    | '/student/planner'
     | '/student/quizzes'
     | '/student/videos'
+    | '/api/ai/chat'
     | '/admin'
     | '/lecturer'
     | '/student'
@@ -438,13 +473,16 @@ export interface FileRouteTypes {
     | '/_authenticated/lecturer/materials'
     | '/_authenticated/lecturer/quizzes'
     | '/_authenticated/student/assignments'
+    | '/_authenticated/student/assistant'
     | '/_authenticated/student/attendance'
     | '/_authenticated/student/courses'
     | '/_authenticated/student/materials'
     | '/_authenticated/student/messages'
     | '/_authenticated/student/my-courses'
+    | '/_authenticated/student/planner'
     | '/_authenticated/student/quizzes'
     | '/_authenticated/student/videos'
+    | '/api/ai/chat'
     | '/_authenticated/admin/'
     | '/_authenticated/lecturer/'
     | '/_authenticated/student/'
@@ -460,6 +498,7 @@ export interface RootRouteChildren {
   RegisterRoute: typeof RegisterRoute
   RoadmapRoute: typeof RoadmapRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  ApiAiChatRoute: typeof ApiAiChatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -555,6 +594,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/api/ai/chat': {
+      id: '/api/ai/chat'
+      path: '/api/ai/chat'
+      fullPath: '/api/ai/chat'
+      preLoaderRoute: typeof ApiAiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/student/videos': {
       id: '/_authenticated/student/videos'
       path: '/student/videos'
@@ -567,6 +613,13 @@ declare module '@tanstack/react-router' {
       path: '/student/quizzes'
       fullPath: '/student/quizzes'
       preLoaderRoute: typeof AuthenticatedStudentQuizzesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/student/planner': {
+      id: '/_authenticated/student/planner'
+      path: '/student/planner'
+      fullPath: '/student/planner'
+      preLoaderRoute: typeof AuthenticatedStudentPlannerRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/student/my-courses': {
@@ -602,6 +655,13 @@ declare module '@tanstack/react-router' {
       path: '/student/attendance'
       fullPath: '/student/attendance'
       preLoaderRoute: typeof AuthenticatedStudentAttendanceRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/student/assistant': {
+      id: '/_authenticated/student/assistant'
+      path: '/student/assistant'
+      fullPath: '/student/assistant'
+      preLoaderRoute: typeof AuthenticatedStudentAssistantRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/student/assignments': {
@@ -721,11 +781,13 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedLecturerMaterialsRoute: typeof AuthenticatedLecturerMaterialsRoute
   AuthenticatedLecturerQuizzesRoute: typeof AuthenticatedLecturerQuizzesRoute
   AuthenticatedStudentAssignmentsRoute: typeof AuthenticatedStudentAssignmentsRoute
+  AuthenticatedStudentAssistantRoute: typeof AuthenticatedStudentAssistantRoute
   AuthenticatedStudentAttendanceRoute: typeof AuthenticatedStudentAttendanceRoute
   AuthenticatedStudentCoursesRoute: typeof AuthenticatedStudentCoursesRoute
   AuthenticatedStudentMaterialsRoute: typeof AuthenticatedStudentMaterialsRoute
   AuthenticatedStudentMessagesRoute: typeof AuthenticatedStudentMessagesRoute
   AuthenticatedStudentMyCoursesRoute: typeof AuthenticatedStudentMyCoursesRoute
+  AuthenticatedStudentPlannerRoute: typeof AuthenticatedStudentPlannerRoute
   AuthenticatedStudentQuizzesRoute: typeof AuthenticatedStudentQuizzesRoute
   AuthenticatedStudentVideosRoute: typeof AuthenticatedStudentVideosRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
@@ -750,11 +812,13 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedLecturerMaterialsRoute: AuthenticatedLecturerMaterialsRoute,
   AuthenticatedLecturerQuizzesRoute: AuthenticatedLecturerQuizzesRoute,
   AuthenticatedStudentAssignmentsRoute: AuthenticatedStudentAssignmentsRoute,
+  AuthenticatedStudentAssistantRoute: AuthenticatedStudentAssistantRoute,
   AuthenticatedStudentAttendanceRoute: AuthenticatedStudentAttendanceRoute,
   AuthenticatedStudentCoursesRoute: AuthenticatedStudentCoursesRoute,
   AuthenticatedStudentMaterialsRoute: AuthenticatedStudentMaterialsRoute,
   AuthenticatedStudentMessagesRoute: AuthenticatedStudentMessagesRoute,
   AuthenticatedStudentMyCoursesRoute: AuthenticatedStudentMyCoursesRoute,
+  AuthenticatedStudentPlannerRoute: AuthenticatedStudentPlannerRoute,
   AuthenticatedStudentQuizzesRoute: AuthenticatedStudentQuizzesRoute,
   AuthenticatedStudentVideosRoute: AuthenticatedStudentVideosRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
@@ -775,6 +839,7 @@ const rootRouteChildren: RootRouteChildren = {
   RegisterRoute: RegisterRoute,
   RoadmapRoute: RoadmapRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  ApiAiChatRoute: ApiAiChatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
