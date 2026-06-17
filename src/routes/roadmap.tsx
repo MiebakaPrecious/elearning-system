@@ -10,7 +10,7 @@ import { BookOpen, GraduationCap, Sparkles } from "lucide-react";
 export const Route = createFileRoute("/roadmap")({
   head: () => ({
     meta: [
-      { title: "Course Roadmap — KBSP CS Hub" },
+      { title: "Course Roadmap — eLearning System" },
       { name: "description", content: "Full Computer Science curriculum roadmap from ND1 to HND2, organised by semester." },
       { property: "og:title", content: "CS Course Roadmap — KBSP Bori" },
       { property: "og:description", content: "Visual roadmap of every CS course across ND1 → HND2 at KBSP Bori." },

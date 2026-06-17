@@ -36,7 +36,7 @@ export function PublicHeader() {
         <Link to="/" className="flex items-center gap-2">
           <Logo className="h-10 w-10" />
           <div className="leading-tight">
-            <p className="text-sm font-semibold tracking-tight">KBSP <span className="text-primary">CS Hub</span></p>
+            <p className="text-sm font-semibold tracking-tight">KBSP <span className="text-primary">eLearning System</span></p>
             <p className="text-[10px] text-muted-foreground">Computer Science · Bori</p>
           </div>
         </Link>

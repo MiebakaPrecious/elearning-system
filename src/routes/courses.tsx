@@ -11,7 +11,7 @@ import { BookOpen } from "lucide-react";
 export const Route = createFileRoute("/courses")({
   head: () => ({
     meta: [
-      { title: "Courses — KBSP CS Hub" },
+      { title: "Courses — eLearning System" },
       { name: "description", content: "Browse all Computer Science courses across ND1, ND2, HND1 and HND2." },
       { property: "og:title", content: "Computer Science Courses — KBSP Bori" },
       { property: "og:description", content: "ND and HND Computer Science courses at KBSP Bori." },

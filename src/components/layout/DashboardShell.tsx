@@ -101,7 +101,7 @@ export function DashboardShell({ children, title }: { children: ReactNode; title
         <div className="flex h-16 items-center gap-2 border-b border-sidebar-border px-5">
           <Logo className="h-10 w-10" />
           <div className="leading-tight">
-            <p className="text-sm font-semibold">Kenpoly CS Hub</p>
+            <p className="text-sm font-semibold">eLearning System</p>
             <p className="text-xs opacity-70 capitalize">{role} portal</p>
           </div>
         </div>

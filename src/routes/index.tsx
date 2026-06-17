@@ -16,13 +16,13 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "KBSP Computer Science Hub — Department of Computer Science, Bori" },
+      { title: "eLearning System — Department of Computer Science, Bori" },
       { name: "description", content: "The official learning platform of the Department of Computer Science at Kenule Beeson Saro-Wiwa Polytechnic, Bori. Courses, assessments, attendance and analytics for ND and HND students." },
-      { property: "og:title", content: "KBSP Computer Science Hub" },
+      { property: "og:title", content: "eLearning System" },
       { property: "og:description", content: "Smart learning platform for the Computer Science Department, KBSP Bori." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "KBSP Computer Science Hub" },
+      { name: "twitter:title", content: "eLearning System" },
       { name: "twitter:description", content: "Smart learning platform for the CS Department, KBSP Bori." },
     ],
   }),
@@ -234,7 +234,7 @@ function Home() {
       <section id="stats" className="mx-auto max-w-7xl px-4 py-20 md:py-24">
         <div className="mx-auto max-w-2xl text-center">
           <Badge variant="secondary" className="mb-3">Platform Statistics</Badge>
-          <h2 className="text-balance text-3xl font-bold tracking-tight md:text-4xl">The CS Hub in numbers</h2>
+          <h2 className="text-balance text-3xl font-bold tracking-tight md:text-4xl">The eLearning System in numbers</h2>
         </div>
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
