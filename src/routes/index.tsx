@@ -7,11 +7,13 @@ import {
 } from "lucide-react";
 import { PublicHeader } from "@/components/layout/PublicHeader";
 import { PublicFooter } from "@/components/layout/PublicFooter";
+import { HeroSlideshow } from "@/components/HeroSlideshow";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CountUp } from "@/hooks/use-count-up";
 import { supabase } from "@/integrations/supabase/client";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -83,84 +85,8 @@ function Home() {
     <div className="flex min-h-screen flex-col">
       <PublicHeader />
 
-      {/* HERO */}
-      <section className="relative overflow-hidden gradient-hero text-primary-foreground">
-        <div className="absolute inset-0 opacity-[0.18]" style={{ backgroundImage: "radial-gradient(circle at 20% 10%, white 1px, transparent 1px), radial-gradient(circle at 80% 60%, white 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
-        <div className="absolute -left-24 top-1/3 h-72 w-72 rounded-full bg-white/10 blur-3xl" aria-hidden />
-        <div className="absolute -right-24 -top-10 h-80 w-80 rounded-full bg-white/15 blur-3xl" aria-hidden />
+      <HeroSlideshow />
 
-        <div className="relative mx-auto grid max-w-7xl gap-12 px-4 py-20 md:grid-cols-[1.05fr_0.95fr] md:py-28">
-          <div className="fade-up">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs backdrop-blur">
-              <Sparkles className="h-3.5 w-3.5" /> Department of Computer Science · KBSP Bori
-            </span>
-            <h1 className="mt-5 text-balance text-4xl font-bold leading-[1.05] tracking-tight md:text-5xl lg:text-6xl">
-              Smart learning, built for the CS department.
-            </h1>
-            <p className="mt-5 max-w-xl text-lg text-white/85">
-              The official digital classroom for ND and HND Computer Science students of Kenule Beeson Saro-Wiwa Polytechnic.
-              Courses, assignments, CBT exams and attendance — in one place.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild size="lg" className="bg-white text-primary shadow-elevated hover:bg-white/90">
-                <Link to="/register">Register as student <ArrowRight className="ml-2 h-4 w-4" /></Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="border-white/40 bg-white/10 text-white backdrop-blur hover:bg-white/20">
-                <Link to="/auth">Sign in <LogIn className="ml-2 h-4 w-4" /></Link>
-              </Button>
-            </div>
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/85">
-              <span className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4" /> Admin-approved access</span>
-              <span className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4" /> ND1 – HND2 curriculum</span>
-              <span className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4" /> Mobile + dark mode</span>
-            </div>
-          </div>
-
-          {/* Floating dashboard preview */}
-          <div className="relative">
-            <div className="absolute -inset-4 rounded-3xl bg-white/10 blur-2xl" aria-hidden />
-            <Card className="relative border-white/20 bg-white/95 shadow-elevated backdrop-blur dark:bg-card/95">
-              <CardContent className="p-5 text-foreground">
-                <div className="flex items-center justify-between border-b border-border pb-3">
-                  <div className="flex items-center gap-2">
-                    <span className="grid h-9 w-9 place-items-center rounded-lg gradient-brand text-primary-foreground"><GraduationCap className="h-4 w-4" /></span>
-                    <div className="leading-tight">
-                      <p className="text-sm font-semibold">CS Department · Today</p>
-                      <p className="text-[11px] text-muted-foreground">Live snapshot</p>
-                    </div>
-                  </div>
-                  <span className="flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-medium text-emerald-600">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> Online
-                  </span>
-                </div>
-                <div className="grid grid-cols-2 gap-3 pt-4">
-                  {[
-                    { l: "Approved courses", v: stats.data?.courses ?? 0 },
-                    { l: "Active students", v: stats.data?.students ?? 0 },
-                    { l: "Lecturers", v: stats.data?.lecturers ?? 0 },
-                    { l: "Levels", v: 4, suffix: "" },
-                  ].map((s) => (
-                    <div key={s.l} className="rounded-lg border border-border bg-muted/40 p-3">
-                      <p className="text-xs text-muted-foreground">{s.l}</p>
-                      <p className="text-2xl font-semibold tracking-tight">
-                        <CountUp value={Number(s.v) || 0} />
-                      </p>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-4 grid grid-cols-4 gap-2">
-                  {tracks.map((t) => (
-                    <div key={t.label} className="rounded-md border border-border p-2 text-center transition hover:border-primary/40 hover:bg-secondary/60">
-                      <t.icon className="mx-auto h-4 w-4 text-primary" />
-                      <p className="mt-1 text-[10px] text-muted-foreground">{t.label}</p>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
 
       {/* FEATURES */}
       <section id="features" className="mx-auto max-w-7xl px-4 py-20 md:py-24">
