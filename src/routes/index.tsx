@@ -3,8 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import {
   ArrowRight, BookOpen, ClipboardList, Users, BarChart3,
   GraduationCap, Video, Award, MapPin,
-  UserPlus, LogIn, Layers, ShieldCheck,
+  UserPlus, LogIn, Layers, ShieldCheck, Sparkles,
 } from "lucide-react";
+
 
 import { PublicHeader } from "@/components/layout/PublicHeader";
 import { PublicFooter } from "@/components/layout/PublicFooter";
