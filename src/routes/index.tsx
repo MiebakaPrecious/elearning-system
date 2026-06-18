@@ -2,9 +2,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import {
   ArrowRight, BookOpen, ClipboardList, Users, BarChart3,
-  GraduationCap, CheckCircle2, Video, Award, Calendar, MapPin,
-  UserPlus, LogIn, Code2, Cpu, Database, Layers, ShieldCheck, Sparkles
+  GraduationCap, Video, Award, MapPin,
+  UserPlus, LogIn, Layers, ShieldCheck,
 } from "lucide-react";
+
 import { PublicHeader } from "@/components/layout/PublicHeader";
 import { PublicFooter } from "@/components/layout/PublicFooter";
 import { HeroSlideshow } from "@/components/HeroSlideshow";
@@ -74,12 +75,8 @@ function Home() {
     { n: "04", icon: Award, title: "Learn & graduate", body: "Submit work, track progress, earn a certificate." },
   ];
 
-  const tracks = [
-    { icon: Code2, label: "Software Dev" },
-    { icon: Database, label: "Databases" },
-    { icon: Cpu, label: "Architecture" },
-    { icon: Layers, label: "Web & Networks" },
-  ];
+
+
 
   return (
     <div className="flex min-h-screen flex-col">
