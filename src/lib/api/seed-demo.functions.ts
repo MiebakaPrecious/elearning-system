@@ -220,20 +220,20 @@ export const seedAcademicData = createServerFn({ method: "POST" })
     }
 
     // Materials — 3 per fresh course
-    counts.materials = await ensurePerCourse("materials", (r) => r.course_id, (c) => [
+    counts.materials = await ensurePerCourse("materials", (c) => [
       { course_id: c.id, title: `${c.code} — Course Outline & Syllabus`, description: `Official syllabus, lecture schedule and grading policy for ${c.title}.`, file_type: "pdf", file_url: "https://kbsp.edu.ng/materials/outline.pdf", uploaded_by: c.lecturer_id },
       { course_id: c.id, title: `${c.code} — Week 1–4 Lecture Notes`, description: `Consolidated lecture notes covering foundational topics in ${c.title}.`, file_type: "pdf", file_url: "https://kbsp.edu.ng/materials/notes-w1-4.pdf", uploaded_by: c.lecturer_id },
       { course_id: c.id, title: `${c.code} — Lab Manual`, description: `Practical exercises and lab work for ${c.title}.`, file_type: "pdf", file_url: "https://kbsp.edu.ng/materials/lab-manual.pdf", uploaded_by: c.lecturer_id },
     ]);
 
     // Videos — 2 per fresh course
-    counts.videos = await ensurePerCourse("videos", (r) => r.course_id, (c) => [
+    counts.videos = await ensurePerCourse("videos", (c) => [
       { course_id: c.id, title: `Introduction to ${c.title}`, description: `Kick-off lecture: what to expect and how the course is structured.`, url: "https://www.youtube.com/embed/rfscVS0vtbw", duration_sec: 1800, uploaded_by: c.lecturer_id },
       { course_id: c.id, title: `${c.title} — Core Concepts Walkthrough`, description: `A guided walkthrough of the most important concepts in ${c.title}.`, url: "https://www.youtube.com/embed/8jLOx1hD3_o", duration_sec: 2700, uploaded_by: c.lecturer_id },
     ]);
 
     // Announcements — 1 per fresh course + a few global (course_id null)
-    counts.announcements = await ensurePerCourse("announcements", (r) => r.course_id, (c) => [
+    counts.announcements = await ensurePerCourse("announcements", (c) => [
       { course_id: c.id, author_id: c.lecturer_id, title: `${c.code}: Week 1 Kick-off`, body: `Welcome to ${c.title}. Class begins Monday. Please review the course outline and download the Week 1 lecture notes before the first session.` },
     ]);
 
