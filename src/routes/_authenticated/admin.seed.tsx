@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { seedDemoAccounts } from "@/lib/api/seed-demo.functions";
+import { seedDemoAccounts, seedAcademicData } from "@/lib/api/seed-demo.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/seed")({
   component: SeedPage,
@@ -18,10 +18,13 @@ type Result = Awaited<ReturnType<typeof seedDemoAccounts>>;
 
 function SeedPage() {
   const seed = useServerFn(seedDemoAccounts);
+  const seedData = useServerFn(seedAcademicData);
   const router = useRouter();
   const [password, setPassword] = useState("Demo1234!");
   const [busy, setBusy] = useState(false);
+  const [dataBusy, setDataBusy] = useState(false);
   const [result, setResult] = useState<Result | null>(null);
+  const [dataResult, setDataResult] = useState<Awaited<ReturnType<typeof seedAcademicData>> | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const run = async () => {
@@ -36,6 +39,21 @@ function SeedPage() {
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setBusy(false);
+    }
+  };
+
+  const runData = async () => {
+    setDataBusy(true);
+    setError(null);
+    setDataResult(null);
+    try {
+      const res = await seedData();
+      setDataResult(res);
+      router.invalidate();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setDataBusy(false);
     }
   };
 
