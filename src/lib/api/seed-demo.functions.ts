@@ -204,20 +204,19 @@ export const seedAcademicData = createServerFn({ method: "POST" })
     }
 
     // Utility: only insert per-course rows when the course has none yet
+    const admin: any = supabaseAdmin;
     async function ensurePerCourse<T>(
-      table: string, existingKey: (r: any) => string,
+      table: string,
       rowsFor: (c: (typeof cs)[number]) => T[],
     ) {
-      const { data: existing } = await supabaseAdmin.from(table).select("course_id");
+      const { data: existing } = await admin.from(table).select("course_id");
       const seen = new Set((existing ?? []).map((r: any) => r.course_id));
       const rows: T[] = [];
       for (const c of cs) if (!seen.has(c.id)) rows.push(...rowsFor(c));
       if (!rows.length) return 0;
-      const { error } = await supabaseAdmin.from(table).insert(rows as any);
+      const { error } = await admin.from(table).insert(rows);
       if (error) throw new Error(`${table}: ${error.message}`);
       return rows.length;
-      // existingKey unused but kept for future dedup granularity
-      void existingKey;
     }
 
     // Materials — 3 per fresh course
