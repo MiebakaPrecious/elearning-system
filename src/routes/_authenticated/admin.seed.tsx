@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { seedDemoAccounts } from "@/lib/api/seed-demo.functions";
+import { seedDemoAccounts, seedAcademicData } from "@/lib/api/seed-demo.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/seed")({
   component: SeedPage,
@@ -18,10 +18,13 @@ type Result = Awaited<ReturnType<typeof seedDemoAccounts>>;
 
 function SeedPage() {
   const seed = useServerFn(seedDemoAccounts);
+  const seedData = useServerFn(seedAcademicData);
   const router = useRouter();
   const [password, setPassword] = useState("Demo1234!");
   const [busy, setBusy] = useState(false);
+  const [dataBusy, setDataBusy] = useState(false);
   const [result, setResult] = useState<Result | null>(null);
+  const [dataResult, setDataResult] = useState<Awaited<ReturnType<typeof seedAcademicData>> | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const run = async () => {
@@ -36,6 +39,21 @@ function SeedPage() {
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setBusy(false);
+    }
+  };
+
+  const runData = async () => {
+    setDataBusy(true);
+    setError(null);
+    setDataResult(null);
+    try {
+      const res = await seedData();
+      setDataResult(res);
+      router.invalidate();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setDataBusy(false);
     }
   };
 
@@ -78,6 +96,21 @@ function SeedPage() {
                 <li>student.nd1.1@kenpoly.demo</li>
                 <li>student.hnd2.3@kenpoly.demo</li>
               </ul>
+            </div>
+
+            <div className="mt-6 border-t border-border pt-5">
+              <p className="text-sm font-semibold">Populate academic data</p>
+              <p className="mt-1 text-xs text-muted-foreground">Assigns lecturers, enrols students, seeds materials, videos, quizzes, announcements, events, discussions, attendance history, achievements and certificates. Run this after seeding accounts.</p>
+              <Button onClick={runData} disabled={dataBusy} variant="outline" className="mt-3 w-full">
+                {dataBusy ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Populating…</> : "Populate academic data"}
+              </Button>
+              {dataResult && (
+                <ul className="mt-3 grid grid-cols-2 gap-1 text-xs text-muted-foreground">
+                  {Object.entries(dataResult).map(([k, v]) => (
+                    <li key={k} className="flex items-center justify-between rounded-md border border-border px-2 py-1"><span>{k.replace(/_/g, " ")}</span><span className="font-mono font-semibold text-foreground">{String(v)}</span></li>
+                  ))}
+                </ul>
+              )}
             </div>
           </CardContent>
         </Card>
