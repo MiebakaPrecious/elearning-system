@@ -9,7 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/auth")({
-  head: () => ({ meta: [{ title: "Sign in — Kenpoly LMS" }, { name: "description", content: "Sign in to Kenpoly Smart Learning Hub." }] }),
+  head: () => ({ meta: [{ title: "Sign in — eLearning System" }, { name: "description", content: "Sign in to the eLearning System." }] }),
   component: AuthPage,
 });
 
@@ -67,13 +67,13 @@ function AuthPage() {
       <div className="hidden gradient-hero p-12 text-primary-foreground md:flex md:flex-col md:justify-between">
         <Link to="/" className="flex items-center gap-2">
           <span className="grid h-11 w-11 place-items-center rounded-lg bg-white/15 backdrop-blur p-1"><Logo className="h-9 w-9" /></span>
-          <span className="font-semibold">Kenpoly Smart Learning</span>
+          <span className="font-semibold">eLearning System</span>
         </Link>
         <div>
           <h2 className="text-3xl font-bold leading-tight">Welcome back.</h2>
           <p className="mt-2 max-w-md opacity-90">Sign in with your email or matric / staff ID to continue learning and teaching.</p>
         </div>
-        <p className="text-xs opacity-70">© {new Date().getFullYear()} Kenpoly Polytechnic</p>
+        <p className="text-xs opacity-70">© {new Date().getFullYear()} Department of Computer Science</p>
       </div>
       <div className="flex items-center justify-center p-6">
         <Card className="w-full max-w-md shadow-elevated">
