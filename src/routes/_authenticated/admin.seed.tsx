@@ -97,6 +97,21 @@ function SeedPage() {
                 <li>student.hnd2.3@kenpoly.demo</li>
               </ul>
             </div>
+
+            <div className="mt-6 border-t border-border pt-5">
+              <p className="text-sm font-semibold">Populate academic data</p>
+              <p className="mt-1 text-xs text-muted-foreground">Assigns lecturers, enrols students, seeds materials, videos, quizzes, announcements, events, discussions, attendance history, achievements and certificates. Run this after seeding accounts.</p>
+              <Button onClick={runData} disabled={dataBusy} variant="outline" className="mt-3 w-full">
+                {dataBusy ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Populating…</> : "Populate academic data"}
+              </Button>
+              {dataResult && (
+                <ul className="mt-3 grid grid-cols-2 gap-1 text-xs text-muted-foreground">
+                  {Object.entries(dataResult).map(([k, v]) => (
+                    <li key={k} className="flex items-center justify-between rounded-md border border-border px-2 py-1"><span>{k.replace(/_/g, " ")}</span><span className="font-mono font-semibold text-foreground">{String(v)}</span></li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </CardContent>
         </Card>
 
