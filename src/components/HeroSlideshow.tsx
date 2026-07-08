@@ -2,7 +2,6 @@ import { useEffect, useState, useCallback } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ChevronLeft, ChevronRight, LogIn, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Logo } from "@/components/Logo";
 import hero1 from "@/assets/hero1.jpg.asset.json";
 import hero2 from "@/assets/hero2.jpg.asset.json";
 import hero3 from "@/assets/hero3.jpg.asset.json";
@@ -28,7 +27,7 @@ export function HeroSlideshow() {
   }, [n]);
 
   return (
-    <section className="relative h-[78vh] min-h-[560px] w-full overflow-hidden bg-slate-950 text-white">
+    <section className="relative min-h-[600px] w-full overflow-hidden bg-slate-950 text-white md:h-[80vh] lg:h-[86vh]">
       {/* Slides (fade) */}
       {SLIDES.map((s, idx) => (
         <div
@@ -38,21 +37,16 @@ export function HeroSlideshow() {
           aria-hidden={idx !== i}
         >
           <img src={s.src} alt="" className="h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/40" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/75 to-slate-950/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
         </div>
       ))}
 
       {/* Header strip */}
-      <div className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-4 pt-6 md:px-8">
-        <div className="flex items-center gap-3">
-          <div className="rounded-xl bg-white/10 p-1.5 backdrop-blur ring-1 ring-white/20">
-            <Logo className="h-10 w-10" />
-          </div>
-          <div className="leading-tight">
-            <p className="text-sm font-semibold">eLearning System</p>
-            <p className="text-[11px] text-white/70">Kenule Beeson Saro-Wiwa Polytechnic · CS Dept</p>
-          </div>
+      <div className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-4 pt-5 md:px-8 md:pt-7">
+        <div className="leading-tight">
+          <p className="text-sm font-semibold md:text-base">eLearning System</p>
+          <p className="text-[11px] text-white/70 md:text-xs">Department of Computer Science · 2025/2026 Session</p>
         </div>
         <Button asChild size="sm" className="bg-white text-slate-900 hover:bg-white/90">
           <Link to="/auth">Sign in <LogIn className="ml-2 h-4 w-4" /></Link>
@@ -60,15 +54,15 @@ export function HeroSlideshow() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 mx-auto flex h-[calc(100%-96px)] max-w-7xl items-center px-4 md:px-8">
+      <div className="relative z-10 mx-auto flex min-h-[calc(600px-72px)] max-w-7xl items-center px-4 pb-16 pt-10 md:h-[calc(100%-96px)] md:min-h-0 md:px-8 md:pb-0 md:pt-0">
         <div key={i} className="max-w-2xl animate-[fade-up_.8s_ease-out_both]">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs backdrop-blur">
             <Sparkles className="h-3.5 w-3.5" /> {SLIDES[i].eyebrow}
           </span>
-          <h1 className="mt-5 text-balance text-4xl font-bold leading-[1.05] tracking-tight md:text-5xl lg:text-6xl">
+          <h1 className="mt-5 text-balance text-3xl font-bold leading-[1.05] tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
             {SLIDES[i].title}
           </h1>
-          <p className="mt-5 max-w-xl text-base text-white/85 md:text-lg">{SLIDES[i].body}</p>
+          <p className="mt-5 max-w-xl text-sm text-white/85 sm:text-base md:text-lg">{SLIDES[i].body}</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-elevated">
               <Link to="/register">Get started <ArrowRight className="ml-2 h-4 w-4" /></Link>
