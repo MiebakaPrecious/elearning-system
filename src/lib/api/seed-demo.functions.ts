@@ -165,7 +165,7 @@ export const seedAcademicData = createServerFn({ method: "POST" })
 
     for (let idx = 0; idx < courseList.length; idx++) {
       const c = courseList[idx];
-      const patch: Record<string, unknown> = {};
+      const patch: { status?: "approved"; lecturer_id?: string } = {};
       if (c.status !== "approved") { patch.status = "approved"; counts.courses_approved++; }
       if (!c.lecturer_id) {
         patch.lecturer_id = lecturers[idx % lecturers.length].id;
