@@ -264,7 +264,7 @@ export const seedAcademicData = createServerFn({ method: "POST" })
         { title: "Tech Workshop: Building with the MERN Stack", description: "Hands-on workshop for HND1 and HND2 on production-ready MERN development.", location: "ICT Lab 1", audience: "students", starts_at: daysFrom(21, 11), ends_at: daysFrom(21, 15), created_by: adminRow.id },
         { title: "HND2 Project Defense Week", description: "Final year project defenses across all supervisors.", location: "CS Seminar Room", audience: "all", starts_at: daysFrom(28, 9), ends_at: daysFrom(32, 16), created_by: adminRow.id },
         { title: "Career Seminar: Landing Your First Tech Job", description: "Industry panel with alumni working at Andela, Interswitch, Flutterwave and Paystack.", location: "Main Auditorium", audience: "all", starts_at: daysFrom(35, 10), ends_at: daysFrom(35, 13), created_by: adminRow.id },
-        { title: "Cybersecurity Hackathon", description: "48-hour CTF-style hackathon co-hosted with the KBSP ICT Directorate.", location: "ICT Complex", audience: "students", starts_at: daysFrom(45, 9), ends_at: daysFrom(47, 18), created_by: adminRow.id },
+        { title: "Cybersecurity Hackathon", description: "48-hour CTF-style hackathon co-hosted with the Department ICT Unit.", location: "ICT Complex", audience: "students", starts_at: daysFrom(45, 9), ends_at: daysFrom(47, 18), created_by: adminRow.id },
       ];
       const { error } = await supabaseAdmin.from("events").insert(evtRows);
       if (!error) counts.events += evtRows.length;
