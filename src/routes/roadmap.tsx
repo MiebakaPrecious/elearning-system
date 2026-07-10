@@ -12,8 +12,8 @@ export const Route = createFileRoute("/roadmap")({
     meta: [
       { title: "Course Roadmap — eLearning System" },
       { name: "description", content: "Full Computer Science curriculum roadmap from ND1 to HND2, organised by semester." },
-      { property: "og:title", content: "CS Course Roadmap — KBSP Bori" },
-      { property: "og:description", content: "Visual roadmap of every CS course across ND1 → HND2 at KBSP Bori." },
+      { property: "og:title", content: "CS Course Roadmap — eLearning System" },
+      { property: "og:description", content: "Visual roadmap of every Computer Science course across ND1 → HND2." },
     ],
   }),
   component: RoadmapPage,
@@ -58,7 +58,7 @@ function RoadmapPage() {
           </div>
           <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-5xl">Your CS journey, end to end</h1>
           <p className="mt-3 max-w-2xl text-base opacity-90 md:text-lg">
-            Every course you will take at the Department of Computer Science, KBSP Bori — organised by level and semester. {total} courses across 4 levels.
+            Every course you will take at the Department of Computer Science — organised by level and semester. {total} courses across 4 levels.
           </p>
         </div>
       </section>

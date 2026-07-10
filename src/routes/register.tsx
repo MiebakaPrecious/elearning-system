@@ -12,7 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/register")({
-  head: () => ({ meta: [{ title: "Register — eLearning System" }, { name: "description", content: "Register as a CS student or lecturer at KBSP Bori." }] }),
+  head: () => ({ meta: [{ title: "Register — eLearning System" }, { name: "description", content: "Register as a Computer Science student or lecturer on the eLearning System." }] }),
   component: RegisterPage,
 });
 
@@ -31,7 +31,7 @@ function RegisterPage() {
           <h2 className="text-3xl font-bold leading-tight">Welcome to the Department of Computer Science.</h2>
           <p className="mt-2 max-w-md opacity-90">Register as a student or lecturer. The first account becomes the admin — afterwards, accounts await admin approval.</p>
         </div>
-        <p className="text-xs opacity-70">© {new Date().getFullYear()} KBSP Bori · Computer Science</p>
+        <p className="text-xs opacity-70">© {new Date().getFullYear()} eLearning System · Department of Computer Science</p>
       </div>
       <div className="flex items-center justify-center p-6">
         <Card className="w-full max-w-lg shadow-elevated">

@@ -20,14 +20,14 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "eLearning System — Department of Computer Science, Bori" },
-      { name: "description", content: "The official learning platform of the Department of Computer Science at Kenule Beeson Saro-Wiwa Polytechnic, Bori. Courses, assessments, attendance and analytics for ND and HND students." },
+      { title: "eLearning System — Department of Computer Science" },
+      { name: "description", content: "The official learning platform of the Department of Computer Science. Courses, assessments, attendance, AI tutoring and analytics for ND and HND students." },
       { property: "og:title", content: "eLearning System" },
-      { property: "og:description", content: "Smart learning platform for the Computer Science Department, KBSP Bori." },
+      { property: "og:description", content: "Smart learning platform for the Computer Science Department." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "eLearning System" },
-      { name: "twitter:description", content: "Smart learning platform for the CS Department, KBSP Bori." },
+      { name: "twitter:description", content: "Smart learning platform for the Computer Science Department." },
     ],
   }),
   component: Home,
@@ -217,14 +217,14 @@ function Home() {
         <div className="mx-auto max-w-2xl text-center">
           <Badge variant="secondary" className="mb-3">Find us</Badge>
           <h2 className="text-balance text-3xl font-bold tracking-tight md:text-4xl">Visit the department</h2>
-          <p className="mt-3 text-muted-foreground">Kenule Beeson Saro-Wiwa Polytechnic, Bori, Rivers State, Nigeria.</p>
+          <p className="mt-3 text-muted-foreground">Department of Computer Science, Bori, Rivers State, Nigeria.</p>
         </div>
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
           <Card className="overflow-hidden shadow-card lg:col-span-2 p-0">
             <div className="aspect-[16/10] w-full">
               <iframe
-                title="KBSP Bori Map"
-                src="https://www.google.com/maps?q=Kenule+Beeson+Saro-Wiwa+Polytechnic+Bori&output=embed"
+                title="Campus Map"
+                src="https://www.google.com/maps?q=Bori+Rivers+State+Nigeria&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -240,19 +240,19 @@ function Home() {
                 <p className="text-xs font-semibold uppercase tracking-wider text-primary">Address</p>
                 <p className="mt-1 flex items-start gap-2 font-medium">
                   <MapPin className="mt-0.5 h-4 w-4 text-primary shrink-0" />
-                  <span>Kenule Beeson Saro-Wiwa Polytechnic,<br />Bori, Khana LGA,<br />Rivers State, Nigeria.</span>
+                  <span>Department of Computer Science,<br />Bori, Khana LGA,<br />Rivers State, Nigeria.</span>
                 </p>
               </div>
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-primary">Department</p>
+                <p className="text-xs font-semibold uppercase tracking-wider text-primary">School</p>
                 <p className="mt-1 text-sm">School of Applied Sciences<br /><span className="text-muted-foreground">Department of Computer Science</span></p>
               </div>
               <div>
                 <p className="text-xs font-semibold uppercase tracking-wider text-primary">Contact</p>
-                <p className="mt-1 text-sm">cs@kenpoly.edu.ng<br />+234 800 000 0000</p>
+                <p className="mt-1 text-sm">support@elearning.demo<br />+234 800 000 0000</p>
               </div>
               <Button asChild variant="outline" className="w-full">
-                <a href="https://www.google.com/maps/dir/?api=1&destination=Kenule+Beeson+Saro-Wiwa+Polytechnic+Bori" target="_blank" rel="noreferrer">
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Bori+Rivers+State+Nigeria" target="_blank" rel="noreferrer">
                   <MapPin className="mr-2 h-4 w-4" /> Get directions
                 </a>
               </Button>

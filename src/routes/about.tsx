@@ -8,9 +8,9 @@ export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "About — eLearning System" },
-      { name: "description", content: "About the Department of Computer Science at Kenule Beeson Saro-Wiwa Polytechnic, Bori." },
-      { property: "og:title", content: "About the Computer Science Department, KBSP Bori" },
-      { property: "og:description", content: "Modernizing CS education at Kenule Beeson Saro-Wiwa Polytechnic, Bori." },
+      { name: "description", content: "About the Department of Computer Science and the eLearning System platform." },
+      { property: "og:title", content: "About the eLearning System" },
+      { property: "og:description", content: "Modernizing Computer Science education with an AI-powered LMS." },
     ],
   }),
   component: About,
@@ -24,7 +24,7 @@ function About() {
         <div className="mx-auto max-w-4xl px-4 text-center">
           <h1 className="text-4xl font-bold tracking-tight md:text-5xl">About the CS Department</h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg opacity-90">
-            The Department of Computer Science at Kenule Beeson Saro-Wiwa Polytechnic, Bori — training the next generation of software engineers, analysts and technologists for Nigeria and beyond.
+            The Department of Computer Science — training the next generation of software engineers, analysts and technologists for Nigeria and beyond.
           </p>
         </div>
       </section>
