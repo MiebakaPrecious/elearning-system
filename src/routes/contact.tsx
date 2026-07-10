@@ -8,9 +8,9 @@ export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact — eLearning System" },
-      { name: "description", content: "Contact the Department of Computer Science, KBSP Bori." },
+      { name: "description", content: "Contact the Department of Computer Science eLearning System team." },
       { property: "og:title", content: "Contact — eLearning System" },
-      { property: "og:description", content: "Reach the CS Department at KBSP Bori." },
+      { property: "og:description", content: "Reach the eLearning System support team." },
     ],
   }),
   component: Contact,
@@ -28,9 +28,9 @@ function Contact() {
       </section>
       <section className="mx-auto grid w-full max-w-5xl flex-1 gap-4 px-4 py-12 md:grid-cols-3">
         {[
-          { icon: Mail, label: "Email", value: "cs@kenpoly.edu.ng" },
+          { icon: Mail, label: "Email", value: "support@elearning.demo" },
           { icon: Phone, label: "Phone", value: "+234 800 000 0000" },
-          { icon: MapPin, label: "Address", value: "KBSP Campus, Bori, Rivers State" },
+          { icon: MapPin, label: "Address", value: "Department of Computer Science, Bori, Rivers State" },
         ].map((c) => (
           <Card key={c.label} className="shadow-card">
             <CardContent className="p-6">
@@ -45,8 +45,8 @@ function Contact() {
         <Card className="shadow-card overflow-hidden">
           <div className="aspect-[16/8] w-full">
             <iframe
-              title="KBSP Bori Map"
-              src="https://www.google.com/maps?q=Kenule+Beeson+Saro-Wiwa+Polytechnic+Bori&output=embed"
+              title="Campus Map"
+              src="https://www.google.com/maps?q=Bori+Rivers+State+Nigeria&output=embed"
               width="100%"
               height="100%"
               style={{ border: 0 }}

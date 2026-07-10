@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ChevronLeft, ChevronRight, LogIn, Sparkles } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import hero1 from "@/assets/hero1.jpg.asset.json";
 import hero2 from "@/assets/hero2.jpg.asset.json";
@@ -42,16 +42,6 @@ export function HeroSlideshow() {
         </div>
       ))}
 
-      {/* Header strip */}
-      <div className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-4 pt-5 md:px-8 md:pt-7">
-        <div className="leading-tight">
-          <p className="text-sm font-semibold md:text-base">eLearning System</p>
-          <p className="text-[11px] text-white/70 md:text-xs">Department of Computer Science · 2025/2026 Session</p>
-        </div>
-        <Button asChild size="sm" className="bg-white text-slate-900 hover:bg-white/90">
-          <Link to="/auth">Sign in <LogIn className="ml-2 h-4 w-4" /></Link>
-        </Button>
-      </div>
 
       {/* Content */}
       <div className="relative z-10 mx-auto flex min-h-[calc(600px-72px)] max-w-7xl items-center px-4 pb-16 pt-10 md:h-[calc(100%-96px)] md:min-h-0 md:px-8 md:pb-0 md:pt-0">

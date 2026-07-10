@@ -13,8 +13,8 @@ export const Route = createFileRoute("/courses")({
     meta: [
       { title: "Courses — eLearning System" },
       { name: "description", content: "Browse all Computer Science courses across ND1, ND2, HND1 and HND2." },
-      { property: "og:title", content: "Computer Science Courses — KBSP Bori" },
-      { property: "og:description", content: "ND and HND Computer Science courses at KBSP Bori." },
+      { property: "og:title", content: "Computer Science Courses — eLearning System" },
+      { property: "og:description", content: "ND and HND Computer Science courses on the eLearning System." },
     ],
   }),
   component: CoursesCatalog,

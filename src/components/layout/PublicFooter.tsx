@@ -13,13 +13,13 @@ export function PublicFooter() {
           <div className="flex items-center gap-2">
             <Logo className="h-10 w-10" />
             <div className="leading-tight">
-              <p className="font-semibold tracking-tight">KBSP <span className="text-primary">eLearning System</span></p>
-              <p className="text-xs text-muted-foreground">Computer Science · Bori</p>
+              <p className="font-semibold tracking-tight">eLearning <span className="text-primary">System</span></p>
+              <p className="text-xs text-muted-foreground">Department of Computer Science</p>
             </div>
           </div>
           <p className="mt-4 max-w-sm text-sm text-muted-foreground">
-            The official learning platform of the Department of Computer Science,
-            Kenule Beeson Saro-Wiwa Polytechnic — built for ND and HND students.
+            The official learning platform of the Department of Computer Science —
+            built for ND and HND students, lecturers and administrators.
           </p>
           <div className="mt-5 flex gap-2">
             {[Github, Twitter, Linkedin, Facebook].map((Icon, i) => (
@@ -41,8 +41,8 @@ export function PublicFooter() {
           <ul className="space-y-2 text-sm text-muted-foreground">
             <li><Link to="/courses" className="hover:text-foreground">Courses</Link></li>
             <li><Link to="/roadmap" className="hover:text-foreground">Roadmap</Link></li>
-            <li><Link to="/about" className="hover:text-foreground">About</Link></li>
-            <li><Link to="/contact" className="hover:text-foreground">Contact</Link></li>
+            <li><Link to="/portfolio" className="hover:text-foreground">Case study</Link></li>
+            <li><Link to="/help" className="hover:text-foreground">Help &amp; docs</Link></li>
           </ul>
         </div>
 
@@ -52,6 +52,7 @@ export function PublicFooter() {
           <ul className="space-y-2 text-sm text-muted-foreground">
             <li><Link to="/register" className="hover:text-foreground">Register</Link></li>
             <li><Link to="/auth" className="hover:text-foreground">Sign in</Link></li>
+            <li><Link to="/demo-accounts" className="hover:text-foreground">Demo accounts</Link></li>
             <li><Link to="/dashboard" className="hover:text-foreground">Dashboard</Link></li>
           </ul>
         </div>
@@ -65,15 +66,15 @@ export function PublicFooter() {
             <Button type="submit" className="gradient-brand" aria-label="Subscribe"><Send className="h-4 w-4" /></Button>
           </form>
           <div className="mt-5 space-y-2 text-sm text-muted-foreground">
-            <p className="flex items-center gap-2"><MapPin className="h-4 w-4 text-primary" /> KBSP Campus, Bori, Rivers State</p>
-            <p className="flex items-center gap-2"><Mail className="h-4 w-4 text-primary" /> cs@kenpoly.edu.ng</p>
+            <p className="flex items-center gap-2"><MapPin className="h-4 w-4 text-primary" /> Department of Computer Science, Bori, Rivers State</p>
+            <p className="flex items-center gap-2"><Mail className="h-4 w-4 text-primary" /> support@elearning.demo</p>
             <p className="flex items-center gap-2"><Phone className="h-4 w-4 text-primary" /> +234 800 000 0000</p>
           </div>
         </div>
       </div>
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-4 text-xs text-muted-foreground sm:flex-row">
-          <p>© {new Date().getFullYear()} Department of Computer Science · KBSP Bori. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} eLearning System · Department of Computer Science. All rights reserved.</p>
           <div className="flex gap-4">
             <a href="#" className="hover:text-foreground">Privacy</a>
             <a href="#" className="hover:text-foreground">Terms</a>
