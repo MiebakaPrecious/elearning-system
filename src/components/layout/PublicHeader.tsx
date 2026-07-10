@@ -37,7 +37,7 @@ export function PublicHeader() {
           <Logo className="h-10 w-10" />
           <div className="leading-tight">
             <p className="text-sm font-semibold tracking-tight">eLearning <span className="text-primary">System</span></p>
-            <p className="text-[10px] text-muted-foreground">Computer Science · KBSP Bori</p>
+            <p className="text-[10px] text-muted-foreground">Department of Computer Science</p>
           </div>
         </Link>
         <nav className="hidden items-center gap-1 md:flex">

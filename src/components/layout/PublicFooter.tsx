@@ -13,13 +13,13 @@ export function PublicFooter() {
           <div className="flex items-center gap-2">
             <Logo className="h-10 w-10" />
             <div className="leading-tight">
-              <p className="font-semibold tracking-tight">KBSP <span className="text-primary">eLearning System</span></p>
-              <p className="text-xs text-muted-foreground">Computer Science · Bori</p>
+              <p className="font-semibold tracking-tight">eLearning <span className="text-primary">System</span></p>
+              <p className="text-xs text-muted-foreground">Department of Computer Science</p>
             </div>
           </div>
           <p className="mt-4 max-w-sm text-sm text-muted-foreground">
-            The official learning platform of the Department of Computer Science,
-            Kenule Beeson Saro-Wiwa Polytechnic — built for ND and HND students.
+            The official learning platform of the Department of Computer Science —
+            built for ND and HND students, lecturers and administrators.
           </p>
           <div className="mt-5 flex gap-2">
             {[Github, Twitter, Linkedin, Facebook].map((Icon, i) => (
@@ -65,15 +65,15 @@ export function PublicFooter() {
             <Button type="submit" className="gradient-brand" aria-label="Subscribe"><Send className="h-4 w-4" /></Button>
           </form>
           <div className="mt-5 space-y-2 text-sm text-muted-foreground">
-            <p className="flex items-center gap-2"><MapPin className="h-4 w-4 text-primary" /> KBSP Campus, Bori, Rivers State</p>
-            <p className="flex items-center gap-2"><Mail className="h-4 w-4 text-primary" /> cs@kenpoly.edu.ng</p>
+            <p className="flex items-center gap-2"><MapPin className="h-4 w-4 text-primary" /> Department of Computer Science, Bori, Rivers State</p>
+            <p className="flex items-center gap-2"><Mail className="h-4 w-4 text-primary" /> support@elearning.demo</p>
             <p className="flex items-center gap-2"><Phone className="h-4 w-4 text-primary" /> +234 800 000 0000</p>
           </div>
         </div>
       </div>
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-4 text-xs text-muted-foreground sm:flex-row">
-          <p>© {new Date().getFullYear()} Department of Computer Science · KBSP Bori. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} eLearning System · Department of Computer Science. All rights reserved.</p>
           <div className="flex gap-4">
             <a href="#" className="hover:text-foreground">Privacy</a>
             <a href="#" className="hover:text-foreground">Terms</a>
