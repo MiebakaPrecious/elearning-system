@@ -12,6 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RoadmapRouteImport } from './routes/roadmap'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as PortfolioRouteImport } from './routes/portfolio'
+import { Route as HelpRouteImport } from './routes/help'
+import { Route as DemoAccountsRouteImport } from './routes/demo-accounts'
 import { Route as CoursesRouteImport } from './routes/courses'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -60,6 +63,21 @@ const RoadmapRoute = RoadmapRouteImport.update({
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortfolioRoute = PortfolioRouteImport.update({
+  id: '/portfolio',
+  path: '/portfolio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HelpRoute = HelpRouteImport.update({
+  id: '/help',
+  path: '/help',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DemoAccountsRoute = DemoAccountsRouteImport.update({
+  id: '/demo-accounts',
+  path: '/demo-accounts',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CoursesRoute = CoursesRouteImport.update({
@@ -260,6 +278,9 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRoute
+  '/demo-accounts': typeof DemoAccountsRoute
+  '/help': typeof HelpRoute
+  '/portfolio': typeof PortfolioRoute
   '/register': typeof RegisterRoute
   '/roadmap': typeof RoadmapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -298,6 +319,9 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRoute
+  '/demo-accounts': typeof DemoAccountsRoute
+  '/help': typeof HelpRoute
+  '/portfolio': typeof PortfolioRoute
   '/register': typeof RegisterRoute
   '/roadmap': typeof RoadmapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -338,6 +362,9 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRoute
+  '/demo-accounts': typeof DemoAccountsRoute
+  '/help': typeof HelpRoute
+  '/portfolio': typeof PortfolioRoute
   '/register': typeof RegisterRoute
   '/roadmap': typeof RoadmapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -378,6 +405,9 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/courses'
+    | '/demo-accounts'
+    | '/help'
+    | '/portfolio'
     | '/register'
     | '/roadmap'
     | '/sitemap.xml'
@@ -416,6 +446,9 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/courses'
+    | '/demo-accounts'
+    | '/help'
+    | '/portfolio'
     | '/register'
     | '/roadmap'
     | '/sitemap.xml'
@@ -455,6 +488,9 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/courses'
+    | '/demo-accounts'
+    | '/help'
+    | '/portfolio'
     | '/register'
     | '/roadmap'
     | '/sitemap.xml'
@@ -495,6 +531,9 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
   CoursesRoute: typeof CoursesRoute
+  DemoAccountsRoute: typeof DemoAccountsRoute
+  HelpRoute: typeof HelpRoute
+  PortfolioRoute: typeof PortfolioRoute
   RegisterRoute: typeof RegisterRoute
   RoadmapRoute: typeof RoadmapRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -522,6 +561,27 @@ declare module '@tanstack/react-router' {
       path: '/register'
       fullPath: '/register'
       preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portfolio': {
+      id: '/portfolio'
+      path: '/portfolio'
+      fullPath: '/portfolio'
+      preLoaderRoute: typeof PortfolioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/help': {
+      id: '/help'
+      path: '/help'
+      fullPath: '/help'
+      preLoaderRoute: typeof HelpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/demo-accounts': {
+      id: '/demo-accounts'
+      path: '/demo-accounts'
+      fullPath: '/demo-accounts'
+      preLoaderRoute: typeof DemoAccountsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/courses': {
@@ -836,6 +896,9 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
   CoursesRoute: CoursesRoute,
+  DemoAccountsRoute: DemoAccountsRoute,
+  HelpRoute: HelpRoute,
+  PortfolioRoute: PortfolioRoute,
   RegisterRoute: RegisterRoute,
   RoadmapRoute: RoadmapRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
