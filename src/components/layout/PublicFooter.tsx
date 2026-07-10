@@ -41,8 +41,8 @@ export function PublicFooter() {
           <ul className="space-y-2 text-sm text-muted-foreground">
             <li><Link to="/courses" className="hover:text-foreground">Courses</Link></li>
             <li><Link to="/roadmap" className="hover:text-foreground">Roadmap</Link></li>
-            <li><Link to="/about" className="hover:text-foreground">About</Link></li>
-            <li><Link to="/contact" className="hover:text-foreground">Contact</Link></li>
+            <li><Link to="/portfolio" className="hover:text-foreground">Case study</Link></li>
+            <li><Link to="/help" className="hover:text-foreground">Help &amp; docs</Link></li>
           </ul>
         </div>
 
@@ -52,6 +52,7 @@ export function PublicFooter() {
           <ul className="space-y-2 text-sm text-muted-foreground">
             <li><Link to="/register" className="hover:text-foreground">Register</Link></li>
             <li><Link to="/auth" className="hover:text-foreground">Sign in</Link></li>
+            <li><Link to="/demo-accounts" className="hover:text-foreground">Demo accounts</Link></li>
             <li><Link to="/dashboard" className="hover:text-foreground">Dashboard</Link></li>
           </ul>
         </div>
