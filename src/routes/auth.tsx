@@ -64,6 +64,7 @@ function AuthPage() {
         }
       }
       toast.success("Welcome back!");
+      if (next) { window.location.href = next; return; }
       navigate({ to: "/dashboard" });
     } catch (err: any) {
       toast.error(err.message ?? "Sign in failed");
