@@ -8,13 +8,25 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
+/** Only same-origin relative paths may be used as a post-login redirect. */
+function safeNext(value: unknown): string | undefined {
+  if (typeof value !== "string") return undefined;
+  if (!value.startsWith("/") || value.startsWith("//")) return undefined;
+  return value;
+}
+
 export const Route = createFileRoute("/auth")({
   head: () => ({ meta: [{ title: "Sign in — eLearning System" }, { name: "description", content: "Sign in to the eLearning System." }] }),
+  validateSearch: (s: Record<string, unknown>): { next?: string } => {
+    const next = safeNext(s.next);
+    return next ? { next } : {};
+  },
   component: AuthPage,
 });
 
 function AuthPage() {
   const navigate = useNavigate();
+  const { next } = Route.useSearch();
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -55,6 +67,7 @@ function AuthPage() {
         }
       }
       toast.success("Welcome back!");
+      if (next) { window.location.href = next; return; }
       navigate({ to: "/dashboard" });
     } catch (err: any) {
       toast.error(err.message ?? "Sign in failed");
