@@ -195,7 +195,7 @@ export function DashboardShell({ children, title }: { children: ReactNode; title
             <Button variant="ghost" size="icon" onClick={toggleTheme} title="Toggle theme">{dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}</Button>
             <Button variant="ghost" size="icon"><Bell className="h-5 w-5" /></Button>
             <Link
-              to={role ? `/${role}/profile` : "/dashboard"}
+              to={role === "admin" ? "/admin/profile" : role === "lecturer" ? "/lecturer/profile" : "/student/profile"}
               className="hidden items-center gap-2 rounded-full border border-border bg-card px-2 py-1 transition hover:bg-accent sm:flex"
             >
               <span className="grid h-7 w-7 place-items-center rounded-full gradient-brand text-xs font-semibold text-primary-foreground">
