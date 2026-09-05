@@ -1,5 +1,5 @@
 import { Link, useRouterState, Navigate } from "@tanstack/react-router";
-import { Bell, ChevronDown, LogOut, Menu, Search } from "lucide-react";
+import { Bell, ChevronDown, LogOut, Menu, Search, User } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { useAuth, type AppRole } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
@@ -13,53 +13,69 @@ import {
 import { useEffect } from "react";
 
 type Item = { to: string; label: string; icon: typeof LayoutDashboard };
-type Group = { label: string; items: Item[] };
+type Group = { label: string; icon: typeof LayoutDashboard; items: Item[] };
 
 const nav: Record<AppRole, Group[]> = {
   admin: [
-    { label: "Overview", items: [{ to: "/admin", label: "Dashboard", icon: LayoutDashboard }] },
-    { label: "Academic", items: [
-      { to: "/admin/sessions", label: "Sessions & Semesters", icon: Calendar },
-      { to: "/admin/ranks", label: "Lecturer Ranks", icon: Award },
-      { to: "/admin/courses", label: "Courses", icon: BookOpen },
-    ]},
-    { label: "People", items: [
-      { to: "/admin/users", label: "User Approvals", icon: CheckSquare },
-      { to: "/admin/seed", label: "Seed Demo Logins", icon: Award },
-    ]},
-    { label: "Engagement", items: [
-      { to: "/admin/announcements", label: "Announcements", icon: Megaphone },
+    { label: "Overview", icon: LayoutDashboard, items: [
+      { to: "/admin", label: "Dashboard", icon: LayoutDashboard },
       { to: "/admin/analytics", label: "Analytics", icon: BarChart3 },
+    ]},
+    { label: "Academic", icon: Calendar, items: [
+      { to: "/admin/sessions", label: "Sessions & Semesters", icon: Calendar },
+      { to: "/calendar", label: "Academic Calendar", icon: CalendarClock },
+      { to: "/admin/courses", label: "Courses & Approvals", icon: BookOpen },
+      { to: "/admin/ranks", label: "Lecturer Ranks", icon: Award },
+    ]},
+    { label: "People", icon: CheckSquare, items: [
+      { to: "/admin/users", label: "User Approvals", icon: CheckSquare },
+      { to: "/admin/seed", label: "Seed Demo Logins", icon: Layers },
+    ]},
+    { label: "Engagement", icon: Megaphone, items: [
+      { to: "/admin/announcements", label: "Announcements", icon: Megaphone },
+    ]},
+    { label: "Account", icon: User, items: [
+      { to: "/admin/profile", label: "Profile Setup", icon: User },
     ]},
   ],
   lecturer: [
-    { label: "Overview", items: [{ to: "/lecturer", label: "Dashboard", icon: LayoutDashboard }] },
-    { label: "Teaching", items: [
+    { label: "Overview", icon: LayoutDashboard, items: [
+      { to: "/lecturer", label: "Dashboard", icon: LayoutDashboard },
+    ]},
+    { label: "Teaching", icon: BookOpen, items: [
       { to: "/lecturer/courses", label: "My Courses", icon: BookOpen },
+      { to: "/lecturer/materials", label: "Course Materials", icon: FileText },
       { to: "/lecturer/assignments", label: "Assignments", icon: ClipboardList },
       { to: "/lecturer/quizzes", label: "Quizzes", icon: ListChecks },
-      { to: "/lecturer/materials", label: "Materials", icon: FileText },
       { to: "/lecturer/attendance", label: "Attendance", icon: CheckSquare },
     ]},
-    { label: "Communicate", items: [
+    { label: "Communicate", icon: Megaphone, items: [
       { to: "/lecturer/announcements", label: "Announcements", icon: Megaphone },
+    ]},
+    { label: "Account", icon: User, items: [
+      { to: "/lecturer/profile", label: "Profile Setup", icon: User },
+      { to: "/calendar", label: "Academic Calendar", icon: CalendarClock },
     ]},
   ],
   student: [
-    { label: "Overview", items: [{ to: "/student", label: "Dashboard", icon: LayoutDashboard }] },
-    { label: "Learning", items: [
-      { to: "/student/courses", label: "Browse Courses", icon: Layers },
+    { label: "Overview", icon: LayoutDashboard, items: [
+      { to: "/student", label: "Dashboard", icon: LayoutDashboard },
+    ]},
+    { label: "Learning", icon: BookOpen, items: [
+      { to: "/student/courses", label: "Browse & Register", icon: Layers },
       { to: "/student/my-courses", label: "My Courses", icon: BookOpen },
+      { to: "/student/materials", label: "Course Materials", icon: FileText },
+      { to: "/student/videos", label: "Video Lessons", icon: Video },
       { to: "/student/assignments", label: "Assignments", icon: ClipboardList },
       { to: "/student/quizzes", label: "Quizzes", icon: ListChecks },
-      { to: "/student/materials", label: "Materials", icon: FileText },
-      { to: "/student/videos", label: "Videos", icon: Video },
     ]},
-    { label: "AI & Planning", items: [
+    { label: "AI & Planning", icon: Sparkles, items: [
       { to: "/student/assistant", label: "AI Assistant", icon: Sparkles },
       { to: "/student/planner", label: "Study Planner", icon: CalendarClock },
+      { to: "/calendar", label: "Academic Calendar", icon: Calendar },
     ]},
-    { label: "Account", items: [
+    { label: "Account", icon: User, items: [
+      { to: "/student/profile", label: "Profile Setup", icon: User },
       { to: "/student/attendance", label: "Attendance", icon: CheckSquare },
       { to: "/student/messages", label: "Messages", icon: MessageSquare },
     ]},
@@ -72,6 +88,17 @@ export function DashboardShell({ children, title }: { children: ReactNode; title
   const [dark, setDark] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const groups = role ? nav[role] : [];
+
+  const isActive = (to: string) =>
+    pathname === to || (to !== "/admin" && to !== "/lecturer" && to !== "/student" && pathname.startsWith(to + "/"));
+
+  // Which accordion groups are expanded — the group holding the active page starts open.
+  const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
+  const groupOpen = (g: Group) => {
+    const manual = collapsed[g.label];
+    if (manual !== undefined) return manual;
+    return g.items.some((i) => isActive(i.to)) || g.label === "Overview";
+  };
 
   useEffect(() => {
     const stored = localStorage.getItem("theme");
@@ -109,29 +136,48 @@ export function DashboardShell({ children, title }: { children: ReactNode; title
             <p className="text-xs opacity-70 capitalize">{role} portal</p>
           </div>
         </div>
-        <nav className="flex flex-col gap-5 overflow-y-auto p-4 pb-10">
-          {groups.map((g) => (
-            <div key={g.label}>
-              <p className="mb-2 px-2 text-[10px] font-semibold uppercase tracking-widest opacity-60">{g.label}</p>
-              <div className="flex flex-col gap-0.5">
-                {g.items.map((it) => {
-                  const Icon = it.icon;
-                  const active = pathname === it.to || (it.to !== "/admin" && it.to !== "/lecturer" && it.to !== "/student" && pathname.startsWith(it.to));
-                  return (
-                    <Link
-                      key={it.to}
-                      to={it.to}
-                      onClick={() => setOpen(false)}
-                      className={`group flex items-center gap-3 rounded-md px-3 py-2 text-sm transition ${active ? "bg-sidebar-accent text-sidebar-accent-foreground" : "hover:bg-sidebar-accent/60"}`}
-                    >
-                      <Icon className="h-4 w-4 opacity-80" />
-                      <span>{it.label}</span>
-                    </Link>
-                  );
-                })}
+        <nav className="flex flex-col gap-1 overflow-y-auto p-3 pb-10">
+          {groups.map((g) => {
+            const expanded = groupOpen(g);
+            const GroupIcon = g.icon;
+            return (
+              <div key={g.label} className="rounded-lg">
+                <button
+                  type="button"
+                  aria-expanded={expanded}
+                  onClick={() => setCollapsed((c) => ({ ...c, [g.label]: !expanded }))}
+                  className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-[11px] font-semibold uppercase tracking-widest opacity-70 transition hover:bg-sidebar-accent/50 hover:opacity-100"
+                >
+                  <GroupIcon className="h-3.5 w-3.5" />
+                  <span className="flex-1 text-left">{g.label}</span>
+                  <ChevronDown className={`h-3.5 w-3.5 transition-transform ${expanded ? "" : "-rotate-90"}`} />
+                </button>
+                <div
+                  className={`grid transition-all duration-200 ${expanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="ml-4 flex flex-col gap-0.5 border-l border-sidebar-border pl-2 pt-1">
+                      {g.items.map((it) => {
+                        const Icon = it.icon;
+                        const active = isActive(it.to);
+                        return (
+                          <Link
+                            key={it.to}
+                            to={it.to}
+                            onClick={() => setOpen(false)}
+                            className={`group flex items-center gap-3 rounded-md px-3 py-2 text-sm transition ${active ? "bg-sidebar-accent font-medium text-sidebar-accent-foreground" : "hover:bg-sidebar-accent/60"}`}
+                          >
+                            <Icon className="h-4 w-4 opacity-80" />
+                            <span>{it.label}</span>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </nav>
       </aside>
 
@@ -148,13 +194,16 @@ export function DashboardShell({ children, title }: { children: ReactNode; title
           <div className="ml-auto flex items-center gap-2">
             <Button variant="ghost" size="icon" onClick={toggleTheme} title="Toggle theme">{dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}</Button>
             <Button variant="ghost" size="icon"><Bell className="h-5 w-5" /></Button>
-            <div className="hidden items-center gap-2 rounded-full border border-border bg-card px-2 py-1 sm:flex">
+            <Link
+              to={role ? `/${role}/profile` : "/dashboard"}
+              className="hidden items-center gap-2 rounded-full border border-border bg-card px-2 py-1 transition hover:bg-accent sm:flex"
+            >
               <span className="grid h-7 w-7 place-items-center rounded-full gradient-brand text-xs font-semibold text-primary-foreground">
                 {profile?.full_name?.charAt(0)?.toUpperCase() ?? "U"}
               </span>
               <span className="text-sm">{profile?.full_name ?? "User"}</span>
               <ChevronDown className="h-4 w-4 text-muted-foreground" />
-            </div>
+            </Link>
             <Button variant="ghost" size="icon" onClick={signOut} title="Sign out"><LogOut className="h-5 w-5" /></Button>
           </div>
         </header>
