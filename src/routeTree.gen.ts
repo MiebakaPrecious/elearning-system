@@ -40,6 +40,7 @@ import { Route as AuthenticatedStudentAttendanceRouteImport } from './routes/_au
 import { Route as AuthenticatedStudentAssistantRouteImport } from './routes/_authenticated/student.assistant'
 import { Route as AuthenticatedStudentAssignmentsRouteImport } from './routes/_authenticated/student.assignments'
 import { Route as AuthenticatedLecturerQuizzesRouteImport } from './routes/_authenticated/lecturer.quizzes'
+import { Route as AuthenticatedLecturerProfileRouteImport } from './routes/_authenticated/lecturer.profile'
 import { Route as AuthenticatedLecturerMaterialsRouteImport } from './routes/_authenticated/lecturer.materials'
 import { Route as AuthenticatedLecturerCoursesRouteImport } from './routes/_authenticated/lecturer.courses'
 import { Route as AuthenticatedLecturerAttendanceRouteImport } from './routes/_authenticated/lecturer.attendance'
@@ -225,6 +226,12 @@ const AuthenticatedLecturerQuizzesRoute =
     path: '/lecturer/quizzes',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedLecturerProfileRoute =
+  AuthenticatedLecturerProfileRouteImport.update({
+    id: '/lecturer/profile',
+    path: '/lecturer/profile',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedLecturerMaterialsRoute =
   AuthenticatedLecturerMaterialsRouteImport.update({
     id: '/lecturer/materials',
@@ -343,6 +350,7 @@ export interface FileRoutesByFullPath {
   '/lecturer/attendance': typeof AuthenticatedLecturerAttendanceRoute
   '/lecturer/courses': typeof AuthenticatedLecturerCoursesRoute
   '/lecturer/materials': typeof AuthenticatedLecturerMaterialsRoute
+  '/lecturer/profile': typeof AuthenticatedLecturerProfileRoute
   '/lecturer/quizzes': typeof AuthenticatedLecturerQuizzesRoute
   '/student/assignments': typeof AuthenticatedStudentAssignmentsRoute
   '/student/assistant': typeof AuthenticatedStudentAssistantRoute
@@ -390,6 +398,7 @@ export interface FileRoutesByTo {
   '/lecturer/attendance': typeof AuthenticatedLecturerAttendanceRoute
   '/lecturer/courses': typeof AuthenticatedLecturerCoursesRoute
   '/lecturer/materials': typeof AuthenticatedLecturerMaterialsRoute
+  '/lecturer/profile': typeof AuthenticatedLecturerProfileRoute
   '/lecturer/quizzes': typeof AuthenticatedLecturerQuizzesRoute
   '/student/assignments': typeof AuthenticatedStudentAssignmentsRoute
   '/student/assistant': typeof AuthenticatedStudentAssistantRoute
@@ -439,6 +448,7 @@ export interface FileRoutesById {
   '/_authenticated/lecturer/attendance': typeof AuthenticatedLecturerAttendanceRoute
   '/_authenticated/lecturer/courses': typeof AuthenticatedLecturerCoursesRoute
   '/_authenticated/lecturer/materials': typeof AuthenticatedLecturerMaterialsRoute
+  '/_authenticated/lecturer/profile': typeof AuthenticatedLecturerProfileRoute
   '/_authenticated/lecturer/quizzes': typeof AuthenticatedLecturerQuizzesRoute
   '/_authenticated/student/assignments': typeof AuthenticatedStudentAssignmentsRoute
   '/_authenticated/student/assistant': typeof AuthenticatedStudentAssistantRoute
@@ -488,6 +498,7 @@ export interface FileRouteTypes {
     | '/lecturer/attendance'
     | '/lecturer/courses'
     | '/lecturer/materials'
+    | '/lecturer/profile'
     | '/lecturer/quizzes'
     | '/student/assignments'
     | '/student/assistant'
@@ -535,6 +546,7 @@ export interface FileRouteTypes {
     | '/lecturer/attendance'
     | '/lecturer/courses'
     | '/lecturer/materials'
+    | '/lecturer/profile'
     | '/lecturer/quizzes'
     | '/student/assignments'
     | '/student/assistant'
@@ -583,6 +595,7 @@ export interface FileRouteTypes {
     | '/_authenticated/lecturer/attendance'
     | '/_authenticated/lecturer/courses'
     | '/_authenticated/lecturer/materials'
+    | '/_authenticated/lecturer/profile'
     | '/_authenticated/lecturer/quizzes'
     | '/_authenticated/student/assignments'
     | '/_authenticated/student/assistant'
@@ -840,6 +853,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedLecturerQuizzesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/lecturer/profile': {
+      id: '/_authenticated/lecturer/profile'
+      path: '/lecturer/profile'
+      fullPath: '/lecturer/profile'
+      preLoaderRoute: typeof AuthenticatedLecturerProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/lecturer/materials': {
       id: '/_authenticated/lecturer/materials'
       path: '/lecturer/materials'
@@ -963,6 +983,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedLecturerAttendanceRoute: typeof AuthenticatedLecturerAttendanceRoute
   AuthenticatedLecturerCoursesRoute: typeof AuthenticatedLecturerCoursesRoute
   AuthenticatedLecturerMaterialsRoute: typeof AuthenticatedLecturerMaterialsRoute
+  AuthenticatedLecturerProfileRoute: typeof AuthenticatedLecturerProfileRoute
   AuthenticatedLecturerQuizzesRoute: typeof AuthenticatedLecturerQuizzesRoute
   AuthenticatedStudentAssignmentsRoute: typeof AuthenticatedStudentAssignmentsRoute
   AuthenticatedStudentAssistantRoute: typeof AuthenticatedStudentAssistantRoute
@@ -995,6 +1016,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedLecturerAttendanceRoute: AuthenticatedLecturerAttendanceRoute,
   AuthenticatedLecturerCoursesRoute: AuthenticatedLecturerCoursesRoute,
   AuthenticatedLecturerMaterialsRoute: AuthenticatedLecturerMaterialsRoute,
+  AuthenticatedLecturerProfileRoute: AuthenticatedLecturerProfileRoute,
   AuthenticatedLecturerQuizzesRoute: AuthenticatedLecturerQuizzesRoute,
   AuthenticatedStudentAssignmentsRoute: AuthenticatedStudentAssignmentsRoute,
   AuthenticatedStudentAssistantRoute: AuthenticatedStudentAssistantRoute,
