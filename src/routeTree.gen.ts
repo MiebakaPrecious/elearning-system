@@ -23,6 +23,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedCalendarRouteImport } from './routes/_authenticated/calendar'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as AuthenticatedStudentIndexRouteImport } from './routes/_authenticated/student.index'
@@ -31,6 +32,7 @@ import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authentic
 import { Route as ApiAiChatRouteImport } from './routes/api.ai.chat'
 import { Route as AuthenticatedStudentVideosRouteImport } from './routes/_authenticated/student.videos'
 import { Route as AuthenticatedStudentQuizzesRouteImport } from './routes/_authenticated/student.quizzes'
+import { Route as AuthenticatedStudentProfileRouteImport } from './routes/_authenticated/student.profile'
 import { Route as AuthenticatedStudentPlannerRouteImport } from './routes/_authenticated/student.planner'
 import { Route as AuthenticatedStudentMyCoursesRouteImport } from './routes/_authenticated/student.my-courses'
 import { Route as AuthenticatedStudentMessagesRouteImport } from './routes/_authenticated/student.messages'
@@ -40,6 +42,7 @@ import { Route as AuthenticatedStudentAttendanceRouteImport } from './routes/_au
 import { Route as AuthenticatedStudentAssistantRouteImport } from './routes/_authenticated/student.assistant'
 import { Route as AuthenticatedStudentAssignmentsRouteImport } from './routes/_authenticated/student.assignments'
 import { Route as AuthenticatedLecturerQuizzesRouteImport } from './routes/_authenticated/lecturer.quizzes'
+import { Route as AuthenticatedLecturerProfileRouteImport } from './routes/_authenticated/lecturer.profile'
 import { Route as AuthenticatedLecturerMaterialsRouteImport } from './routes/_authenticated/lecturer.materials'
 import { Route as AuthenticatedLecturerCoursesRouteImport } from './routes/_authenticated/lecturer.courses'
 import { Route as AuthenticatedLecturerAttendanceRouteImport } from './routes/_authenticated/lecturer.attendance'
@@ -49,6 +52,7 @@ import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authentic
 import { Route as AuthenticatedAdminSessionsRouteImport } from './routes/_authenticated/admin.sessions'
 import { Route as AuthenticatedAdminSeedRouteImport } from './routes/_authenticated/admin.seed'
 import { Route as AuthenticatedAdminRanksRouteImport } from './routes/_authenticated/admin.ranks'
+import { Route as AuthenticatedAdminProfileRouteImport } from './routes/_authenticated/admin.profile'
 import { Route as AuthenticatedAdminCoursesRouteImport } from './routes/_authenticated/admin.courses'
 import { Route as AuthenticatedAdminAnnouncementsRouteImport } from './routes/_authenticated/admin.announcements'
 import { Route as AuthenticatedAdminAnalyticsRouteImport } from './routes/_authenticated/admin.analytics'
@@ -124,6 +128,11 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedCalendarRoute = AuthenticatedCalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const Char91DotwellKnownChar93OauthProtectedResourceRoute =
   Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
     id: '/.well-known/oauth-protected-resource',
@@ -168,6 +177,12 @@ const AuthenticatedStudentQuizzesRoute =
   AuthenticatedStudentQuizzesRouteImport.update({
     id: '/student/quizzes',
     path: '/student/quizzes',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedStudentProfileRoute =
+  AuthenticatedStudentProfileRouteImport.update({
+    id: '/student/profile',
+    path: '/student/profile',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedStudentPlannerRoute =
@@ -224,6 +239,12 @@ const AuthenticatedLecturerQuizzesRoute =
     path: '/lecturer/quizzes',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedLecturerProfileRoute =
+  AuthenticatedLecturerProfileRouteImport.update({
+    id: '/lecturer/profile',
+    path: '/lecturer/profile',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedLecturerMaterialsRoute =
   AuthenticatedLecturerMaterialsRouteImport.update({
     id: '/lecturer/materials',
@@ -275,6 +296,12 @@ const AuthenticatedAdminRanksRoute = AuthenticatedAdminRanksRouteImport.update({
   path: '/admin/ranks',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminProfileRoute =
+  AuthenticatedAdminProfileRouteImport.update({
+    id: '/admin/profile',
+    path: '/admin/profile',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAdminCoursesRoute =
   AuthenticatedAdminCoursesRouteImport.update({
     id: '/admin/courses',
@@ -320,12 +347,14 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/calendar': typeof AuthenticatedCalendarRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/analytics': typeof AuthenticatedAdminAnalyticsRoute
   '/admin/announcements': typeof AuthenticatedAdminAnnouncementsRoute
   '/admin/courses': typeof AuthenticatedAdminCoursesRoute
+  '/admin/profile': typeof AuthenticatedAdminProfileRoute
   '/admin/ranks': typeof AuthenticatedAdminRanksRoute
   '/admin/seed': typeof AuthenticatedAdminSeedRoute
   '/admin/sessions': typeof AuthenticatedAdminSessionsRoute
@@ -335,6 +364,7 @@ export interface FileRoutesByFullPath {
   '/lecturer/attendance': typeof AuthenticatedLecturerAttendanceRoute
   '/lecturer/courses': typeof AuthenticatedLecturerCoursesRoute
   '/lecturer/materials': typeof AuthenticatedLecturerMaterialsRoute
+  '/lecturer/profile': typeof AuthenticatedLecturerProfileRoute
   '/lecturer/quizzes': typeof AuthenticatedLecturerQuizzesRoute
   '/student/assignments': typeof AuthenticatedStudentAssignmentsRoute
   '/student/assistant': typeof AuthenticatedStudentAssistantRoute
@@ -344,6 +374,7 @@ export interface FileRoutesByFullPath {
   '/student/messages': typeof AuthenticatedStudentMessagesRoute
   '/student/my-courses': typeof AuthenticatedStudentMyCoursesRoute
   '/student/planner': typeof AuthenticatedStudentPlannerRoute
+  '/student/profile': typeof AuthenticatedStudentProfileRoute
   '/student/quizzes': typeof AuthenticatedStudentQuizzesRoute
   '/student/videos': typeof AuthenticatedStudentVideosRoute
   '/api/ai/chat': typeof ApiAiChatRoute
@@ -366,12 +397,14 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/calendar': typeof AuthenticatedCalendarRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/analytics': typeof AuthenticatedAdminAnalyticsRoute
   '/admin/announcements': typeof AuthenticatedAdminAnnouncementsRoute
   '/admin/courses': typeof AuthenticatedAdminCoursesRoute
+  '/admin/profile': typeof AuthenticatedAdminProfileRoute
   '/admin/ranks': typeof AuthenticatedAdminRanksRoute
   '/admin/seed': typeof AuthenticatedAdminSeedRoute
   '/admin/sessions': typeof AuthenticatedAdminSessionsRoute
@@ -381,6 +414,7 @@ export interface FileRoutesByTo {
   '/lecturer/attendance': typeof AuthenticatedLecturerAttendanceRoute
   '/lecturer/courses': typeof AuthenticatedLecturerCoursesRoute
   '/lecturer/materials': typeof AuthenticatedLecturerMaterialsRoute
+  '/lecturer/profile': typeof AuthenticatedLecturerProfileRoute
   '/lecturer/quizzes': typeof AuthenticatedLecturerQuizzesRoute
   '/student/assignments': typeof AuthenticatedStudentAssignmentsRoute
   '/student/assistant': typeof AuthenticatedStudentAssistantRoute
@@ -390,6 +424,7 @@ export interface FileRoutesByTo {
   '/student/messages': typeof AuthenticatedStudentMessagesRoute
   '/student/my-courses': typeof AuthenticatedStudentMyCoursesRoute
   '/student/planner': typeof AuthenticatedStudentPlannerRoute
+  '/student/profile': typeof AuthenticatedStudentProfileRoute
   '/student/quizzes': typeof AuthenticatedStudentQuizzesRoute
   '/student/videos': typeof AuthenticatedStudentVideosRoute
   '/api/ai/chat': typeof ApiAiChatRoute
@@ -414,12 +449,14 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/_authenticated/calendar': typeof AuthenticatedCalendarRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/_authenticated/admin/analytics': typeof AuthenticatedAdminAnalyticsRoute
   '/_authenticated/admin/announcements': typeof AuthenticatedAdminAnnouncementsRoute
   '/_authenticated/admin/courses': typeof AuthenticatedAdminCoursesRoute
+  '/_authenticated/admin/profile': typeof AuthenticatedAdminProfileRoute
   '/_authenticated/admin/ranks': typeof AuthenticatedAdminRanksRoute
   '/_authenticated/admin/seed': typeof AuthenticatedAdminSeedRoute
   '/_authenticated/admin/sessions': typeof AuthenticatedAdminSessionsRoute
@@ -429,6 +466,7 @@ export interface FileRoutesById {
   '/_authenticated/lecturer/attendance': typeof AuthenticatedLecturerAttendanceRoute
   '/_authenticated/lecturer/courses': typeof AuthenticatedLecturerCoursesRoute
   '/_authenticated/lecturer/materials': typeof AuthenticatedLecturerMaterialsRoute
+  '/_authenticated/lecturer/profile': typeof AuthenticatedLecturerProfileRoute
   '/_authenticated/lecturer/quizzes': typeof AuthenticatedLecturerQuizzesRoute
   '/_authenticated/student/assignments': typeof AuthenticatedStudentAssignmentsRoute
   '/_authenticated/student/assistant': typeof AuthenticatedStudentAssistantRoute
@@ -438,6 +476,7 @@ export interface FileRoutesById {
   '/_authenticated/student/messages': typeof AuthenticatedStudentMessagesRoute
   '/_authenticated/student/my-courses': typeof AuthenticatedStudentMyCoursesRoute
   '/_authenticated/student/planner': typeof AuthenticatedStudentPlannerRoute
+  '/_authenticated/student/profile': typeof AuthenticatedStudentProfileRoute
   '/_authenticated/student/quizzes': typeof AuthenticatedStudentQuizzesRoute
   '/_authenticated/student/videos': typeof AuthenticatedStudentVideosRoute
   '/api/ai/chat': typeof ApiAiChatRoute
@@ -462,12 +501,14 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/calendar'
     | '/dashboard'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/admin/analytics'
     | '/admin/announcements'
     | '/admin/courses'
+    | '/admin/profile'
     | '/admin/ranks'
     | '/admin/seed'
     | '/admin/sessions'
@@ -477,6 +518,7 @@ export interface FileRouteTypes {
     | '/lecturer/attendance'
     | '/lecturer/courses'
     | '/lecturer/materials'
+    | '/lecturer/profile'
     | '/lecturer/quizzes'
     | '/student/assignments'
     | '/student/assistant'
@@ -486,6 +528,7 @@ export interface FileRouteTypes {
     | '/student/messages'
     | '/student/my-courses'
     | '/student/planner'
+    | '/student/profile'
     | '/student/quizzes'
     | '/student/videos'
     | '/api/ai/chat'
@@ -508,12 +551,14 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/calendar'
     | '/dashboard'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/admin/analytics'
     | '/admin/announcements'
     | '/admin/courses'
+    | '/admin/profile'
     | '/admin/ranks'
     | '/admin/seed'
     | '/admin/sessions'
@@ -523,6 +568,7 @@ export interface FileRouteTypes {
     | '/lecturer/attendance'
     | '/lecturer/courses'
     | '/lecturer/materials'
+    | '/lecturer/profile'
     | '/lecturer/quizzes'
     | '/student/assignments'
     | '/student/assistant'
@@ -532,6 +578,7 @@ export interface FileRouteTypes {
     | '/student/messages'
     | '/student/my-courses'
     | '/student/planner'
+    | '/student/profile'
     | '/student/quizzes'
     | '/student/videos'
     | '/api/ai/chat'
@@ -555,12 +602,14 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/_authenticated/calendar'
     | '/_authenticated/dashboard'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/_authenticated/admin/analytics'
     | '/_authenticated/admin/announcements'
     | '/_authenticated/admin/courses'
+    | '/_authenticated/admin/profile'
     | '/_authenticated/admin/ranks'
     | '/_authenticated/admin/seed'
     | '/_authenticated/admin/sessions'
@@ -570,6 +619,7 @@ export interface FileRouteTypes {
     | '/_authenticated/lecturer/attendance'
     | '/_authenticated/lecturer/courses'
     | '/_authenticated/lecturer/materials'
+    | '/_authenticated/lecturer/profile'
     | '/_authenticated/lecturer/quizzes'
     | '/_authenticated/student/assignments'
     | '/_authenticated/student/assistant'
@@ -579,6 +629,7 @@ export interface FileRouteTypes {
     | '/_authenticated/student/messages'
     | '/_authenticated/student/my-courses'
     | '/_authenticated/student/planner'
+    | '/_authenticated/student/profile'
     | '/_authenticated/student/quizzes'
     | '/_authenticated/student/videos'
     | '/api/ai/chat'
@@ -708,6 +759,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/calendar': {
+      id: '/_authenticated/calendar'
+      path: '/calendar'
+      fullPath: '/calendar'
+      preLoaderRoute: typeof AuthenticatedCalendarRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/.well-known/oauth-protected-resource': {
       id: '/.well-known/oauth-protected-resource'
       path: '/.well-known/oauth-protected-resource'
@@ -762,6 +820,13 @@ declare module '@tanstack/react-router' {
       path: '/student/quizzes'
       fullPath: '/student/quizzes'
       preLoaderRoute: typeof AuthenticatedStudentQuizzesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/student/profile': {
+      id: '/_authenticated/student/profile'
+      path: '/student/profile'
+      fullPath: '/student/profile'
+      preLoaderRoute: typeof AuthenticatedStudentProfileRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/student/planner': {
@@ -827,6 +892,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedLecturerQuizzesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/lecturer/profile': {
+      id: '/_authenticated/lecturer/profile'
+      path: '/lecturer/profile'
+      fullPath: '/lecturer/profile'
+      preLoaderRoute: typeof AuthenticatedLecturerProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/lecturer/materials': {
       id: '/_authenticated/lecturer/materials'
       path: '/lecturer/materials'
@@ -890,6 +962,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRanksRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/profile': {
+      id: '/_authenticated/admin/profile'
+      path: '/admin/profile'
+      fullPath: '/admin/profile'
+      preLoaderRoute: typeof AuthenticatedAdminProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/courses': {
       id: '/_authenticated/admin/courses'
       path: '/admin/courses'
@@ -929,10 +1008,12 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedCalendarRoute: typeof AuthenticatedCalendarRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedAdminAnalyticsRoute: typeof AuthenticatedAdminAnalyticsRoute
   AuthenticatedAdminAnnouncementsRoute: typeof AuthenticatedAdminAnnouncementsRoute
   AuthenticatedAdminCoursesRoute: typeof AuthenticatedAdminCoursesRoute
+  AuthenticatedAdminProfileRoute: typeof AuthenticatedAdminProfileRoute
   AuthenticatedAdminRanksRoute: typeof AuthenticatedAdminRanksRoute
   AuthenticatedAdminSeedRoute: typeof AuthenticatedAdminSeedRoute
   AuthenticatedAdminSessionsRoute: typeof AuthenticatedAdminSessionsRoute
@@ -942,6 +1023,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedLecturerAttendanceRoute: typeof AuthenticatedLecturerAttendanceRoute
   AuthenticatedLecturerCoursesRoute: typeof AuthenticatedLecturerCoursesRoute
   AuthenticatedLecturerMaterialsRoute: typeof AuthenticatedLecturerMaterialsRoute
+  AuthenticatedLecturerProfileRoute: typeof AuthenticatedLecturerProfileRoute
   AuthenticatedLecturerQuizzesRoute: typeof AuthenticatedLecturerQuizzesRoute
   AuthenticatedStudentAssignmentsRoute: typeof AuthenticatedStudentAssignmentsRoute
   AuthenticatedStudentAssistantRoute: typeof AuthenticatedStudentAssistantRoute
@@ -951,6 +1033,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedStudentMessagesRoute: typeof AuthenticatedStudentMessagesRoute
   AuthenticatedStudentMyCoursesRoute: typeof AuthenticatedStudentMyCoursesRoute
   AuthenticatedStudentPlannerRoute: typeof AuthenticatedStudentPlannerRoute
+  AuthenticatedStudentProfileRoute: typeof AuthenticatedStudentProfileRoute
   AuthenticatedStudentQuizzesRoute: typeof AuthenticatedStudentQuizzesRoute
   AuthenticatedStudentVideosRoute: typeof AuthenticatedStudentVideosRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
@@ -959,10 +1042,12 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedCalendarRoute: AuthenticatedCalendarRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedAdminAnalyticsRoute: AuthenticatedAdminAnalyticsRoute,
   AuthenticatedAdminAnnouncementsRoute: AuthenticatedAdminAnnouncementsRoute,
   AuthenticatedAdminCoursesRoute: AuthenticatedAdminCoursesRoute,
+  AuthenticatedAdminProfileRoute: AuthenticatedAdminProfileRoute,
   AuthenticatedAdminRanksRoute: AuthenticatedAdminRanksRoute,
   AuthenticatedAdminSeedRoute: AuthenticatedAdminSeedRoute,
   AuthenticatedAdminSessionsRoute: AuthenticatedAdminSessionsRoute,
@@ -973,6 +1058,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedLecturerAttendanceRoute: AuthenticatedLecturerAttendanceRoute,
   AuthenticatedLecturerCoursesRoute: AuthenticatedLecturerCoursesRoute,
   AuthenticatedLecturerMaterialsRoute: AuthenticatedLecturerMaterialsRoute,
+  AuthenticatedLecturerProfileRoute: AuthenticatedLecturerProfileRoute,
   AuthenticatedLecturerQuizzesRoute: AuthenticatedLecturerQuizzesRoute,
   AuthenticatedStudentAssignmentsRoute: AuthenticatedStudentAssignmentsRoute,
   AuthenticatedStudentAssistantRoute: AuthenticatedStudentAssistantRoute,
@@ -982,6 +1068,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedStudentMessagesRoute: AuthenticatedStudentMessagesRoute,
   AuthenticatedStudentMyCoursesRoute: AuthenticatedStudentMyCoursesRoute,
   AuthenticatedStudentPlannerRoute: AuthenticatedStudentPlannerRoute,
+  AuthenticatedStudentProfileRoute: AuthenticatedStudentProfileRoute,
   AuthenticatedStudentQuizzesRoute: AuthenticatedStudentQuizzesRoute,
   AuthenticatedStudentVideosRoute: AuthenticatedStudentVideosRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
