@@ -31,6 +31,7 @@ import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authentic
 import { Route as ApiAiChatRouteImport } from './routes/api.ai.chat'
 import { Route as AuthenticatedStudentVideosRouteImport } from './routes/_authenticated/student.videos'
 import { Route as AuthenticatedStudentQuizzesRouteImport } from './routes/_authenticated/student.quizzes'
+import { Route as AuthenticatedStudentProfileRouteImport } from './routes/_authenticated/student.profile'
 import { Route as AuthenticatedStudentPlannerRouteImport } from './routes/_authenticated/student.planner'
 import { Route as AuthenticatedStudentMyCoursesRouteImport } from './routes/_authenticated/student.my-courses'
 import { Route as AuthenticatedStudentMessagesRouteImport } from './routes/_authenticated/student.messages'
@@ -170,6 +171,12 @@ const AuthenticatedStudentQuizzesRoute =
   AuthenticatedStudentQuizzesRouteImport.update({
     id: '/student/quizzes',
     path: '/student/quizzes',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedStudentProfileRoute =
+  AuthenticatedStudentProfileRouteImport.update({
+    id: '/student/profile',
+    path: '/student/profile',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedStudentPlannerRoute =
@@ -360,6 +367,7 @@ export interface FileRoutesByFullPath {
   '/student/messages': typeof AuthenticatedStudentMessagesRoute
   '/student/my-courses': typeof AuthenticatedStudentMyCoursesRoute
   '/student/planner': typeof AuthenticatedStudentPlannerRoute
+  '/student/profile': typeof AuthenticatedStudentProfileRoute
   '/student/quizzes': typeof AuthenticatedStudentQuizzesRoute
   '/student/videos': typeof AuthenticatedStudentVideosRoute
   '/api/ai/chat': typeof ApiAiChatRoute
@@ -408,6 +416,7 @@ export interface FileRoutesByTo {
   '/student/messages': typeof AuthenticatedStudentMessagesRoute
   '/student/my-courses': typeof AuthenticatedStudentMyCoursesRoute
   '/student/planner': typeof AuthenticatedStudentPlannerRoute
+  '/student/profile': typeof AuthenticatedStudentProfileRoute
   '/student/quizzes': typeof AuthenticatedStudentQuizzesRoute
   '/student/videos': typeof AuthenticatedStudentVideosRoute
   '/api/ai/chat': typeof ApiAiChatRoute
@@ -458,6 +467,7 @@ export interface FileRoutesById {
   '/_authenticated/student/messages': typeof AuthenticatedStudentMessagesRoute
   '/_authenticated/student/my-courses': typeof AuthenticatedStudentMyCoursesRoute
   '/_authenticated/student/planner': typeof AuthenticatedStudentPlannerRoute
+  '/_authenticated/student/profile': typeof AuthenticatedStudentProfileRoute
   '/_authenticated/student/quizzes': typeof AuthenticatedStudentQuizzesRoute
   '/_authenticated/student/videos': typeof AuthenticatedStudentVideosRoute
   '/api/ai/chat': typeof ApiAiChatRoute
@@ -508,6 +518,7 @@ export interface FileRouteTypes {
     | '/student/messages'
     | '/student/my-courses'
     | '/student/planner'
+    | '/student/profile'
     | '/student/quizzes'
     | '/student/videos'
     | '/api/ai/chat'
@@ -556,6 +567,7 @@ export interface FileRouteTypes {
     | '/student/messages'
     | '/student/my-courses'
     | '/student/planner'
+    | '/student/profile'
     | '/student/quizzes'
     | '/student/videos'
     | '/api/ai/chat'
@@ -605,6 +617,7 @@ export interface FileRouteTypes {
     | '/_authenticated/student/messages'
     | '/_authenticated/student/my-courses'
     | '/_authenticated/student/planner'
+    | '/_authenticated/student/profile'
     | '/_authenticated/student/quizzes'
     | '/_authenticated/student/videos'
     | '/api/ai/chat'
@@ -788,6 +801,13 @@ declare module '@tanstack/react-router' {
       path: '/student/quizzes'
       fullPath: '/student/quizzes'
       preLoaderRoute: typeof AuthenticatedStudentQuizzesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/student/profile': {
+      id: '/_authenticated/student/profile'
+      path: '/student/profile'
+      fullPath: '/student/profile'
+      preLoaderRoute: typeof AuthenticatedStudentProfileRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/student/planner': {
@@ -993,6 +1013,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedStudentMessagesRoute: typeof AuthenticatedStudentMessagesRoute
   AuthenticatedStudentMyCoursesRoute: typeof AuthenticatedStudentMyCoursesRoute
   AuthenticatedStudentPlannerRoute: typeof AuthenticatedStudentPlannerRoute
+  AuthenticatedStudentProfileRoute: typeof AuthenticatedStudentProfileRoute
   AuthenticatedStudentQuizzesRoute: typeof AuthenticatedStudentQuizzesRoute
   AuthenticatedStudentVideosRoute: typeof AuthenticatedStudentVideosRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
@@ -1026,6 +1047,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedStudentMessagesRoute: AuthenticatedStudentMessagesRoute,
   AuthenticatedStudentMyCoursesRoute: AuthenticatedStudentMyCoursesRoute,
   AuthenticatedStudentPlannerRoute: AuthenticatedStudentPlannerRoute,
+  AuthenticatedStudentProfileRoute: AuthenticatedStudentProfileRoute,
   AuthenticatedStudentQuizzesRoute: AuthenticatedStudentQuizzesRoute,
   AuthenticatedStudentVideosRoute: AuthenticatedStudentVideosRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
