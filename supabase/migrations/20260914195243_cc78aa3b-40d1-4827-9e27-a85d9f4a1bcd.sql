@@ -1,0 +1,14 @@
+REVOKE ALL ON FUNCTION public.guard_submission() FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON FUNCTION public.guard_quiz_attempt() FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON FUNCTION public.guard_enrollment() FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON FUNCTION public.guard_attendance() FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON FUNCTION public.notify_new_registration() FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON FUNCTION public.notify_course_status() FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON FUNCTION public.notify_new_assignment() FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON FUNCTION public.handle_new_user() FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON FUNCTION public.grade_quiz_attempt(uuid) FROM PUBLIC, anon;
+GRANT EXECUTE ON FUNCTION public.grade_quiz_attempt(uuid) TO authenticated;
+REVOKE ALL ON FUNCTION public.has_role(uuid, public.app_role) FROM PUBLIC, anon;
+GRANT EXECUTE ON FUNCTION public.has_role(uuid, public.app_role) TO authenticated;
+REVOKE ALL ON FUNCTION public.lookup_email_by_identifier(text) FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.lookup_email_by_identifier(text) TO anon, authenticated;
