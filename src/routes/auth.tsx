@@ -105,6 +105,21 @@ function AuthPage() {
               </div>
               <Button type="submit" className="w-full gradient-brand" disabled={loading}>{loading ? "Signing in…" : "Sign in"}</Button>
             </form>
+            <button
+              type="button"
+              className="mt-3 w-full text-center text-sm text-muted-foreground hover:text-primary"
+              onClick={async () => {
+                const email = identifier.trim();
+                if (!email.includes("@")) return toast.error("Enter your email address first, then tap this again.");
+                const { error } = await supabase.auth.resetPasswordForEmail(email, {
+                  redirectTo: `${window.location.origin}/reset-password`,
+                });
+                if (error) return toast.error(friendlyError(error));
+                toast.success("Password reset link sent. Check your inbox.");
+              }}
+            >
+              Forgot your password?
+            </button>
             <p className="mt-5 text-center text-sm text-muted-foreground">
               No account? <Link to="/register" className="font-medium text-primary">Create one</Link>
             </p>
