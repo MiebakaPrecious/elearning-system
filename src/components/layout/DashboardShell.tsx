@@ -5,6 +5,7 @@ import { useAuth, type AppRole } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Logo } from "@/components/Logo";
+import { NotificationBell } from "@/components/NotificationBell";
 import {
   LayoutDashboard, BookOpen, CheckSquare, Calendar,
   Megaphone, BarChart3, FileText, ClipboardList, Award, Video,
