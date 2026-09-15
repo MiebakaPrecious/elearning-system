@@ -10,6 +10,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { friendlyError } from "@/lib/errors";
 
 export const Route = createFileRoute("/register")({
   head: () => ({ meta: [{ title: "Register — eLearning System" }, { name: "description", content: "Register as a Computer Science student or lecturer on the eLearning System." }] }),
@@ -97,7 +98,7 @@ function RegisterForm({ role }: { role: "student" | "lecturer" }) {
       },
     });
     setLoading(false);
-    if (error) { toast.error(error.message); return; }
+    if (error) { toast.error(friendlyError(error)); return; }
     toast.success("Account created! An admin will review and approve your account.");
     navigate({ to: "/auth" });
   };

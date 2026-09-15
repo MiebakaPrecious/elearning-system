@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { friendlyError } from "@/lib/errors";
 
 /** Only same-origin relative paths may be used as a post-login redirect. */
 function safeNext(value: unknown): string | undefined {
@@ -47,7 +48,7 @@ function AuthPage() {
         email = data as string;
       }
       const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) { toast.error(error.message); setLoading(false); return; }
+      if (error) { toast.error(friendlyError(error)); setLoading(false); return; }
 
       // Check approval
       const { data: u } = await supabase.auth.getUser();
@@ -70,7 +71,7 @@ function AuthPage() {
       if (next) { window.location.href = next; return; }
       navigate({ to: "/dashboard" });
     } catch (err: any) {
-      toast.error(err.message ?? "Sign in failed");
+      toast.error(friendlyError(err, "Sign in failed"));
       setLoading(false);
     }
   };
@@ -104,6 +105,21 @@ function AuthPage() {
               </div>
               <Button type="submit" className="w-full gradient-brand" disabled={loading}>{loading ? "Signing in…" : "Sign in"}</Button>
             </form>
+            <button
+              type="button"
+              className="mt-3 w-full text-center text-sm text-muted-foreground hover:text-primary"
+              onClick={async () => {
+                const email = identifier.trim();
+                if (!email.includes("@")) return toast.error("Enter your email address first, then tap this again.");
+                const { error } = await supabase.auth.resetPasswordForEmail(email, {
+                  redirectTo: `${window.location.origin}/reset-password`,
+                });
+                if (error) return toast.error(friendlyError(error));
+                toast.success("Password reset link sent. Check your inbox.");
+              }}
+            >
+              Forgot your password?
+            </button>
             <p className="mt-5 text-center text-sm text-muted-foreground">
               No account? <Link to="/register" className="font-medium text-primary">Create one</Link>
             </p>

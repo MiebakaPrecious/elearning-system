@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
 import { toast } from "sonner";
+import { friendlyError } from "@/lib/errors";
 
 export const Route = createFileRoute("/_authenticated/lecturer/materials")({
   component: LecturerMaterials,
@@ -78,7 +79,7 @@ function LecturerMaterials() {
       qc.invalidateQueries({ queryKey: ["lect-materials", courseId] });
       qc.invalidateQueries({ queryKey: ["lect-videos", courseId] });
     } catch (e) {
-      toast.error((e as Error).message);
+      toast.error(friendlyError(e));
     } finally {
       setBusy(false);
     }
@@ -95,7 +96,7 @@ function LecturerMaterials() {
       qc.invalidateQueries({ queryKey: ["lect-materials", courseId] });
       qc.invalidateQueries({ queryKey: ["lect-videos", courseId] });
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(friendlyError(e)),
   });
 
   const openFile = async (path: string) => {

@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+
 import { Bell } from "lucide-react";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -78,7 +78,7 @@ export function NotificationBell() {
                 </div>
               );
               return n.link ? (
-                <Link key={n.id} to={n.link} className="block hover:bg-accent/60">{inner}</Link>
+                <a key={n.id} href={n.link} className="block hover:bg-accent/60">{inner}</a>
               ) : (
                 <div key={n.id}>{inner}</div>
               );
