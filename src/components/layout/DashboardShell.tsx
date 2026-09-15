@@ -1,5 +1,5 @@
 import { Link, useRouterState, Navigate } from "@tanstack/react-router";
-import { Bell, ChevronDown, LogOut, Menu, Search, User } from "lucide-react";
+import { ChevronDown, LogOut, Menu, Search, User } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { useAuth, type AppRole } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
@@ -193,7 +193,7 @@ export function DashboardShell({ children, title }: { children: ReactNode; title
           </div>
           <div className="ml-auto flex items-center gap-2">
             <Button variant="ghost" size="icon" onClick={toggleTheme} title="Toggle theme">{dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}</Button>
-            <Button variant="ghost" size="icon"><Bell className="h-5 w-5" /></Button>
+            <NotificationBell />
             <Link
               to={role === "admin" ? "/admin/profile" : role === "lecturer" ? "/lecturer/profile" : "/student/profile"}
               className="hidden items-center gap-2 rounded-full border border-border bg-card px-2 py-1 transition hover:bg-accent sm:flex"
