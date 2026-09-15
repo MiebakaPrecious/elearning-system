@@ -113,12 +113,12 @@ export function DashboardShell({ children, title }: { children: ReactNode; title
     localStorage.setItem("theme", next ? "dark" : "light");
   };
 
-  // Role-based route protection: redirect if URL prefix doesn't match user's role
+  // Role-based route protection: only admins may open another role's area by URL.
   if (!loading && role) {
     const expectedPrefix = pathname.startsWith("/admin") ? "admin"
       : pathname.startsWith("/lecturer") ? "lecturer"
       : pathname.startsWith("/student") ? "student" : null;
-    if (expectedPrefix && expectedPrefix !== role) {
+    if (expectedPrefix && expectedPrefix !== role && role !== "admin") {
       return <Navigate to="/dashboard" />;
     }
   }
