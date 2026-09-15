@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth, type AppRole } from "@/lib/auth-context";
 import { toast } from "sonner";
+import { friendlyError } from "@/lib/errors";
 
 const LEVELS = ["ND1", "ND2", "HND1", "HND2"] as const;
 
@@ -62,7 +63,7 @@ export function ProfileSetup({ role }: { role: AppRole }) {
       await refresh();
     },
     onSuccess: () => toast.success("Profile saved"),
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(friendlyError(e)),
   });
 
   const onPhoto = async (file: File) => {
@@ -78,7 +79,7 @@ export function ProfileSetup({ role }: { role: AppRole }) {
       await refresh();
       toast.success("Photo updated");
     } catch (e) {
-      toast.error((e as Error).message);
+      toast.error(friendlyError(e));
     } finally {
       setUploading(false);
     }

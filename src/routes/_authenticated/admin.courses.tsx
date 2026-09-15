@@ -14,6 +14,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { friendlyError } from "@/lib/errors";
 
 export const Route = createFileRoute("/_authenticated/admin/courses")({
   component: AdminCourses,
@@ -53,7 +54,7 @@ function AdminCourses() {
       if (error) throw error;
     },
     onSuccess: () => { toast.success("Course created"); qc.invalidateQueries({ queryKey: ["admin-courses"] }); setOpen(false); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(friendlyError(e)),
   });
 
   const setStatus = useMutation({
@@ -62,7 +63,7 @@ function AdminCourses() {
       if (error) throw error;
     },
     onSuccess: () => { toast.success("Updated"); qc.invalidateQueries({ queryKey: ["admin-courses"] }); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(friendlyError(e)),
   });
 
   return (

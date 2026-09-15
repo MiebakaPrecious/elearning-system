@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { friendlyError } from "@/lib/errors";
 
 /** Only same-origin relative paths may be used as a post-login redirect. */
 function safeNext(value: unknown): string | undefined {
@@ -47,7 +48,7 @@ function AuthPage() {
         email = data as string;
       }
       const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) { toast.error(error.message); setLoading(false); return; }
+      if (error) { toast.error(friendlyError(error)); setLoading(false); return; }
 
       // Check approval
       const { data: u } = await supabase.auth.getUser();
@@ -70,7 +71,7 @@ function AuthPage() {
       if (next) { window.location.href = next; return; }
       navigate({ to: "/dashboard" });
     } catch (err: any) {
-      toast.error(err.message ?? "Sign in failed");
+      toast.error(friendlyError(err, "Sign in failed"));
       setLoading(false);
     }
   };

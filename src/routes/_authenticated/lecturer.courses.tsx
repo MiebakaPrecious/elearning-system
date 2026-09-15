@@ -15,6 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
 import { toast } from "sonner";
+import { friendlyError } from "@/lib/errors";
 
 export const Route = createFileRoute("/_authenticated/lecturer/courses")({
   component: LecturerCourses,
@@ -53,19 +54,19 @@ function LecturerCourses() {
       setOpen(false);
       setForm({ code: "", title: "", description: "", level: "ND1", semester_no: "1" });
     },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(friendlyError(e)),
   });
 
   const submitForApproval = useMutation({
     mutationFn: async (id: string) => { const { error } = await supabase.from("courses").update({ status: "pending_approval" }).eq("id", id); if (error) throw error; },
     onSuccess: () => { toast.success("Submitted to admin for approval"); qc.invalidateQueries({ queryKey: ["lect-courses"] }); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(friendlyError(e)),
   });
 
   const remove = useMutation({
     mutationFn: async (id: string) => { const { error } = await supabase.from("courses").delete().eq("id", id); if (error) throw error; },
     onSuccess: () => { toast.success("Draft deleted"); qc.invalidateQueries({ queryKey: ["lect-courses"] }); },
-    onError: (e) => toast.error((e as Error).message),
+    onError: (e) => toast.error(friendlyError(e)),
   });
 
   const notApproved = profile && profile.approval_status !== "approved";
