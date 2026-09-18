@@ -8,7 +8,7 @@ type DB = SupabaseClient<Database>;
 export async function assertCourseAccess(supabase: DB, userId: string, courseId: string) {
   const { data: course } = await supabase
     .from("courses")
-    .select("id, code, title, description, level, semester_no, credit_units, lecturer_id")
+    .select("id, code, title, description, level, semester_no, lecturer_id")
     .eq("id", courseId)
     .maybeSingle();
   if (!course) throw new Error("Course not found or not available to you.");
@@ -39,7 +39,7 @@ export async function buildCourseContext(supabase: DB, userId: string, courseId:
   const lines = [
     `Course: ${course.code} — ${course.title}`,
     course.description ? `Description: ${course.description}` : null,
-    `Level: ${course.level} · Semester ${course.semester_no ?? "—"} · ${course.credit_units ?? "—"} credit units`,
+    `Level: ${course.level} · Semester ${course.semester_no ?? "—"}`,
     materials?.length
       ? `Available learning materials: ${materials.map((m) => m.title).join("; ")}`
       : null,
@@ -78,15 +78,15 @@ export async function buildStudentSnapshot(supabase: DB, userId: string) {
 
   const [assignments, submissions, attempts, attendance, sessions, events, videos, progress] = await Promise.all([
     courseIds.length
-      ? supabase.from("assignments").select("id, title, due_date, course_id, max_score").in("course_id", courseIds)
+      ? supabase.from("assignments").select("id, title, due_at, course_id, max_score").in("course_id", courseIds)
       : Promise.resolve({ data: [] as never[] }),
     supabase.from("submissions").select("id, assignment_id, score, submitted_at").eq("student_id", userId),
     supabase.from("quiz_attempts").select("id, quiz_id, score, submitted_at").eq("student_id", userId),
-    supabase.from("attendance_records").select("id, session_id, status").eq("student_id", userId),
+    supabase.from("attendance_records").select("id, session_id").eq("student_id", userId),
     courseIds.length
-      ? supabase.from("attendance_sessions").select("id, course_id, session_date").in("course_id", courseIds)
+      ? supabase.from("attendance_sessions").select("id, course_id, created_at").in("course_id", courseIds)
       : Promise.resolve({ data: [] as never[] }),
-    supabase.from("events").select("title, event_type, start_at").gte("start_at", new Date().toISOString()).order("start_at").limit(15),
+    supabase.from("events").select("title, audience, starts_at").gte("starts_at", new Date().toISOString()).order("starts_at").limit(15),
     courseIds.length
       ? supabase.from("videos").select("id, title, course_id").in("course_id", courseIds)
       : Promise.resolve({ data: [] as never[] }),
@@ -103,9 +103,9 @@ export async function buildStudentSnapshot(supabase: DB, userId: string) {
   const submittedIds = new Set(subs.map((s) => s.assignment_id));
   const now = Date.now();
   const upcoming = asg
-    .filter((a) => a.due_date && new Date(a.due_date).getTime() > now && !submittedIds.has(a.id))
-    .sort((a, b) => new Date(a.due_date!).getTime() - new Date(b.due_date!).getTime());
-  const overdue = asg.filter((a) => a.due_date && new Date(a.due_date).getTime() < now && !submittedIds.has(a.id));
+    .filter((a) => a.due_at && new Date(a.due_at).getTime() > now && !submittedIds.has(a.id))
+    .sort((a, b) => new Date(a.due_at!).getTime() - new Date(b.due_at!).getTime());
+  const overdue = asg.filter((a) => a.due_at && new Date(a.due_at).getTime() < now && !submittedIds.has(a.id));
 
   const scored = subs.filter((s) => typeof s.score === "number");
   const avgAssignment = scored.length
@@ -118,7 +118,7 @@ export async function buildStudentSnapshot(supabase: DB, userId: string) {
     : null;
 
   const totalSessions = (sessions.data ?? []).length;
-  const present = (attendance.data ?? []).filter((r) => r.status === "present").length;
+  const present = (attendance.data ?? []).length;
   const attendanceRate = totalSessions ? Math.round((present / totalSessions) * 100) : null;
 
   const completedVideos = new Set((progress.data ?? []).filter((p) => p.completed).map((p) => p.video_id));
@@ -128,16 +128,16 @@ export async function buildStudentSnapshot(supabase: DB, userId: string) {
     courses,
     assignmentCount: asg.length,
     submittedCount: subs.length,
-    upcoming: upcoming.slice(0, 8).map((a) => ({ title: a.title, due: a.due_date })),
+    upcoming: upcoming.slice(0, 8).map((a) => ({ title: a.title, due: a.due_at })),
     overdueCount: overdue.length,
-    overdue: overdue.slice(0, 5).map((a) => ({ title: a.title, due: a.due_date })),
+    overdue: overdue.slice(0, 5).map((a) => ({ title: a.title, due: a.due_at })),
     avgAssignment,
     avgQuiz,
     quizAttempts: quizScored.length,
     attendanceRate,
     totalSessions,
     unfinishedVideos: unfinishedVideos.slice(0, 6).map((v) => v.title),
-    events: (events.data ?? []).map((e) => ({ title: e.title, type: e.event_type, at: e.start_at })),
+    events: (events.data ?? []).map((e) => ({ title: e.title, type: e.audience, at: e.starts_at })),
   };
 }
 
